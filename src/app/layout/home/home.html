@@ -1,76 +1,61 @@
-<body>
-    <header>
-        <div class="container flex-container">
-            <div class="blog-name">
-                <a href="./home.html">
-                    <h1 class="main-heading">Blog App</h1>
+<div class="container flex-container">
+    <main>
+
+        <article class="recent-articles">
+            <div class="recent-primary">
+                <h2>Discovering the app: All you need to know about the app</h2>
+                <p>This is my personal blog app. Developed during my Angular course in SoftUni. Lorem ipsum dolor sit
+                    amet consectetur, adipisicing elit. Sed qui necessitatibus officiis veniam voluptatem tenetur,
+                    cumque delectus et maxime corporis ad sapiente ex quibusdam quisquam? Deleniti quia mollitia
+                    officiis quas!</p>
+            </div>
+            <div class="recent-info">
+                <a href="about.html"><img src="./images/2.png" alt="Pic"></a>
+                <p>27/0725</p>
+            </div>
+        </article>
+
+        <article class="recent-articles">
+            <div class="recent-primary">
+                <h2>Topic: Converting Timestamps into User-Friendly Time Ago Format</h2>
+                <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time ago"
+                    formats like "2 hours ago" or "3 days ago." This article delves into the creation of a PHP-based
+                    "time ago" function, simplifying time-related interactions and enhancing the user experience
+                    across various time zones and date formats...</p>
+                <a href="topic.html" class="continue-reading">Continue Reading</a>
+            </div>
+            <div class="recent-info">
+                <a href="topic.html"><img src="./images/topic.jpg" alt="picture"></a>
+                <p> Oct 11, 2023</p>
+            </div>
+        </article>
+
+    </main>
+    <aside class="widget">
+
+        <div class="sidebar">
+            <h2 class="widget-title">More Pages</h2>
+            <div class="widget-recent-posts">
+                <a href="topic.html">
+                    <h3 class="widget-post-title">Time Ago</h3>
+                    <img src="./images/topic.jpg" class="widget-image" alt="image">
                 </a>
             </div>
-            <nav>
-                <ul class="navigation-list">
-                    <li><a href="./home.html" class="navigation-link active-page">Home</a></li>
-                    <li><a href="./about.html" class="navigation-link">About</a></li>
-                    <li><a href="./topic.html" class="navigation-link">Topic</a></li>
-                </ul>
-            </nav>
         </div>
-    </header>
-    <div class="container flex-container">
-        <main>
 
-            <article class="recent-articles">
-                <div class="recent-primary">
-                    <h2>Discovering the app: All you need to know about the app</h2>
-                    <p>This is my personal blog app. Developed during my Angular course in SoftUni. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed qui necessitatibus officiis veniam voluptatem tenetur, cumque delectus et maxime corporis ad sapiente ex quibusdam quisquam? Deleniti quia mollitia officiis quas!</p>
-                </div>
-                <div class="recent-info">
-                    <a href="about.html"><img src="./images/2.png" alt="Pic"></a>
-                    <p>27/0725</p>
-                </div>
-            </article>
-
-            <article class="recent-articles">
-                <div class="recent-primary">
-                    <h2>Topic: Converting Timestamps into User-Friendly Time Ago Format</h2>
-                    <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time ago"
-                        formats like "2 hours ago" or "3 days ago." This article delves into the creation of a PHP-based
-                        "time ago" function, simplifying time-related interactions and enhancing the user experience
-                        across various time zones and date formats...</p>
-                    <a href="topic.html" class="continue-reading">Continue Reading</a>
-                </div>
-                <div class="recent-info">
-                    <a href="topic.html"><img src="./images/topic.jpg" alt="picture"></a>
-                    <p> Oct 11, 2023</p>
-                </div>
-            </article>
-
-        </main>
-        <aside class="widget">
-
-            <div class="sidebar">
-                <h2 class="widget-title">More Pages</h2>
-                <div class="widget-recent-posts">
-                    <a href="topic.html">
-                        <h3 class="widget-post-title">Time Ago</h3>
-                        <img src="./images/topic.jpg" class="widget-image" alt="image">
-                    </a>
-                </div>
-            </div>
-
-            <div class="sidebar">
-                <h2 class="widget-title">About Me</h2>
-                <a href="about.html"><img src="./images/1.png" alt="Author" class="widget-image"></a>
-                <p>Hi, am softUni student...</p>
-            </div>
-        </aside>
-    </div>
-    <footer>
-        <nav class="footer-nav">
-            <ul>
-                <li><a href="./home.html">Home</a></li>
-                <li><a href="./about.html">About</a></li>
-                <li><a href="./topic.html">topic</a></li>
-            </ul>
-        </nav>
-    </footer>
-</body>
+        <div class="sidebar">
+            <h2 class="widget-title">About Me</h2>
+            <a href="about.html"><img src="./images/1.png" alt="Author" class="widget-image"></a>
+            <p>Hi, am softUni student...</p>
+        </div>
+    </aside>
+</div>
+<footer>
+    <nav class="footer-nav">
+        <ul>
+            <li><a href="./home.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./topic.html">topic</a></li>
+        </ul>
+    </nav>
+</footer>
