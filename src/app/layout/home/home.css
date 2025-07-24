@@ -1,0 +1,21 @@
+/*recent posts*/
+.recent-articles {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.recent-info {
+    order: 1;
+    font-size: 0.9rem;
+}
+
+.recent-primary {
+    order: 2;
+    padding-bottom: 1em;
+    margin-bottom: 1.5em;
+}
+
+.recent-featured-primary {
+    border-bottom: 2px solid #707070;
+}

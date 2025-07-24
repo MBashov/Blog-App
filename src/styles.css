@@ -1,4 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Katibeh&family=Medula+One&family=Quicksand&family=Roboto:wght@500;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -29,7 +45,7 @@ h6 {
     margin: 0 auto;
     padding: 0.3em 1em;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: space-around;
 }
 
@@ -38,253 +54,6 @@ img {
     display: block;
     box-shadow: 4px 4px 15px -3px rgba(0,0,0,0.1); /*Box shadow property decovered via youtube*/
     border-radius: 5px;
-}
-
-/*----footer----*/
-/* Footer Styles */
-footer {
-    background: #143774;
-    color: white;
-    text-align: center;
-    padding: 1.5em 0;
-}
-
-/* Footer Navigation Styles */
-.footer-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.footer-nav li {
-    margin: 0 20px;
-}
-
-.footer-nav li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.footer-nav a:hover {
-    color: #1792d2;
-}
-
-/*----header----*/
-header {
-    background: #fbfbfb;
-    margin-bottom: 1em;
-}
-
-.blog-name {
-    text-align: center;
-}
-
-.main-heading {
-    font-family: 'Medula One', cursive;
-    margin-bottom: 0;
-    letter-spacing: 0.1em;
-    font-size: 3rem;
-    color: #143774;
-}
-
-.blog-subheading {
-    color: #1792d2;
-    margin-top: 0.5em;
-    font-family: 'Katibeh', cursive;
-    font-size: 1.3rem;
-}
-
-/*-----navigation-----*/
-nav {
-    text-align: center;
-}
-
-.navigation-list {
-    list-style: none;
-    padding: 0;
-}
-
-.navigation-list li {
-    margin: 1.2em 0;
-
-}
-
-a {
-    text-decoration: none;
-    font-family: 'Roboto', sans-serif;
-    padding: 0.1em 0;
-    font-size: 1rem;
-    transition: all 0.5s;
-}
-
-.navigation-link:hover,
-.navigation-link:focus {
-    color: #1792d2;
-}
-
-.navigation-link {
-    color: #707070;
-}
-
-.active-page {
-    border-bottom: 1px solid #707070;
-}
-
-.active-page:hover {
-    color: #707070;
-}
-
-.continue-reading {
-    color: #1792d2;
-}
-
-.continue-reading:hover,
-.continue-reading:focus {
-    color: #707070;
-
-}
-
-a:visited {
-    color: #707070;
-}
-
-a:active {
-    color: #1792d2;
-}
-
-
-/*recent posts*/
-.recent-articles {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.recent-info {
-    order: 1;
-    font-size: 0.9rem;
-}
-
-.recent-primary {
-    order: 2;
-    padding-bottom: 1em;
-    margin-bottom: 1.5em;
-}
-
-.recent-featured-primary {
-    border-bottom: 2px solid #707070;
-}
-
-
-/*----sidebar----*/
-.widget {
-    min-width: 180px;
-}
-
-.sidebar {
-    border: 20px solid #efefef;
-    padding: 0.8em;
-}
-
-.widget-title {
-    margin-top: 0;
-}
-
-.widget-recent-posts {
-    border-bottom: 2px solid #707070;
-    padding-bottom: 1.5em;
-}
-
-.widget-recent-posts:last-child {
-    border: none;
-    padding-bottom: 0;
-}
-
-aside {
-    margin-bottom: 1em;
-}
-
-/*----about me----*/
-.about-me {
-    border: none;
-    margin-bottom: 2.5em;
-}
-
-
-.code-container {
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-}
-
-/* Style for the code text */
-code {
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    white-space: pre-wrap;
-    display: block;
-    color: #333;
-}
-
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-}
-
-.video-container video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.interests-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 20px;
-}
-
-.interest-card {
-    flex: 1;
-    max-width: 350px; 
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 20px;
-    margin-left: 5px;
-    display: flex;
-    flex-direction: column;
-}
-
-.interest-card img {
-    max-width: 100%; 
-    height: auto;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px; 
-}
-
-/* Style the text content */
-.card-content h2 {
-    font-size: 24px;
-    margin: 0;
-}
-
-.card-content p {
-    font-size: 16px;
-    color: #333;
 }
 
 /*----desktop layout----*/

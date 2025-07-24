@@ -1,0 +1,27 @@
+/*----sidebar----*/
+.widget {
+    min-width: 180px;
+}
+
+.sidebar {
+    border: 20px solid #efefef;
+    padding: 0.8em;
+}
+
+.widget-title {
+    margin-top: 0;
+}
+
+.widget-recent-posts {
+    border-bottom: 2px solid #707070;
+    padding-bottom: 1.5em;
+}
+
+.widget-recent-posts:last-child {
+    border: none;
+    padding-bottom: 0;
+}
+
+aside {
+    margin-bottom: 1em;
+}

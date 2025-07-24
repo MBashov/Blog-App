@@ -1,0 +1,82 @@
+/*----header----*/
+header {
+    background: #fbfbfb;
+    margin-bottom: 1em;
+}
+
+.blog-name {
+    text-align: center;
+}
+
+.main-heading {
+    font-family: 'Medula One', cursive;
+    margin-bottom: 0;
+    letter-spacing: 0.1em;
+    font-size: 3rem;
+    color: #143774;
+}
+
+.blog-subheading {
+    color: #1792d2;
+    margin-top: 0.5em;
+    font-family: 'Katibeh', cursive;
+    font-size: 1.3rem;
+}
+
+/*-----navigation-----*/
+nav {
+    text-align: center;
+}
+
+.navigation-list {
+    list-style: none;
+    padding: 0;
+}
+
+.navigation-list li {
+    margin: 1.2em 0;
+
+}
+
+a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    padding: 0.1em 0;
+    font-size: 1rem;
+    transition: all 0.5s;
+}
+
+.navigation-link:hover,
+.navigation-link:focus {
+    color: #1792d2;
+}
+
+.navigation-link {
+    color: #707070;
+}
+
+.active-page {
+    border-bottom: 1px solid #707070;
+}
+
+.active-page:hover {
+    color: #707070;
+}
+
+.continue-reading {
+    color: #1792d2;
+}
+
+.continue-reading:hover,
+.continue-reading:focus {
+    color: #707070;
+
+}
+
+a:visited {
+    color: #707070;
+}
+
+a:active {
+    color: #1792d2;
+}
