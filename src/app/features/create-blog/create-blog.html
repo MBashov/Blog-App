@@ -1,0 +1,47 @@
+<!-- blog-form.html -->
+<section class="form-section">
+    <div class="form-container">
+        <h2>Create / Edit Blog Post</h2>
+
+        <form action="#" method="POST">
+            <!-- Title -->
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Blog post title" required minlength="3"
+                maxlength="180" />
+
+            <!-- Slug -->
+            <label for="slug">Slug</label>
+            <input type="text" id="slug" name="slug" placeholder="unique-blog-slug" />
+
+            <!-- Content -->
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="8" placeholder="Write your blog content here..." required></textarea>
+
+            <!-- Banner Fields -->
+            <!-- <fieldset class="fieldset">
+                <legend>Banner Info</legend> -->
+
+                <label for="banner-url">Banner Image URL</label>
+                <input type="url" id="banner-url" name="bannerUrl" placeholder="https://example.com/banner.jpg" required />
+<!-- 
+                <label for="banner-public-id">Banner Public ID</label>
+                <input type="text" id="banner-public-id" name="bannerPublicId" required />
+
+                <label for="banner-width">Width</label>
+                <input type="number" id="banner-width" name="bannerWidth" min="1" required />
+
+                <label for="banner-height">Height</label>
+                <input type="number" id="banner-height" name="bannerHeight" min="1" required />
+            </fieldset> -->
+
+            <!-- Status -->
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+            </select>
+
+            <button type="submit">Submit Post</button>
+        </form>
+    </div>
+</section>
