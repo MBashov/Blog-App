@@ -1,11 +1,10 @@
-/*----header----*/
 header {
-    background: #fbfbfb;
-    margin-bottom: 1em;
+    margin-bottom: 3em;
 }
 
-.blog-name {
-    text-align: center;
+.header-container {
+    display: flex;
+    justify-content: space-around;
 }
 
 .main-heading {
@@ -16,21 +15,11 @@ header {
     color: #143774;
 }
 
-.blog-subheading {
-    color: #1792d2;
-    margin-top: 0.5em;
-    font-family: 'Katibeh', cursive;
-    font-size: 1.3rem;
-}
-
-/*-----navigation-----*/
-nav {
-    text-align: center;
-}
 
 .navigation-list {
+    display: flex;
+    gap: 1em;
     list-style: none;
-    padding: 0;
 }
 
 .navigation-list li {
@@ -61,16 +50,6 @@ a {
 
 .active-page:hover {
     color: #707070;
-}
-
-.continue-reading {
-    color: #1792d2;
-}
-
-.continue-reading:hover,
-.continue-reading:focus {
-    color: #707070;
-
 }
 
 a:visited {
