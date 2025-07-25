@@ -1,0 +1,17 @@
+<div class="container blogs-container">
+    <main>
+        <article class="recent-featured">
+            <div class="interests-container">
+                @for (blog of blogs; track $index) {
+                <div class="interest-card">
+                    <img src={{blog.banner.url}} alt="Interest 1 Image">
+                    <div class="card-content">
+                        <h2>{{blog.title}}</h2>
+                        <p>{{blog.content}}</p>
+                    </div>
+                </div>
+                }
+            </div>
+        </article>
+    </main>
+</div>

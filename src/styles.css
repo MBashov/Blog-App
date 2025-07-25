@@ -27,7 +27,7 @@ body {
 p {
     font-family: 'Quicksand', sans-serif;
     font-size: 14px;
-    color: white;
+    color: black;
 }
 
 h1,
@@ -54,48 +54,4 @@ img {
     height: auto;
     display: block;
     box-shadow: 4px 4px 15px -3px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
 }
-
-
-/*----desktop layout----*/
-/* @media (width > 720px) {
-    .flex-container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-
-    .recent-articles {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .recent-featured {
-        flex-direction: column;
-    }
-
-    .recent-primary {
-        width: 70%;
-    }
-
-    .recent-info {
-        width: 20%;
-    }
-
-    .recent-articles h2 {
-        margin-top: 0;
-        padding-top: 0;
-    }
-
-    .code-container {
-        font-size: 14px;
-    }
-    .interests-container {
-        flex-direction: row; 
-    }
-    .interest-card {
-        max-width: 100%; 
-        margin-bottom: 20px; 
-    }
-} */
