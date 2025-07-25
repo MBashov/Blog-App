@@ -7,7 +7,8 @@
                     <img src={{blog.banner.url}} alt="Interest 1 Image">
                     <div class="card-content">
                         <h2>{{blog.title}}</h2>
-                        <p>{{blog.content}}</p>
+                        <p>{{blog.content.slice(0, 120)}}...</p>
+                        <a href="topic.html" class="continue-reading">Continue Reading</a>
                     </div>
                 </div>
                 }

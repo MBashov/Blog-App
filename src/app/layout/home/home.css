@@ -83,16 +83,6 @@ main {
             .recent-primary {
                 padding-bottom: 0.5em;
                 flex-basis: 70%;
-
-                .continue-reading {
-                    color: #1792d2;
-                }
-
-                .continue-reading:hover,
-                .continue-reading:focus {
-                    color: #707070;
-
-                }
             }
 
             .recent-info {
@@ -145,7 +135,5 @@ main {
                 }
             }
         }
-
     }
-
 }

@@ -55,3 +55,14 @@ img {
     display: block;
     box-shadow: 4px 4px 15px -3px rgba(0, 0, 0, 0.1);
 }
+
+
+.continue-reading {
+    color: #1792d2;
+}
+
+.continue-reading:hover,
+.continue-reading:focus {
+    color: #707070;
+
+}
