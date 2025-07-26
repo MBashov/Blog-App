@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment.development';
+import { BlogResponse } from './models';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
-    constructor (private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    getAllBlogs() {
+    getAllBlogs(): Observable<BlogResponse> {
         const url = `${environment.apiUrl}/blogs`;
-        return this.http.get(url);
+
+        return this.http.get<BlogResponse>(url);
     }
 }
