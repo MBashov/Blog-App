@@ -10,8 +10,12 @@ import { Observable } from 'rxjs';
 export class ApiService {
     constructor(private http: HttpClient) { }
 
-    getAllBlogs(): Observable<BlogResponse> {
-        const url = `${environment.apiUrl}/blogs`;
+    getAllBlogs(limit?: number): Observable<BlogResponse> {
+        let url = `${environment.apiUrl}/blogs`;
+
+        if (limit) {
+            url += `?limit=${limit}`;
+        }
 
         return this.http.get<BlogResponse>(url);
     }

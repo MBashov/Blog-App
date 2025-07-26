@@ -10,80 +10,23 @@
             <section class="article-items">
                 <p class="sub-heading">Recently added post</p>
 
+                @if (isLoading) {
+                <app-loader />
+                } @else {
                 <div class="articles">
-
+                    @for (blog of recentBlogs; track $index) {
                     <article class="recent-articles">
                         <div class="recent-primary">
-                            <h2>Topic: Converting Timestamps into User-Friendly Time Ago Format</h2>
-                            <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                                ago"
-                                formats like "2 hours ago" or "3 days ago." This article delves into the creation of a
-                                PHP-based
-                                "time ago" function, simplifying time-related interactions and enhancing the user
-                                experience
-                                across various time zones and date formats...</p>
+                            <h2>{{blog.title}}</h2>
+                            <p>{{blog.content}}</p>
                             <a href="topic.html" class="continue-reading">Continue Reading</a>
                         </div>
                         <div class="recent-info">
-                            <a href="topic.html"><img src="background-img.jpg" alt="picture"></a>
-                            <p> Oct 11, 2023</p>
+                            <a href="topic.html"><img src={{blog.banner.url}} alt="picture"></a>
+                            <p>{{blog.publishedAt | date: 'longDate'}}</p>
                         </div>
                     </article>
-
-
-                    <article class="recent-articles">
-                        <div class="recent-primary">
-                            <h2>Topic: Converting Timestamps into User-Friendly Time Ago Format</h2>
-                            <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                                ago"
-                                formats like "2 hours ago" or "3 days ago." This article delves into the creation of a
-                                PHP-based
-                                "time ago" function, simplifying time-related interactions and enhancing the user
-                                experience
-                                across various time zones and date formats...</p>
-                            <a href="topic.html" class="continue-reading">Continue Reading</a>
-                        </div>
-                        <div class="recent-info">
-                            <a href="topic.html"><img src="me.png" alt="picture"></a>
-                            <p> Oct 11, 2023</p>
-                        </div>
-                    </article>
-
-                    <article class="recent-articles">
-                        <div class="recent-primary">
-                            <h2>Topic: Converting Timestamps into User-Friendly Time Ago Format</h2>
-                            <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                                ago"
-                                formats like "2 hours ago" or "3 days ago." This article delves into the creation of a
-                                PHP-based
-                                "time ago" function, simplifying time-related interactions and enhancing the user
-                                experience
-                                across various time zones and date formats...</p>
-                            <a href="topic.html" class="continue-reading">Continue Reading</a>
-                        </div>
-                        <div class="recent-info">
-                            <a href="topic.html"><img src="me.png" alt="picture"></a>
-                            <p> Oct 11, 2023</p>
-                        </div>
-                    </article>
-
-                    <article class="recent-articles">
-                        <div class="recent-primary">
-                            <h2>Topic: Converting Timestamps into User-Friendly Time Ago Format</h2>
-                            <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                                ago"
-                                formats like "2 hours ago" or "3 days ago." This article delves into the creation of a
-                                PHP-based
-                                "time ago" function, simplifying time-related interactions and enhancing the user
-                                experience
-                                across various time zones and date formats...</p>
-                            <a href="topic.html" class="continue-reading">Continue Reading</a>
-                        </div>
-                        <div class="recent-info">
-                            <a href="topic.html"><img src="me.png" alt="picture"></a>
-                            <p> Oct 11, 2023</p>
-                        </div>
-                    </article>
+                    }
 
                     <article class="recent-articles">
                         <div class="recent-primary">
@@ -121,7 +64,7 @@
                         </div>
                     </article>
                 </div>
-
+                }
             </section>
 
             <section class="popular-posts">
@@ -129,7 +72,7 @@
                     <p class="sub-heading">Most Popular Posts</p>
 
                     <div class="popular-trip">
-                        <div class="interest-card">
+                        <div class="popular-card">
                             <img src="background-img.jpg" alt="Interest 1 Image">
                             <div class="card-content">
                                 <h2>Improved User Experience</h2>
@@ -138,7 +81,7 @@
                             </div>
                         </div>
 
-                        <div class="interest-card">
+                        <div class="popular-card">
                             <img src="background-img2.jpg" alt="Interest 2 Image">
                             <div class="card-content">
                                 <h2>Clarity and Readability</h2>
@@ -148,7 +91,7 @@
                                     They provide an immediate understanding of when an event occurred.</p>
                             </div>
                         </div>
-                        <div class="interest-card">
+                        <div class="popular-card">
                             <img src="me.png" alt="Interest 3 Image">
                             <div class="card-content">
                                 <h2>Relative Time Perception</h2>

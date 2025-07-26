@@ -19,6 +19,8 @@ export interface Blog  {
     viewsCount: number,
     likesCount: number,
     commentsCount: number,
+    publishedAt: Date,
+    updatedAt: Date,
     status: 'draft' | 'published',
 }
 
