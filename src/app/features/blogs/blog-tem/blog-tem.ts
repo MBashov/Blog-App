@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../api.service';
 import { Blog } from '../../../models';
+import { Loader } from "../../../shared/loader/loader";
 
 @Component({
     selector: 'app-blog-tem',
-    imports: [],
+    imports: [Loader],
     templateUrl: './blog-tem.html',
     styleUrl: './blog-tem.css'
 })
@@ -171,13 +172,15 @@ export class BlogTem implements OnInit {
     //         "__v": 0
     //     }
     // ];
-    blogs: Blog[] = [];
+    protected blogs: Blog[] = [];
+    protected isLoading: boolean = true;
 
     constructor(private apiService: ApiService) { }
 
     ngOnInit(): void {
         this.apiService.getAllBlogs().subscribe((response) => {
             this.blogs = response.blogs;
+            this.isLoading = false;
         });
     }
 }
