@@ -75,15 +75,29 @@ main {
             gap: 1em;
             background-color: #f5f5f5;
             border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
             p {
                 color: black;
             }
 
             .recent-primary {
-                padding-bottom: 0.5em;
                 flex-basis: 70%;
                 padding: 0.5em;
+
+                h2 {
+                    padding-bottom: 0.5em;
+                }
+
+                .likes-and-views {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 0.5em;
+
+                    .fa-regular {
+                        color: #1792d2;
+                    }
+                }
             }
 
             .recent-info {
@@ -94,7 +108,7 @@ main {
                 }
 
                 p {
-                    padding-top: 0.5em;
+                    padding-block: 0.5em;
                 }
             }
         }
