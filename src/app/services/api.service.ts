@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { BlogResponse, singleBlogResponse } from '../../app/models';
+import { BlogResponse, singleBlogResponse } from '../../app/models/blog';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
-    
+    private baseUrl = environment.apiUrl;
+
     constructor(private http: HttpClient) { }
 
     getAllBlogs(limit?: number): Observable<BlogResponse> {
-        let url = `${environment.apiUrl}/blogs`;
+        let url = `${this.baseUrl}/blogs`;
 
         if (limit) {
             url += `?limit=${limit}`;
@@ -22,8 +23,20 @@ export class ApiService {
     }
 
     getSingleBLog(slug: string): Observable<singleBlogResponse> {
-        const url = `${environment.apiUrl}/blogs/${slug}`;
+        const url = `${this.baseUrl}/blogs/${slug}`;
 
         return this.http.get<singleBlogResponse>(url);
+    }
+
+    addBlog(title: string, slug: string, content: string, images: string, status: string) {
+        const url = `${this.baseUrl}/blogs`;
+        const payload = {
+            title, 
+            slug, 
+            content, 
+            images, 
+            status,
+        }
+        return this.http.post(url, payload);
     }
 }

@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { Loader } from '../../shared/loader/loader';
 import { ApiService } from '../../services/api.service';
-import { Blog, BlogResponse } from '../../models';
+import { Blog, BlogResponse } from '../../models/blog';
 
 @Component({
     selector: 'app-home',
