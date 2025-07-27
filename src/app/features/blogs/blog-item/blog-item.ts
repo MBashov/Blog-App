@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Blog } from '../../../models';
 import { Loader } from "../../../shared/loader/loader";
 import { ApiService } from '../../../services/api.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-blog-item',
-    imports: [Loader],
+    imports: [Loader, RouterLink],
     templateUrl: './blog-item.html',
     styleUrl: './blog-item.css'
 })

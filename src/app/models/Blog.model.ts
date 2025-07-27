@@ -23,10 +23,3 @@ export interface Blog  {
     updatedAt: Date,
     status: 'draft' | 'published',
 }
-
-export interface BlogResponse {
-    blogs: Blog[],
-    limit: number,
-    offset: number,
-    totalBlogs: number,
-}
