@@ -3,17 +3,18 @@ import { Blog } from '../../../models/blog';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Loader } from '../../../shared/loader/loader';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-current-blog',
-    imports: [DatePipe, Loader],
+    imports: [DatePipe, CommonModule, Loader],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
     protected isLoading: boolean = true;
+    protected imageClass: string = '';
 
     constructor(private route: ActivatedRoute, private apiService: ApiService) { }
 
@@ -25,5 +26,17 @@ export class CurrentBlog implements OnInit {
         });
         
         this.isLoading = false;
+    }
+
+    protected omImageLoad(event: Event) {
+        const img = event.target as HTMLImageElement;
+            
+        const {width, height} = img; 
+        
+        if (width > height) {
+            this.imageClass = 'landscape';
+        } else {
+            this.imageClass = 'portrait';
+        }
     }
 }

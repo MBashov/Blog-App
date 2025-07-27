@@ -2,7 +2,10 @@
 <app-loader />
 } @else {
 <article class="blog-details">
-    <img class="blog-banner" src="{{blog.banner.url}}" alt="Post Banner" />
+    <span class="blog-banner" [ngClass]="imageClass">
+        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)"/>
+    </span>
+
 
     <header class="blog-header">
         <h1 class="blog-title">{{blog.title}}</h1>
@@ -37,7 +40,8 @@
 
     <section class="author-box">
         <h3>About the Author</h3>
-        <p>{{blog.author.firstName}} is a digital nomad exploring Europe one city at a time. She loves writing, coffee, and old bookstores.
+        <p>{{blog.author.firstName}} is a digital nomad exploring Europe one city at a time. She loves writing, coffee,
+            and old bookstores.
         </p>
     </section>
 
@@ -61,19 +65,19 @@
         <ul class="comment-list">
             <li class="comment">
                 <div class="comment-header">
-                    <strong>Anna</strong> <span>on July 24, 2025</span>
+                    <strong>Anna </strong> <span>on July 24, 2025</span>
                 </div>
                 <p>Amazing post! Lisbon is definitely on my bucket list now.</p>
             </li>
             <li class="comment">
                 <div class="comment-header">
-                    <strong>Marco</strong> <span>on July 23, 2025</span>
+                    <strong>Marco </strong> <span>on July 23, 2025</span>
                 </div>
                 <p>I loved Alfama too. Great tips, thanks for sharing!</p>
             </li>
             <li class="comment">
                 <div class="comment-header">
-                    <strong>Sara</strong> <span>on July 22, 2025</span>
+                    <strong>Sara </strong> <span>on July 22, 2025</span>
                 </div>
                 <p>Beautiful storytelling. Felt like I was there!</p>
             </li>
