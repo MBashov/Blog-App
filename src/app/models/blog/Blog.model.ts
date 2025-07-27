@@ -6,8 +6,10 @@ type Banner = {
 }
 
 type Author = {
-    name: string,
+    username: string,
+    firstName: string,
     lastName: string,
+    email: string,
 }
 
 export interface Blog  {

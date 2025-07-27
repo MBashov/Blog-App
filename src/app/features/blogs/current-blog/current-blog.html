@@ -1,22 +1,83 @@
 @if (isLoading) {
 <app-loader />
 } @else {
-<div class="container blogs-container">
-    <article class="recent-featured">
-        <div class="interests-container">
-            <div class="interest-card">
-                <img src={{blog.banner.url}} alt="Interest 1 Image">
-                <div class="card-content">
-                    <h2>{{blog.title}}</h2>
-                    <p>{{blog.content}}</p>
-                    <div class="likes-and-views">
-                        <p><i class="fa-regular fa-thumbs-up"></i> {{blog.likesCount}}</p>
-                        <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
-                    </div>
-                </div>
+<article class="blog-details">
+    <img class="blog-banner" src="{{blog.banner.url}}" alt="Post Banner" />
 
-            </div>
+    <header class="blog-header">
+        <h1 class="blog-title">{{blog.title}}</h1>
+        <div class="blog-meta">
+            <span class="author">by {{blog.author.firstName}} {{blog.author.lastName}} - </span>
+            <span class="date">{{blog.publishedAt | date: 'longDate'}}</span>
         </div>
-    </article>
-</div>
+    </header>
+
+    <section class="blog-content">
+        <p>{{blog.content}}</p>
+        <p>
+            I wandered through the cobblestone alleys, tasted the famous pastéis de nata, and enjoyed the sound of Fado
+            in a tucked-away tavern.
+        </p>
+        <!-- Add more paragraphs/images/etc. -->
+    </section>
+
+    <footer class="blog-footer">
+        <div class="stats">
+            <span><i class="fa-regular fa-eye"></i> 1200 views</span>
+            <span><i class="fa-regular fa-thumbs-up"></i> 150 likes</span>
+            <span><i class="fa-regular fa-comments"></i> 18 comments</span>
+        </div>
+
+        <div class="actions">
+            <button>Edit</button>
+            <button>Delete</button>
+            <button><i class="fa-regular fa-thumbs-up"></i> Like</button>
+        </div>
+    </footer>
+
+    <section class="author-box">
+        <h3>About the Author</h3>
+        <p>{{blog.author.firstName}} is a digital nomad exploring Europe one city at a time. She loves writing, coffee, and old bookstores.
+        </p>
+    </section>
+
+    <section class="related-posts">
+        <h3>Related Posts</h3>
+        <ul>
+            <li><a href="#">A Foodies Guide to Porto</a></li>
+            <li><a href="#">Top 10 Beaches in Southern Spain</a></li>
+        </ul>
+    </section>
+
+    <section class="comments-section">
+        <h3>Comments (3)</h3>
+
+        <form class="comment-form">
+            <input type="text" placeholder="Your Name" required />
+            <textarea placeholder="Write your comment..." required></textarea>
+            <button type="submit">Post Comment</button>
+        </form>
+
+        <ul class="comment-list">
+            <li class="comment">
+                <div class="comment-header">
+                    <strong>Anna</strong> <span>on July 24, 2025</span>
+                </div>
+                <p>Amazing post! Lisbon is definitely on my bucket list now.</p>
+            </li>
+            <li class="comment">
+                <div class="comment-header">
+                    <strong>Marco</strong> <span>on July 23, 2025</span>
+                </div>
+                <p>I loved Alfama too. Great tips, thanks for sharing!</p>
+            </li>
+            <li class="comment">
+                <div class="comment-header">
+                    <strong>Sara</strong> <span>on July 22, 2025</span>
+                </div>
+                <p>Beautiful storytelling. Felt like I was there!</p>
+            </li>
+        </ul>
+    </section>
+</article>
 }

@@ -3,10 +3,11 @@ import { Blog } from '../../../models/blog';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Loader } from '../../../shared/loader/loader';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-current-blog',
-    imports: [Loader],
+    imports: [DatePipe, Loader],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })
@@ -22,7 +23,7 @@ export class CurrentBlog implements OnInit {
         this.apiService.getSingleBLog(slug).subscribe(response => {
             this.blog = response.blog;
         });
-
+        
         this.isLoading = false;
     }
 }
