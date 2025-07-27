@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../api.service';
 import { Blog } from '../../../models';
 import { Loader } from "../../../shared/loader/loader";
+import { ApiService } from '../../../services/api.service';
 
 @Component({
-    selector: 'app-blog-tem',
+    selector: 'app-blog-item',
     imports: [Loader],
-    templateUrl: './blog-tem.html',
-    styleUrl: './blog-tem.css'
+    templateUrl: './blog-item.html',
+    styleUrl: './blog-item.css'
 })
-export class BlogTem implements OnInit {
+export class BlogItem implements OnInit {
     // blogs = [
     //     {
     //         "title": "A Weekend in the Scottish Highlands: What to Pack",
@@ -174,7 +174,7 @@ export class BlogTem implements OnInit {
     // ];
     protected blogs: Blog[] = [];
     protected isLoading: boolean = true;
-
+    
     constructor(private apiService: ApiService) { }
 
     ngOnInit(): void {

@@ -1,1 +1,1 @@
-export * from './BlogModel';
+export * from './Blog.models';
