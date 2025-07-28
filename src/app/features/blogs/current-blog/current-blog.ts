@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common';
+
 import { Blog } from '../../../models/blog';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute } from '@angular/router';
 import { Loader } from '../../../shared/loader/loader';
-import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-current-blog',
@@ -13,7 +14,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 })
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
-    protected isLoading: boolean = true;
     protected imageClass: string = '';
     protected modalClass: string = '';
     protected imageSrc: string = '';
@@ -24,12 +24,8 @@ export class CurrentBlog implements OnInit {
 
     ngOnInit(): void {
         const slug: string = this.route.snapshot.params['slug'];
-
-        this.apiService.getSingleBLog(slug).subscribe(response => {
-            this.blog = response.blog;
-        });
-
-        this.isLoading = false;
+        
+        this.blog = this.route.snapshot.data['blog'];
     }
 
     protected omImageLoad(event: Event): void {

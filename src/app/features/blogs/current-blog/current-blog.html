@@ -1,6 +1,3 @@
-@if (isLoading) {
-<app-loader />
-} @else {
 <article class="blog-details">
     <span class="blog-banner" [ngClass]="imageClass">
         <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)" />
@@ -106,4 +103,3 @@
         </ul>
     </section>
 </article>
-}
