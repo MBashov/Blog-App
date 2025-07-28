@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Blog } from '../../../models/blog';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,6 +17,8 @@ export class CurrentBlog implements OnInit {
     protected imageClass: string = '';
     protected modalClass: string = '';
     protected imageSrc: string = '';
+
+    @ViewChild('imageContainer') imageContainer!: ElementRef;
 
     constructor(private route: ActivatedRoute, private apiService: ApiService) { }
 
@@ -50,5 +52,16 @@ export class CurrentBlog implements OnInit {
 
     protected closeModal(): void {
         this.modalClass = '';
+    }
+
+    protected scrollImages(direction: 'left' | 'right') {
+        const container = this.imageContainer.nativeElement;
+        const scrollAmount = 220;
+
+        if (direction === 'left') {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
     }
 }

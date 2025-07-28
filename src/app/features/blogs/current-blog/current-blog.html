@@ -21,23 +21,26 @@
             I wandered through the cobblestone alleys, tasted the famous pastéis de nata, and enjoyed the sound of Fado
             in a tucked-away tavern.
         </p>
-        <!-- Add more paragraphs/images/etc. -->
     </section>
 
     <section class="blog-gallery">
         <h4>More images</h4>
-        <div class="images">
-            <img (click)="showModal($event)" src="background-img.jpg" alt="img">
-            <img (click)="showModal($event)" src="background-img2.jpg" alt="img">
-            <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
-            <img (click)="showModal($event)" src="background-img.jpg" alt="img">
-            <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
-            <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+        <div class="image-scroll-wrapper">
+            <button class="scroll-btn-left" (click)="scrollImages('left')">&#10094;</button>
+            <div class="images" #imageContainer>
+                <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+                <img (click)="showModal($event)" src="background-img2.jpg" alt="img">
+                <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
+                <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+                <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
+                <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+            </div>
+            <button class="scroll-btn-right" (click)="scrollImages('right')">&#10095;</button>
         </div>
-        <div (click)="closeModal()" class="modal" [ngClass]="modalClass">
+        <div class="modal" [ngClass]="modalClass" (click)="closeModal()">
             <div class="modal-content">
-                <span (click)="closeModal()" class="close"><i class="fas fa-times"></i></span>
-                <img class="modal-img" src="{{imageSrc}}" alt="">
+                <span class="close" (click)="closeModal()"><i class="fas fa-times"></i></span>
+                <img class="modal-img" (click)="$event.stopPropagation()" src="{{imageSrc}}" alt="">
                 <span class="modal-text">{{blog.title}}</span>
             </div>
         </div>

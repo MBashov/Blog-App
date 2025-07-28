@@ -57,14 +57,28 @@
 
     .images {
         display: flex;
-        justify-content: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         gap: 1em;
+        padding-bottom: 1rem;
+        width: 100%;
+        max-width: 800px;
+        position: relative;
+
+        &::-webkit-scrollbar {
+            display: none; 
+        }
 
         img {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
             cursor: pointer;
-            transition: 0.3s all ease;
             width: 200px;
             height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.3s ease;
         }
 
         img:hover {
@@ -106,6 +120,7 @@
 
             .modal-text {
                 margin-top: 1em;
+                cursor: default;
             }
         }
     }
