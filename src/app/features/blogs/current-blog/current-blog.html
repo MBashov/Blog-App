@@ -26,7 +26,7 @@
     <section class="blog-gallery">
         <h4>More images</h4>
         <div class="image-scroll-wrapper">
-            <button class="scroll-btn-left" (click)="scrollImages('left')">&#10094;</button>
+            <button class="scroll-btn-left" (click)="scrollImages('left')"><span><i class="fa-solid fa-angle-left"></i></span></button>
             <div class="images" #imageContainer>
                 <img (click)="showModal($event)" src="background-img.jpg" alt="img">
                 <img (click)="showModal($event)" src="background-img2.jpg" alt="img">
@@ -35,7 +35,7 @@
                 <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
                 <img (click)="showModal($event)" src="background-img.jpg" alt="img">
             </div>
-            <button class="scroll-btn-right" (click)="scrollImages('right')">&#10095;</button>
+            <button class="scroll-btn-right" (click)="scrollImages('right')"><span><i class="fa-solid fa-angle-right"></i></span></button>
         </div>
         <div class="modal" [ngClass]="modalClass" (click)="closeModal()">
             <div class="modal-content">
