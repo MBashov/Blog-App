@@ -3,7 +3,7 @@
 } @else {
 <article class="blog-details">
     <span class="blog-banner" [ngClass]="imageClass">
-        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)"/>
+        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)" />
     </span>
 
 
@@ -22,6 +22,25 @@
             in a tucked-away tavern.
         </p>
         <!-- Add more paragraphs/images/etc. -->
+    </section>
+
+    <section class="blog-gallery">
+        <h4>More images</h4>
+        <div class="images">
+            <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+            <img (click)="showModal($event)" src="background-img2.jpg" alt="img">
+            <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
+            <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+            <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
+            <img (click)="showModal($event)" src="background-img.jpg" alt="img">
+        </div>
+        <div (click)="closeModal()" class="modal" [ngClass]="modalClass">
+            <div class="modal-content">
+                <span (click)="closeModal()" class="close"><i class="fas fa-times"></i></span>
+                <img class="modal-img" src="{{imageSrc}}" alt="">
+                <span class="modal-text">{{blog.title}}</span>
+            </div>
+        </div>
     </section>
 
     <footer class="blog-footer">
