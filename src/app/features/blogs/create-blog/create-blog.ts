@@ -10,7 +10,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class CreateBlog implements AfterViewInit {
 
-    @ViewChild('f') form!: NgForm;
+    @ViewChild('formRef') form!: NgForm;
 
     constructor(private apiService: ApiService) { }
 
@@ -19,13 +19,13 @@ export class CreateBlog implements AfterViewInit {
         console.log(this.form.form)
     }
 
-    onSubmit() {
+    protected onSubmit() {
         const content = this.form.value;
         console.log(content);
         this.form.reset();
     }
 
-    addBlog(event: Event, title: string, slug: string, content: string, images: string, status: string) {
+    protected addBlog(event: Event, title: string, slug: string, content: string, images: string, status: string) {
         event.preventDefault;
 
         this.apiService.addBlog(title, slug, content, images, status).subscribe(data => {

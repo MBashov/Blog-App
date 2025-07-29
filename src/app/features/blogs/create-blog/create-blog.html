@@ -2,7 +2,7 @@
     <div class="form-container">
         <h2>Create / Edit Blog Post</h2>
 
-        <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <form (ngSubmit)="onSubmit()" #formRef="ngForm">
             <label for="title">Title</label>
             <input
                 class="form-control" 
@@ -84,7 +84,7 @@
                 <p class="error-msg">Please select a status!</p>
             }
             <!-- <button (click)="addBlog($event, inputTitle.value, inputSlug.value, inputContent.value, inputImages.value, inputStatus.value)">Submit Post</button> -->
-            <button [disabled]="f.invalid">Submit Post</button>
+            <button [disabled]="formRef.invalid">Submit Post</button>
         </form>
     </div>
 </section>
