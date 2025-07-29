@@ -2,26 +2,89 @@
     <div class="form-container">
         <h2>Create / Edit Blog Post</h2>
 
-        <form>
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
             <label for="title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Blog post title" required minlength="3" maxlength="180" #inputTitle/>
+            <input
+                class="form-control" 
+                type="text" 
+                id="title" 
+                name="title" 
+                placeholder="Blog post title" 
+                required 
+                minlength="5" 
+                maxlength="100" 
+                #inputTitle="ngModel"
+                ngModel
+            />
+            @if(inputTitle.errors?.['required'] && inputTitle.touched) {
+                <p class="error-msg">Title is required!</p>
+            }
+            @if((inputTitle.errors?.['minlength'] || inputTitle.errors?.['maxlength']) && inputTitle.touched) {
+                <p class="error-msg">Title must be between 5 and 100 characters!</p>
+            }
 
             <label for="slug">Slug</label>
-            <input type="text" id="slug" name="slug" placeholder="unique-blog-slug" #inputSlug/>
+            <input
+                class="form-control" 
+                type="text" 
+                id="slug" 
+                name="slug" 
+                placeholder="unique-blog-slug" 
+                #inputSlug="ngModel"
+                ngModel
+            />
 
             <label for="content">Content</label>
-            <textarea id="content" name="content" rows="8" placeholder="Write your blog content here..." required #inputContent></textarea>
+            <textarea 
+                class="form-control"
+                id="content" 
+                name="content" 
+                rows="8" 
+                placeholder="Write your blog content here..." 
+                required
+                minlength="20" 
+                maxlength="2000" 
+                #inputContent="ngModel"
+                ngModel
+            >
+            </textarea>
+            @if(inputContent.errors?.['required'] && inputContent.touched) {
+                <p class="error-msg">Content is required!</p>
+            }
+            @if((inputContent.errors?.['minlength'] || inputContent.errors?.['maxlength']) && inputContent.touched) {
+                <p class="error-msg">Content must be between 20 and 2000 characters!</p>
+            }
 
             <label for="banner-url">Banner Image</label>
-            <input type="file" id="banner-url" name="bannerUrl" multiple required #inputImages/>
-
+            <input
+                class="form-control" 
+                type="file" 
+                id="banner-url" 
+                name="bannerUrl" 
+                accept="image/png, image/jpeg, image/jpg, image/webp" 
+                required 
+                #inputImages="ngModel"
+                ngModel
+            />
+            @if(inputImages.invalid && inputImages.touched) {
+                <p class="error-msg">At least one image is required</p>
+            }
             <label for="status">Status</label>
-            <select id="status" name="status" required #inputStatus>
+            <select 
+                id="status" 
+                name="status" 
+                required 
+                #inputStatus="ngModel"
+                ngModel
+            >
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>
-
-            <button (click)="addBlog($event, inputTitle.value, inputSlug.value, inputContent.value, inputImages.value, inputStatus.value)">Submit Post</button>
+            @if(inputStatus.invalid && inputStatus.touched) {
+                <p class="error-msg">Please select a status!</p>
+            }
+            <!-- <button (click)="addBlog($event, inputTitle.value, inputSlug.value, inputContent.value, inputImages.value, inputStatus.value)">Submit Post</button> -->
+            <button [disabled]="f.invalid">Submit Post</button>
         </form>
     </div>
 </section>

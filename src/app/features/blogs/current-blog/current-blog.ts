@@ -3,7 +3,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { Blog } from '../../../models/blog';
-import { ApiService } from '../../../services/api.service';
 
 @Component({
     selector: 'app-current-blog',
@@ -19,10 +18,9 @@ export class CurrentBlog implements OnInit {
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
-    constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+    constructor(private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        const slug: string = this.route.snapshot.params['slug'];
         
         this.blog = this.route.snapshot.data['blog'];
     }
