@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    /* background-color: blue; */
+}
+
+.section {
+    /* height: 300px; */
+    width: auto;
+    /* background-color: white; */
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2em;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+    .recent-articles {
+        flex: 0 1 30%;
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        /* background-color: #f5f5f5; */
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        p {
+            color: black;
+        }
+
+        .recent-primary {
+            flex-basis: 70%;
+            padding: 0.5em;
+
+            h2 {
+                padding-bottom: 0.5em;
+            }
+
+            .likes-and-views {
+                display: flex;
+                justify-content: flex-end;
+                gap: 0.5em;
+
+                .fa-regular {
+                    color: #1792d2;
+                }
+            }
+        }
+
+        .recent-info {
+            flex-basis: 30%;
+
+            img {
+                border-top-right-radius: 5px;
+            }
+
+            p {
+                padding-block: 0.5em;
+            }
+        }
+    }
+}
