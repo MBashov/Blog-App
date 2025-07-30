@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
 
 import { Loader } from '../../shared/loader/loader';
 import { ApiService } from '../../services/api.service';
@@ -8,7 +7,7 @@ import { BlogArticle } from "../../shared/blog-article/blog-article";
 
 @Component({
     selector: 'app-home',
-    imports: [DatePipe, Loader, BlogArticle],
+    imports: [ Loader, BlogArticle],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })

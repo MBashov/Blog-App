@@ -1,22 +1,37 @@
 <section class="container">
-    <section class="section my-blogs">
-        @for (blog of myBlogs; track $index) {
-            <app-blog-article [blog]="blog"/>
-        }
-        <!-- <article class="recent-articles">
-            <div class="recent-primary">
-                <h2>Topic: Converting Timestamps Format</h2>
-                <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                    ago"
-                    formats like "2 hours ago"...</p>
-                <a href="topic.html" class="continue-reading">Continue Reading</a>
-            </div>
-            <div class="recent-info">
-                <a href="topic.html"><img src="me.png" alt="picture"></a>
-                <p> Oct 11, 2023</p>
-            </div>
-        </article> -->
+    <section class="section-greetings">
+        <p>Welcome Username</p>
+        <p>Here you can see your last activities</p>
+        <p>Manage your profile</p>
     </section>
-    <section class="section my-comments"></section>
-    <section class="section liked-blogs"></section>
+    <section class="section my-posts">
+        <div class="section-header">
+            <p>My Posts</p>
+        </div>
+        <div class="section-content">
+            @for (blog of myBlogs; track $index) {
+            <app-blog-article [blog]="blog" />
+            }
+        </div>
+    </section>
+    <section class="section liked-blogs">
+        <div class="section-header">
+            <p>Liked Posts</p>
+        </div>
+        <div class="section-content">
+            @for (blog of myBlogs; track $index) {
+            <app-blog-article [blog]="blog" />
+            }
+        </div>
+    </section>
+    <section class="section my-comments">
+        <div class="section-header">
+            <p>My Comments</p>
+        </div>
+        <div class="section-content">
+            @for (blog of myBlogs; track $index) {
+            <app-blog-article [blog]="blog" />
+            }
+        </div>
+    </section>
 </section>
