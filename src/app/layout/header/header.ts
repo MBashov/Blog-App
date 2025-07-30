@@ -1,15 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-header',
-    imports: [RouterLink],
+    imports: [RouterLink, CommonModule],
     templateUrl: './header.html',
     styleUrl: './header.css'
 })
 export class Header {
     constructor(private authService: AuthService, private router: Router) { }
+
+    protected isProfileVisible: boolean = false;
+
+    @HostListener('document:click', ['$event']) onClickOutside(event: MouseEvent): void {
+        const target = event.target as HTMLElement;
+
+        if (!target.closest('.profile-wrapper')) {
+            this.isProfileVisible = false;
+        }
+    }
 
     protected get isLoggedIn(): boolean {
         return this.authService.isLoggedIn;
@@ -22,5 +33,9 @@ export class Header {
     protected logout(): void {
         this.authService.logout();
         this.router.navigate(['/home']);
+    }
+
+    protected toggleProfileModal(): void {
+        this.isProfileVisible = !this.isProfileVisible;
     }
 }

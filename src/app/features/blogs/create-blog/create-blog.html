@@ -5,7 +5,6 @@
         <form (ngSubmit)="onSubmit()" #formRef="ngForm">
             <label for="title">Title</label>
             <input
-                class="form-control" 
                 type="text" 
                 id="title" 
                 name="title" 
@@ -19,13 +18,12 @@
             @if(inputTitle.errors?.['required'] && inputTitle.touched) {
                 <p class="error-msg">Title is required!</p>
             }
-            @if((inputTitle.errors?.['minlength'] || inputTitle.errors?.['maxlength']) && inputTitle.touched) {
-                <p class="error-msg">Title must be between 5 and 100 characters!</p>
+            @if(inputTitle.errors?.['minlength'] && inputTitle.touched) {
+                <p class="error-msg">Title must be at least 5 characters!</p>
             }
 
             <label for="slug">Slug</label>
             <input
-                class="form-control" 
                 type="text" 
                 id="slug" 
                 name="slug" 
@@ -36,7 +34,6 @@
 
             <label for="content">Content</label>
             <textarea 
-                class="form-control"
                 id="content" 
                 name="content" 
                 rows="8" 
@@ -51,13 +48,12 @@
             @if(inputContent.errors?.['required'] && inputContent.touched) {
                 <p class="error-msg">Content is required!</p>
             }
-            @if((inputContent.errors?.['minlength'] || inputContent.errors?.['maxlength']) && inputContent.touched) {
-                <p class="error-msg">Content must be between 20 and 2000 characters!</p>
+            @if(inputContent.errors?.['minlength'] && inputContent.touched) {
+                <p class="error-msg">Content must be at least 20 characters!</p>
             }
 
             <label for="banner-url">Banner Image</label>
             <input
-                class="form-control" 
                 type="file" 
                 id="banner-url" 
                 name="bannerUrl" 

@@ -22,7 +22,7 @@ export class AuthService {
         return !!this.user;
     }
 
-    login() {
+    async login() {
         this.user = {
             firstName: 'John',
             email: 'john@doe.mail.com',

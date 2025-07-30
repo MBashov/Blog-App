@@ -1,20 +1,72 @@
 <section class="form-section">
     <div class="form-container">
         <h2>Register</h2>
-        <form action="#" method="POST">
+
+        <form (ngSubmit)="onSubmit()" #formRef="ngForm">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required />
-
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                minlength="2"
+                maxlength="20"
+                ngModel
+                #name="ngModel"
+            />
+            @if (name.errors?.['required'] && name.touched) {
+                <p class="error-msg">Name is required</p>
+            }
+            @if (name.errors?.['minlength'] && name.touched) {
+                <p class="error-msg">Name must be at least 2 characters</p>
+            }
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                required 
+                ngModel
+                #email="ngModel"
+            />
+             @if (email.errors?.['required'] && email.touched) {
+                <p class="error-msg">Email is required</p>
+            }
+            @if (email.errors?.['pattern'] && email.touched) {
+                <p class="error-msg">Invalid email</p>
+            }
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required />
+            <div class="password-data" ngModelGroup="passData" #passData="ngModelGroup">
+                
+                <label for="password">Password</label>
+                <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                required 
+                minlength="4"
+                ngModel
+                #password="ngModel"
+                />
+                
+                <label for="confirm-password">Confirm Password</label>
+                <input 
+                type="password" 
+                id="confirm-password" 
+                name="confirm-password" 
+                required 
+                minlength="4"
+                ngModel
+                #confirmPass="ngModel"
+                />
 
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" required />
+                <!-- @if (passData.invalid && passData.touched) {
+                    <p class="error-msg">Passwords do not match</p>
+                } -->
+            </div>
 
-            <button type="submit">Register</button>
+            <button [disabled]="formRef.invalid">Register</button>
 
             <p class="form-footer">
                 Already have an account? <a routerLink="/login">Login</a>

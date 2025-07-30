@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -10,18 +10,12 @@ import { FormsModule, NgForm } from '@angular/forms';
     styleUrl: './login.css'
 })
 export class Login {
-    @ViewChild('formRef') form!: NgForm;
 
     constructor(private authService: AuthService, private router: Router) { }
 
-    protected onSubmit() {
-        console.log(this.form.value);
+    protected onLogin(formRef: NgForm) {
+        console.log(formRef.form.value);
         
-    }
-
-    protected onLogin(event: Event, email: string, password: string) {
-        event.preventDefault();
-
         this.authService.login();
         this.router.navigate(['/home']);
     }
