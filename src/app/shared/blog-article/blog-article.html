@@ -1,0 +1,15 @@
+<article class="blog-articles">
+    <div class="blog-primary">
+        <h2>{{blog.title}}</h2>
+        <p>{{blog.content.slice(0, 100)}}...</p>
+        <a href="topic.html" class="continue-reading">Continue Reading</a>
+        <div class="likes-and-views">
+            <p><i class="fa-regular fa-thumbs-up"></i>{{blog.likesCount}}</p>
+            <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
+        </div>
+    </div>
+    <div class="blog-info">
+        <a href="topic.html"><img src={{blog.banner.url}} alt="picture"></a>
+        <p>{{blog.publishedAt | date: 'longDate'}}</p>
+    </div>
+</article>

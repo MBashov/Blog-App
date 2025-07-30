@@ -4,10 +4,11 @@ import { DatePipe } from '@angular/common';
 import { Loader } from '../../shared/loader/loader';
 import { ApiService } from '../../services/api.service';
 import { Blog, BlogResponse } from '../../models/blog';
+import { BlogArticle } from "../../shared/blog-article/blog-article";
 
 @Component({
     selector: 'app-home',
-    imports: [DatePipe, Loader],
+    imports: [DatePipe, Loader, BlogArticle],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })

@@ -11,56 +11,15 @@
                 <p class="sub-heading">Recently added post</p>
 
                 @if (isLoading) {
-                <app-loader />
+                    <app-loader />
                 } @else {
-                <div class="articles">
-                    @for (blog of recentBlogs; track $index) {
-                    <article class="recent-articles">
-                        <div class="recent-primary">
-                            <h2>{{blog.title}}</h2>
-                            <p>{{blog.content.slice(0, 100)}}...</p>
-                            <a href="topic.html" class="continue-reading">Continue Reading</a>
-                            <div class="likes-and-views">
-                                <p><i class="fa-regular fa-thumbs-up"></i> {{blog.likesCount}}</p>
-                                <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
-                            </div>
-                        </div>
-                        <div class="recent-info">
-                            <a href="topic.html"><img src={{blog.banner.url}} alt="picture"></a>
-                            <p>{{blog.publishedAt | date: 'longDate'}}</p>
-                        </div>
-                    </article>
-                    }
-
-                    <article class="recent-articles">
-                        <div class="recent-primary">
-                            <h2>Topic: Converting Timestamps Format</h2>
-                            <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                                ago"
-                                formats like "2 hours ago"...</p>
-                            <a href="topic.html" class="continue-reading">Continue Reading</a>
-                        </div>
-                        <div class="recent-info">
-                            <a href="topic.html"><img src="me.png" alt="picture"></a>
-                            <p> Oct 11, 2023</p>
-                        </div>
-                    </article>
-
-                    <article class="recent-articles">
-                        <div class="recent-primary">
-                            <h2>Topic: Converting Timestamps Format</h2>
-                            <p>Time, a constant presence in the digital realm, is often expressed in user-friendly "time
-                                ago"
-                                formats like "2 hours ago" or...</p>
-                            <a href="topic.html" class="continue-reading">Continue Reading</a>
-                        </div>
-                        <div class="recent-info">
-                            <a href="topic.html"><img src="me.png" alt="picture"></a>
-                            <p> Oct 11, 2023</p>
-                        </div>
-                    </article>
-                </div>
-                }
+                    <div class="articles">
+                        @for (blog of recentBlogs; track blog) {
+                            <app-blog-article [blog]="blog"/>
+                        }
+                    </div>
+                }   
+                
             </section>
 
             <section class="popular-posts">

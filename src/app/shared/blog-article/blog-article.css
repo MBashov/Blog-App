@@ -1,0 +1,47 @@
+:host {
+    flex: 0 1 32.41%;
+    display: flex;
+}
+
+.blog-articles {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    height: 220px;
+    p {
+        color: black;
+    }
+
+    .blog-primary {
+        flex-basis: 70%;
+        padding: 0.5em;
+
+        h2 {
+            padding-bottom: 0.5em;
+        }
+
+        .likes-and-views {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5em;
+            .fa-regular {
+                color: #1792d2;
+            }
+        }
+    }
+
+    .blog-info {
+        flex-basis: 30%;
+        
+        img {
+            border-top-right-radius: 5px;
+            max-height: 120px;
+        }
+
+        p {
+            padding-block: 0.5em;
+        }
+    }
+}
