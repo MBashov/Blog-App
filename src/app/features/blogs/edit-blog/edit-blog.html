@@ -1,6 +1,6 @@
 <section class="form-section">
     <div class="form-container">
-        <h2>Create Post</h2>
+        <h2>Edit Post</h2>
 
         <form (ngSubmit)="onSubmit()" #formRef="ngForm">
             <label for="title">Title</label>
@@ -14,6 +14,7 @@
                 maxlength="100" 
                 #inputTitle="ngModel"
                 ngModel
+                [(ngModel)]="blog.title"
             />
             @if(inputTitle.errors?.['required'] && inputTitle.touched) {
                 <p class="error-msg">Title is required!</p>
@@ -21,16 +22,6 @@
             @if(inputTitle.errors?.['minlength'] && inputTitle.touched) {
                 <p class="error-msg">Title must be at least 5 characters!</p>
             }
-
-            <label for="slug">Slug</label>
-            <input
-                type="text" 
-                id="slug" 
-                name="slug" 
-                placeholder="unique-blog-slug" 
-                #inputSlug="ngModel"
-                ngModel
-            />
 
             <label for="content">Content</label>
             <textarea 
@@ -43,6 +34,7 @@
                 maxlength="2000" 
                 #inputContent="ngModel"
                 ngModel
+                 [(ngModel)]="blog.content"
             >
             </textarea>
             @if(inputContent.errors?.['required'] && inputContent.touched) {
@@ -52,19 +44,7 @@
                 <p class="error-msg">Content must be at least 20 characters!</p>
             }
 
-            <label for="banner-url">Banner Image</label>
-            <input
-                type="file" 
-                id="banner-url" 
-                name="bannerUrl" 
-                accept="image/png, image/jpeg, image/jpg, image/webp" 
-                required 
-                #inputImages="ngModel"
-                ngModel
-            />
-            @if(inputImages.invalid && inputImages.touched) {
-                <p class="error-msg">Image is required</p>
-            }
+
             <label for="status">Status</label>
             <select 
                 id="status" 
@@ -72,6 +52,7 @@
                 required 
                 #inputStatus="ngModel"
                 ngModel
+                [(ngModel)]="blog.status"
             >
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
@@ -79,7 +60,7 @@
             @if(inputStatus.invalid && inputStatus.touched) {
                 <p class="error-msg">Please select a status!</p>
             }
-            <button [disabled]="formRef.invalid" type="submit">Submit Post</button>
+            <button [disabled]="!formRef || formRef.invalid" type="submit">Submit Post</button>
         </form>
     </div>
 </section>

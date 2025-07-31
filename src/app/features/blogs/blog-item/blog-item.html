@@ -12,7 +12,7 @@
             <div class="card-content">
                 <h2>{{blog.title}}</h2>
                 <p>{{blog.content.slice(0, 120)}}...</p>
-                <a [routerLink]="['/blogs', blog.slug]" class="continue-reading">Continue Reading</a>
+                <a [routerLink]="['/blogs', 'details', blog.slug]" class="continue-reading">Continue Reading</a>
                 <div class="likes-and-views">
                     <p><i class="fa-regular fa-thumbs-up"></i> {{blog.likesCount}}</p>
                     <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>

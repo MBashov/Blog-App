@@ -14,10 +14,16 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/blogs/blog-item/blog-item').then(c => c.BlogItem)
             },
             {
-                path: ':slug',
+                path: 'details/:slug',
                 loadComponent: () => import('./features/blogs/current-blog/current-blog').then(c => c.CurrentBlog),
-                resolve: { blog: blogResolver }
+                resolve: { blog: blogResolver },
             },
+            {
+                path: 'edit/:slug',
+                loadComponent: () => import('./features/blogs/edit-blog/edit-blog').then(c => c.EditBlog),
+                resolve: { blog: blogResolver },
+                canActivate: [AuthGuard],
+            }
         ]
     },
     { path: 'login', loadComponent: () => import('./features/auth/login/login').then(c => c.Login) },

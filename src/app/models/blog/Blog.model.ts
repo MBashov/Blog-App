@@ -23,5 +23,6 @@ export interface Blog  {
     commentsCount: number,
     publishedAt: Date,
     updatedAt: Date,
+    _id: string,
     status: 'draft' | 'published',
 }
