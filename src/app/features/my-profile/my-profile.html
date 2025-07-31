@@ -1,12 +1,12 @@
 <section class="container">
     <section class="section-greetings">
-        <p>Welcome Username</p>
+        <p class="sub-heading">Welcome Username</p>
         <p>Here you can see your last activities</p>
         <p>Manage your profile</p>
     </section>
     <section class="section my-posts">
         <div class="section-header">
-            <p>My Posts</p>
+            <p class="sub-heading">My Posts</p>
         </div>
         <div class="section-content">
             @for (blog of myBlogs; track $index) {
@@ -16,7 +16,7 @@
     </section>
     <section class="section liked-blogs">
         <div class="section-header">
-            <p>Liked Posts</p>
+            <p class="sub-heading">Liked Posts</p>
         </div>
         <div class="section-content">
             @for (blog of myBlogs; track $index) {
@@ -26,7 +26,7 @@
     </section>
     <section class="section my-comments">
         <div class="section-header">
-            <p>My Comments</p>
+            <p class="sub-heading">My Comments</p>
         </div>
         <div class="section-content">
             @for (blog of myBlogs; track $index) {

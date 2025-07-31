@@ -2,9 +2,29 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
-    font-family: 'Quicksand', sans-serif;
     line-height: 1.6;
+    padding: 3em;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    
+    .blog-header {
+        margin-bottom: 1rem;
 
+
+        .blog-title {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            text-align: center;
+        }
+
+        .blog-meta {
+            font-weight: bold;
+            cursor: default;
+            font-size: 0.9rem;
+            text-align: end;
+            color: #005B5B;
+        }
+    }
 
     .blog-banner {
         position: relative;
@@ -29,31 +49,9 @@
         aspect-ratio: 16/9;
     }
 
-
-    .blog-header {
-        margin-bottom: 1rem;
-
-
-        .blog-title {
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
-            text-align: center;
-            color: #3498db;
-        }
-
-        .blog-meta {
-            color: #333;
-            font-weight: bold;
-            cursor: default;
-            font-size: 0.9rem;
-            text-align: end;
-        }
-    }
-
     .blog-content p {
-        margin-bottom: 1rem;
+        padding: 0.3rem 2rem;
         font-size: 1.2rem;
-        color: #3498db;
     }
 
     .blog-gallery {
@@ -65,7 +63,6 @@
         gap: 2em;
 
         h4 {
-            color: #3498db;
             text-transform: uppercase;
             letter-spacing: 0.4em;
         }
@@ -80,7 +77,7 @@
                 background: none;
 
                 span {
-                    color: #3498db;
+                    color: #005B5B;
                     cursor: pointer;
                     font-size: 2.6em;
                 }
@@ -189,7 +186,7 @@
             margin-right: 0.5rem;
             padding: 0.6rem 1rem;
             font-size: 1.2em;
-            background: #3498db;
+            background: #005B5B;
             color: white;
             border: none;
             border-radius: 5px;
@@ -197,24 +194,16 @@
         }
 
         .actions button:hover {
-            background: #2c80b4;
+            background: #16acac;
+            color: #333;
         }
     }
 
     .author-box {
         margin-top: 2rem;
-        padding: 1rem;
         border-radius: 5px;
 
-        h3 {
-            color: #3498db;
-            ;
-            letter-spacing: 0.3em;
-        }
-
         p {
-            color: rgb(16, 163, 241);
-            font-weight: bold;
             font-size: 1.2em;
         }
     }
@@ -224,7 +213,6 @@
 
         ul {
             list-style: none;
-            padding-left: 0;
 
             li {
                 margin-bottom: 0.5rem;
@@ -233,14 +221,12 @@
                     text-decoration: none;
                     color: #3498db;
                 }
+                a:hover {
+                    text-decoration: underline;
+                }
             }
         }
     }
-
-    .related-posts a:hover {
-        text-decoration: underline;
-    }
-
 
     .comments-section {
         margin-top: 2rem;
@@ -276,15 +262,17 @@
             button {
                 align-self: flex-start;
                 padding: 0.5rem 1rem;
-                background: #3498db;
+                background: #005B5B;
                 color: white;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
             }
 
+
             button:hover {
-                background: #2c80b4;
+                background: #16acac;
+                color: #333;
             }
         }
 

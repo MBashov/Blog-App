@@ -104,7 +104,7 @@ main {
 
                     .card-content p {
                         font-size: 16px;
-                        color: #333;
+                        /* color: #333; */
                     }
                 }
             }

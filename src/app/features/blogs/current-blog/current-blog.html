@@ -1,8 +1,4 @@
 <article class="blog-details">
-    <span class="blog-banner" [ngClass]="imageClass">
-        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)" />
-    </span>
-
 
     <header class="blog-header">
         <h1 class="blog-title">{{blog.title}}</h1>
@@ -12,18 +8,19 @@
         </div>
     </header>
 
+    <span class="blog-banner" [ngClass]="imageClass">
+        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)" />
+    </span>
+
     <section class="blog-content">
         <p>{{blog.content}}</p>
-        <p>
-            I wandered through the cobblestone alleys, tasted the famous pastéis de nata, and enjoyed the sound of Fado
-            in a tucked-away tavern.
-        </p>
     </section>
 
     <section class="blog-gallery">
         <h4>More images</h4>
         <div class="image-scroll-wrapper">
-            <button class="scroll-btn-left" (click)="scrollImages('left')"><span><i class="fa-solid fa-angle-left"></i></span></button>
+            <button class="scroll-btn-left" (click)="scrollImages('left')"><span><i
+                        class="fa-solid fa-angle-left"></i></span></button>
             <div class="images" #imageContainer>
                 <img (click)="showModal($event)" src="background-img.jpg" alt="img">
                 <img (click)="showModal($event)" src="background-img2.jpg" alt="img">
@@ -32,7 +29,8 @@
                 <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
                 <img (click)="showModal($event)" src="background-img.jpg" alt="img">
             </div>
-            <button class="scroll-btn-right" (click)="scrollImages('right')"><span><i class="fa-solid fa-angle-right"></i></span></button>
+            <button class="scroll-btn-right" (click)="scrollImages('right')"><span><i
+                        class="fa-solid fa-angle-right"></i></span></button>
         </div>
         <div class="modal" [ngClass]="modalClass" (click)="closeModal()">
             <div class="modal-content">
