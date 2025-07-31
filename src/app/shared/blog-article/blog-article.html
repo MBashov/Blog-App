@@ -1,11 +1,11 @@
 <article class="blog-articles">
     <div class="blog-primary">
-        <h2>{{blog.title}}</h2>
-        <p>{{blog.content.slice(0, 100)}}...</p>
+        <h2>{{blog.title | shorten: 40}}</h2>
+        <p>{{blog.content | shorten}}</p>
         <a href="topic.html" class="continue-reading">Continue Reading</a>
         <div class="likes-and-views">
-            <p><i class="fa-regular fa-thumbs-up"></i>{{blog.likesCount}}</p>
             <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
+            <p><i class="fa-regular fa-thumbs-up"></i>{{blog.likesCount}}</p>
         </div>
     </div>
     <div class="blog-info">

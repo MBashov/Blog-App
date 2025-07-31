@@ -13,15 +13,23 @@
 
     .blog-primary {
         flex-basis: 70%;
-        padding: 0.5em;
+        padding: 0.9em;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
 
-        h2 {
-            padding-bottom: 0.5em;
+
+        /* a {
+            text-decoration: none;
         }
+        a:hover {
+            text-decoration: underline;
+        } */
 
         .likes-and-views {
             display: flex;
-            justify-content: flex-end;
+            padding-top: 0.9em;
+            /* justify-content: flex-end; */
             gap: 0.5em;
             .fa-regular {
                 color: #1792d2;

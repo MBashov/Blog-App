@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 import { Blog } from '../../../models/blog';
 
 @Component({
     selector: 'app-current-blog',
-    imports: [DatePipe, CommonModule, RouterLink],
+    imports: [ CommonModule, RouterLink],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })

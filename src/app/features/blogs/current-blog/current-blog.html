@@ -1,7 +1,7 @@
 <article class="blog-details">
 
     <header class="blog-header">
-        <h1 class="blog-title">{{blog.title}}</h1>
+        <h1 class="blog-title">{{blog.title | titlecase}}</h1>
         <div class="blog-meta">
             <span class="author">by {{blog.author.firstName}} {{blog.author.lastName}}</span>
             <span class="date">{{blog.publishedAt | date: 'longDate'}}</span>
