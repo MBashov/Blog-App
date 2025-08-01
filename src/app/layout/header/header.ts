@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { User } from '../../models/user';
 
 @Component({
     selector: 'app-header',
@@ -23,11 +24,11 @@ export class Header {
     }
 
     protected get isLoggedIn(): boolean {
-        return this.authService.isLoggedIn;
+        return this.authService.isLoggedIn();
     }
 
-    protected get firstName(): string {
-        return this.authService.user?.firstName || '';
+    protected get currentUser(): User | null {
+        return this.authService.currentUser();
     }
 
     protected logout(): void {

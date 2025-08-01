@@ -14,9 +14,16 @@ export class Login {
     constructor(private authService: AuthService, private router: Router) { }
 
     protected onLogin(formRef: NgForm) {
-        console.log(formRef.form.value);
+        const { email, password } = formRef.form.value;
         
-        this.authService.login();
-        this.router.navigate(['/home']);
+        this.authService.login(email, password).subscribe({
+            next: () => {
+                this.router.navigate(['/home'])
+            }, 
+            error: (err) => {
+                console.log('Login Failed', err);
+            } 
+        });
+        
     }
 }

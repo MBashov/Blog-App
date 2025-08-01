@@ -1,1 +1,2 @@
-export * from './userForAuth';
+export * from './UserAuthResponse';
+export * from './User';

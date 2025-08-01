@@ -3,22 +3,22 @@
         <h2>Register</h2>
 
         <form (ngSubmit)="onSubmit()" #formRef="ngForm">
-            <label for="name">Full Name</label>
+            <label for="role">Role</label>
             <input 
-                type="text" 
-                id="name" 
-                name="name" 
+                type="role" 
+                id="role" 
+                name="role" 
                 required
                 minlength="2"
-                maxlength="20"
+                maxlength="6"
                 ngModel
-                #name="ngModel"
+                #role="ngModel"
             />
-            @if (name.errors?.['required'] && name.touched) {
-                <p class="error-msg">Name is required</p>
+            @if (role.errors?.['required'] && role.touched) {
+                <p class="error-msg">Role is required</p>
             }
-            @if (name.errors?.['minlength'] && name.touched) {
-                <p class="error-msg">Name must be at least 2 characters</p>
+            @if (role.errors?.['minlength'] && role.touched) {
+                <p class="error-msg">Role must be at least 2 characters</p>
             }
             <label for="email">Email</label>
             <input 

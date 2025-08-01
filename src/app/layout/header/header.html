@@ -15,7 +15,7 @@
                     <li (click)="toggleProfileModal()" class="profile-wrapper">
                         <a><i class="fa-solid fa-user"></i></a>
                         <ul class="profile-content" [ngClass]="{'active': isProfileVisible}">
-                            <li>Welcome back {{firstName}}</li>
+                            <li>Welcome back, {{currentUser?.firstName}}</li>
                             <li><a routerLink="/my-profile" class="navigation-link">My Profile</a></li>
                             <li><a (click)="logout()" routerLink="/" class="navigation-link">Logout</a></li>
                         </ul>
