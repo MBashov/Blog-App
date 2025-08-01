@@ -19,6 +19,7 @@ export class Login {
         this.authService.login(email, password).subscribe({
             next: () => {
                 this.router.navigate(['/home'])
+                formRef.reset();
             }, 
             error: (err) => {
                 console.log('Login Failed', err);

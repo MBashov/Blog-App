@@ -27,6 +27,8 @@ export class AuthService {
         }
     }
 
+    
+
     login(email: string, password: string): Observable<User> {
         const url: string = `${this.apiUrl}/auth/login`;
 

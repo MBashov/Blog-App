@@ -1,76 +1,100 @@
-<section class="form-section">
-    <div class="form-container">
-        <h2>Register</h2>
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Register</h2>
 
-        <form (ngSubmit)="onSubmit()" #formRef="ngForm">
-            <label for="role">Role</label>
-            <input 
-                type="role" 
-                id="role" 
-                name="role" 
-                required
-                minlength="2"
-                maxlength="6"
-                ngModel
-                #role="ngModel"
-            />
-            @if (role.errors?.['required'] && role.touched) {
-                <p class="error-msg">Role is required</p>
-            }
-            @if (role.errors?.['minlength'] && role.touched) {
-                <p class="error-msg">Role must be at least 2 characters</p>
-            }
-            <label for="email">Email</label>
-            <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                required 
-                ngModel
-                #email="ngModel"
-            />
-             @if (email.errors?.['required'] && email.touched) {
-                <p class="error-msg">Email is required</p>
-            }
-            @if (email.errors?.['pattern'] && email.touched) {
-                <p class="error-msg">Invalid email</p>
-            }
+            <form (ngSubmit)="onSubmit()" #formRef="ngForm">
+                <label for="firstName">First Name</label>
+                <input 
+                    type="text" 
+                    id="firstName" 
+                    name="firstName" 
+                    required
+                    minlength="2"
+                    maxlength="20"
+                    ngModel
+                    #firstNameRef="ngModel"
+                />
+                @if (firstNameRef.errors?.['required'] && firstNameRef.touched) {
+                    <p class="error-msg">FirstName is required</p>
+                }
+                @if (firstNameRef.errors?.['minlength'] && firstNameRef.touched) {
+                    <p class="error-msg">First name must be at least 2 characters</p>
+                }
 
-            <div class="password-data" ngModelGroup="passData" #passData="ngModelGroup">
+                <label for="lastName">Last Name</label>
+                <input 
+                    type="text" 
+                    id="lastName" 
+                    name="lastName" 
+                    required
+                    minlength="2"
+                    maxlength="20"
+                    ngModel
+                    #lastNameRef="ngModel"
+                />
+                @if (lastNameRef.errors?.['required'] && lastNameRef.touched) {
+                    <p class="error-msg">Last name is required</p>
+                }
+                @if (lastNameRef.errors?.['minlength'] && lastNameRef.touched) {
+                    <p class="error-msg">Last name must be at least 2 characters</p>
+                }
                 
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                    required 
+                    ngModel
+                    #emailRef="ngModel"
+                />
+                @if (emailRef.errors?.['required'] && emailRef.touched) {
+                    <p class="error-msg">Email is required</p>
+                }
+                @if (emailRef.errors?.['pattern'] && emailRef.touched) {
+                    <p class="error-msg">Invalid email</p>
+                }
+
+                    
                 <label for="password">Password</label>
-                <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                required 
-                minlength="4"
-                ngModel
-                #password="ngModel"
+                    <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    minlength="6"
+                    [(ngModel)]="password"
+                    #passwordRef="ngModel"
                 />
-                
-                <label for="confirm-password">Confirm Password</label>
-                <input 
-                type="password" 
-                id="confirm-password" 
-                name="confirm-password" 
-                required 
-                minlength="4"
-                ngModel
-                #confirmPass="ngModel"
+                @if (passwordRef.errors?.['required'] && passwordRef.touched) {
+                    <p class="error-msg">Password is required</p>
+                }
+                @if (passwordRef.errors?.['minlength'] && passwordRef.touched) {
+                    <p class="error-msg">Password must be at least 6 characters</p>
+                }
+                    
+                <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    name="confirmPassword" 
+                    required 
+                    minlength="6"
+                    [(ngModel)]="confirmPassword"
+                    #confirmPasswordRef="ngModel"
                 />
-
-                <!-- @if (passData.invalid && passData.touched) {
+                @if (confirmPasswordRef.errors?.['required'] && confirmPasswordRef.touched) {
+                    <p class="error-msg">Confirm password is required</p>
+                }
+                @if ((confirmPassword && (confirmPassword !== password)) && confirmPasswordRef.touched) {
                     <p class="error-msg">Passwords do not match</p>
-                } -->
-            </div>
+                }
+                <button [disabled]="formRef.invalid || (confirmPassword !== password)" type="submit">Register</button>
 
-            <button [disabled]="formRef.invalid" type="submit">Register</button>
-
-            <p class="form-footer">
-                Already have an account? <a routerLink="/login">Login</a>
-            </p>
-        </form>
-    </div>
-</section>
+                <p class="form-footer">
+                    Already have an account? <a routerLink="/login">Login</a>
+                </p>
+            </form>
+        </div>
+    </section>
