@@ -1,9 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment.development';
 import { UserAuthResponse, User } from '../models/user';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -29,21 +29,33 @@ export class AuthService {
 
     login(email: string, password: string): Observable<User> {
         const url: string = `${this.apiUrl}/auth/login`;
-        
+
         return this.httpClient.post<UserAuthResponse>(url, { email, password }).pipe(
             map((response: UserAuthResponse) => {
-                this._currentUser.set(response.user)
-                this._isLoggedIn.set(true)
+                this._currentUser.set(response.user);
+                this._isLoggedIn.set(true);
 
-                localStorage.setItem('accessToken', response.accessToken)
-                localStorage.setItem('currentUser', JSON.stringify(response.user))
+                localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify(response.user));
 
                 return response.user;
             }));
     }
 
-    logout() {
-        this._currentUser.set(null);
-        localStorage.removeItem('currentUser');
+    logout(): Observable<void> {
+        const url: string = `${this.apiUrl}/auth/logout`;
+        const token = localStorage.getItem('accessToken') as string;
+
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`
+        });
+
+        return this.httpClient.post<void>(url, {}, { headers }).pipe(
+            tap(() => {
+                this._currentUser.set(null);
+                this._isLoggedIn.set(false);
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('accessToken');
+            }));
     }
 }
