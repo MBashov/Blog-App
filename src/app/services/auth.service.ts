@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment.development';
-import { UserAuthResponse, User } from '../models/user';
+import { UserAuthResponse, User, UpdateUserResponse } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -78,6 +78,23 @@ export class AuthService {
                 this._isLoggedIn.set(false);
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('accessToken');
+            })
+        );
+    }
+
+    update(user: User): Observable<User> {
+        const url: string = `${this.apiUrl}/users/current`;
+
+        return this.httpClient.put<UpdateUserResponse>(url, { user }, {
+            withCredentials: true //TODO Fix the accessToken token
+        }).pipe(
+            map((response: UpdateUserResponse) => {
+                this._currentUser.set(response.user);
+
+                // localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify(response.user));
+
+                return response.user;
             })
         );
     }

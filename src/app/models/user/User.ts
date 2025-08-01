@@ -6,4 +6,8 @@ export interface User {
     _id: string,
     role?: string,
     socialLinks?: string,
+} 
+
+export interface UpdateUserResponse {
+    user: User
 }

@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ApiService {
-    private baseUrl = environment.apiUrl;
+    private apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
 
     getAllBlogs(limit?: number): Observable<BlogResponse> {
-        let url = `${this.baseUrl}/blogs`;
+        let url = `${this.apiUrl}/blogs`;
 
         if (limit) {
             url += `?limit=${limit}`;
@@ -23,13 +23,13 @@ export class ApiService {
     }
 
     getSingleBLog(slug: string): Observable<singleBlogResponse> {
-        const url = `${this.baseUrl}/blogs/${slug}`;
+        const url = `${this.apiUrl}/blogs/${slug}`;
 
         return this.http.get<singleBlogResponse>(url);
     }
 
     addBlog(title: string, slug: string, content: string, images: string, status: string) {
-        const url = `${this.baseUrl}/blogs`;
+        const url = `${this.apiUrl}/blogs`;
         const payload = {
             title, 
             slug, 
