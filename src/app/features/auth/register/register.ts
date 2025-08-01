@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'app-register',
@@ -10,9 +12,25 @@ import { RouterLink } from '@angular/router';
 })
 export class Register {
     @ViewChild('formRef') registerForm!: NgForm;
+    protected password: string = '';
+    protected confirmPassword : string = '';
+
+    constructor (private authService: AuthService, private router: Router) {}
 
     protected onSubmit() {
-        console.log(this.registerForm.value);
+        const { firstName, lastName, email, password, confirmPassword } = this.registerForm.form.value;
         
+        if (password !== confirmPassword) {
+            return; //TODO Show user message
+        }
+
+        this.authService.register(firstName, lastName, email, password).subscribe({
+            next: () => {
+                this.router.navigate(['/home']);
+            },
+            error: (err) => {
+                console.log('Register failed', err);
+            }
+        });
     }
 }

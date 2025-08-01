@@ -27,7 +27,26 @@ export class AuthService {
         }
     }
 
-    
+    register(
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string
+    ): Observable<User> {
+        const url: string = `${this.apiUrl}/auth/register`;
+
+        return this.httpClient.post<UserAuthResponse>(url, { firstName, lastName, email, password }).pipe(
+            map((response: UserAuthResponse) => {
+                this._currentUser.set(response.user);
+                this._isLoggedIn.set(true);
+
+                localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify(response.user));
+
+                return response.user;
+            })
+        )
+    }
 
     login(email: string, password: string): Observable<User> {
         const url: string = `${this.apiUrl}/auth/login`;
@@ -41,7 +60,8 @@ export class AuthService {
                 localStorage.setItem('currentUser', JSON.stringify(response.user));
 
                 return response.user;
-            }));
+            })
+        );
     }
 
     logout(): Observable<void> {
@@ -58,6 +78,7 @@ export class AuthService {
                 this._isLoggedIn.set(false);
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('accessToken');
-            }));
+            })
+        );
     }
 }
