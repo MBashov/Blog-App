@@ -4,6 +4,7 @@ import { map, Observable, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment.development';
 import { UserAuthResponse, User, UpdateUserResponse, accessToken } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
     public isLoggedIn = this._isLoggedIn.asReadonly();
     public currentUser = this._currentUser.asReadonly();
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private router: Router) {
         const savedUser = localStorage.getItem('currentUser');
 
         if (savedUser) {
@@ -80,14 +81,19 @@ export class AuthService {
         )
     };
 
-    logout(): Observable<void> {
+    logout(sendRequest = true): Observable<void> | void {
+        if (!sendRequest) {
+           return this.localLogout();
+        }
+
         const url: string = `${this.apiUrl}/auth/logout`;
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'null');
+        const accessToken: string = JSON.parse(localStorage.getItem('accessToken') || 'null');
+        if (!accessToken) return this.localLogout();
 
         const headers = new HttpHeaders({
             Authorization: `Bearer ${accessToken}`
         });
-        
+
 
         return this.httpClient.post<void>(url, {}, { headers }).pipe(
             tap(() => {
@@ -115,4 +121,13 @@ export class AuthService {
             })
         );
     };
+
+    private localLogout(): void {
+        this._currentUser.set(null);
+        this._isLoggedIn.set(false);
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('accessToken');
+        this.router.navigate(['/']);
+    }
 }
+

@@ -7,19 +7,21 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     const authService = inject(AuthService);
     const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'null');
 
-    let clonedRequest = req;
+    const isRefreshRequest = req.url.includes('refresh-token');
 
-    if (accessToken) {
-        clonedRequest = req.clone({
+    const clonedRequest = !isRefreshRequest && accessToken
+        ? req.clone({
             setHeaders: {
                 Authorization: `Bearer ${accessToken}`
             }
-        });
-    }
+        })
+        : req;
 
     return next(clonedRequest).pipe(
         catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
+            const isUnauthorized = error.status === 401;
+
+            if (isUnauthorized && !isRefreshRequest) {
                 return authService.refreshToken().pipe(
                     switchMap(newToken => {
                         const retryRequest = req.clone({
@@ -29,7 +31,10 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
                         });
                         return next(retryRequest);
                     }),
-                    catchError(err => throwError(() => err))
+                    catchError(refreshErr => {
+                        authService.logout(false);
+                        return throwError(() => refreshErr);
+                    })
                 );
             }
 
