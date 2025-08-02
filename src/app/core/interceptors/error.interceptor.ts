@@ -16,7 +16,11 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
                 errorMessage = error.error.message;
             } else {
                 // Server-side error
-                errorMessage = error.error?.message || error.message;
+                errorMessage =
+                    error.error?.errors?.password?.msg ||
+                    error.error?.errors?.email?.msg ||
+                    error.error?.message ||
+                    error.message;
             }
 
             errorService.setError(errorMessage);

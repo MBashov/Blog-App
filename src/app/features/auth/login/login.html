@@ -12,6 +12,7 @@
                 pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
                 #inputEmail="ngModel"
                 ngModel
+                [ngClass]="{'error-msg': hasError}"
             />
             @if(inputEmail.errors?.['required'] && inputEmail.touched) {
                 <p class="error-msg">Email is required!</p>
@@ -28,7 +29,9 @@
                 required
                 minlength="3"
                 #inputPassword="ngModel"
-                ngModel
+                [(ngModel)]="password"
+                [ngClass]="{'error-msg': hasError}"
+                (blur)="onPasswordBlur(inputPassword)"
             />
             @if(inputPassword.errors?.['required'] && inputPassword.touched) {
                 <p class="error-msg">Password is required!</p>

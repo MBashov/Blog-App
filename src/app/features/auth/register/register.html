@@ -48,6 +48,8 @@
                     required 
                     ngModel
                     #emailRef="ngModel"
+                    [ngClass]="{'error-msg': hasEmailError}"
+                    (blur)="onPasswordBlur(emailRef)"
                 />
                 @if (emailRef.errors?.['required'] && emailRef.touched) {
                     <p class="error-msg">Email is required</p>
@@ -58,7 +60,7 @@
 
                     
                 <label for="password">Password</label>
-                    <input 
+                <input 
                     type="password" 
                     id="password" 
                     name="password" 
@@ -66,6 +68,8 @@
                     minlength="6"
                     [(ngModel)]="password"
                     #passwordRef="ngModel"
+                    [ngClass]="{'error-msg': hasError}"
+                    (blur)="onPasswordBlur(passwordRef)"
                 />
                 @if (passwordRef.errors?.['required'] && passwordRef.touched) {
                     <p class="error-msg">Password is required</p>
@@ -75,7 +79,7 @@
                 }
                     
                 <label for="confirmPassword">Confirm Password</label>
-                    <input 
+                <input 
                     type="password" 
                     id="confirmPassword" 
                     name="confirmPassword" 
@@ -83,6 +87,8 @@
                     minlength="6"
                     [(ngModel)]="confirmPassword"
                     #confirmPasswordRef="ngModel"
+                    [ngClass]="{'error-msg': hasError}"
+                    (blur)="onPasswordBlur(confirmPasswordRef)"
                 />
                 @if (confirmPasswordRef.errors?.['required'] && confirmPasswordRef.touched) {
                     <p class="error-msg">Confirm password is required</p>

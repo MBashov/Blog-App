@@ -47,7 +47,6 @@
             }
 
             input:focus {
-                border-color: #2ac1aa;
                 outline: none;
             }
 
@@ -60,6 +59,10 @@
                 border-left: 5px solid #A94442;
             }
 
+            input.error-msg {
+                border: 1px solid #A94442;
+            }
+            
             p.error-msg {
                 color: #A94442;
                 font-weight: bold;
@@ -86,7 +89,7 @@
 
             button:disabled {
                 background-color: lightgray;
-                cursor: default;
+                cursor: not-allowed;
             }
 
             .form-footer {
