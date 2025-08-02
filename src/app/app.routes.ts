@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './layout/home/home';
 import { NotFound } from './features/not-found/not-found';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 import { blogResolver } from './features/blogs/current-blog/current.blog.resolver';
 
 export const routes: Routes = [

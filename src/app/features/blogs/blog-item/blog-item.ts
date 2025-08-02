@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { Blog } from '../../../models/blog';
 import { Loader } from "../../../shared/loader/loader";
-import { ApiService } from '../../../services/api.service';
-import { RouterLink } from '@angular/router';
+import { ApiService } from '../../../core/services';
 
 @Component({
     selector: 'app-blog-item',

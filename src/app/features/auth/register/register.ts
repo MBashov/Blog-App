@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../core/services';
 
 @Component({
     selector: 'app-register',

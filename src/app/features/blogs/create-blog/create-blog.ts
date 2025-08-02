@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
 import { FormsModule, NgForm } from '@angular/forms';
+
+import { ApiService } from '../../../core/services';
 
 @Component({
     selector: 'app-create-blog',

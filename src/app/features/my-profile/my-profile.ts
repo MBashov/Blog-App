@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+
 import { Blog, BlogResponse } from '../../models/blog';
-import { ApiService } from '../../services/api.service';
 import { BlogArticle } from '../../shared/blog-article/blog-article';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, ApiService } from '../../core/services';
 
 @Component({
     selector: 'app-my-profile',

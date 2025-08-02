@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Loader } from '../../shared/loader/loader';
-import { ApiService } from '../../services/api.service';
 import { Blog, BlogResponse } from '../../models/blog';
 import { BlogArticle } from "../../shared/blog-article/blog-article";
+import { ApiService } from '../../core/services';
 
 @Component({
     selector: 'app-home',

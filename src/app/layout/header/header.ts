@@ -1,8 +1,9 @@
 import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+
 import { User } from '../../models/user';
+import { AuthService } from '../../core/services';
 
 @Component({
     selector: 'app-header',

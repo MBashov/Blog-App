@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 
-import { environment } from '../../environments/environment.development';
-import { UserAuthResponse, User, UpdateUserResponse } from '../models/user';
+import { environment } from '../../../environments/environment.development';
+import { UserAuthResponse, User, UpdateUserResponse } from '../../models/user';
 
 @Injectable({
     providedIn: 'root'
