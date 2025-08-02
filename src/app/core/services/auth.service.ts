@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment.development';
 import { UserAuthResponse, User, UpdateUserResponse, accessToken } from '../../models/user';
@@ -81,14 +81,18 @@ export class AuthService {
         )
     };
 
-    logout(sendRequest = true): Observable<void> | void {
+    logout(sendRequest = true): Observable<void> {
         if (!sendRequest) {
-           return this.localLogout();
+            this.localLogout();
+            return of(void 0)
         }
 
         const url: string = `${this.apiUrl}/auth/logout`;
         const accessToken: string = JSON.parse(localStorage.getItem('accessToken') || 'null');
-        if (!accessToken) return this.localLogout();
+        if (!accessToken) {
+            this.localLogout();
+            return of(void (0));
+        }
 
         const headers = new HttpHeaders({
             Authorization: `Bearer ${accessToken}`
