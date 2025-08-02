@@ -4,7 +4,7 @@ import { ErrorService } from "../services";
 import { catchError, throwError } from "rxjs";
 
 
-export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
     const errorService = inject(ErrorService);
 
     return next(req).pipe(

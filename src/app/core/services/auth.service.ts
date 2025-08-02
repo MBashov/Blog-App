@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment.development';
-import { UserAuthResponse, User, UpdateUserResponse } from '../../models/user';
+import { UserAuthResponse, User, UpdateUserResponse, accessToken } from '../../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -40,13 +40,13 @@ export class AuthService {
                 this._currentUser.set(response.user);
                 this._isLoggedIn.set(true);
 
-                localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
                 localStorage.setItem('currentUser', JSON.stringify(response.user));
 
                 return response.user;
             })
         )
-    }
+    };
 
     login(email: string, password: string): Observable<User> {
         const url: string = `${this.apiUrl}/auth/login`;
@@ -56,21 +56,38 @@ export class AuthService {
                 this._currentUser.set(response.user);
                 this._isLoggedIn.set(true);
 
-                localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
                 localStorage.setItem('currentUser', JSON.stringify(response.user));
 
                 return response.user;
             })
         );
-    }
+    };
+
+    refreshToken(): Observable<string> {
+        const url: string = `${this.apiUrl}/auth/refresh-token`;
+        const expiredAccessToken = JSON.parse(localStorage.getItem('accessToken') || 'null');
+
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${expiredAccessToken}`
+        });
+        return this.httpClient.post<accessToken>(url, {}, { headers }).pipe(
+            map((response: accessToken) => {
+                localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
+
+                return response.accessToken;
+            })
+        )
+    };
 
     logout(): Observable<void> {
         const url: string = `${this.apiUrl}/auth/logout`;
-        const token = localStorage.getItem('accessToken') as string;
+        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'null');
 
         const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${accessToken}`
         });
+        
 
         return this.httpClient.post<void>(url, {}, { headers }).pipe(
             tap(() => {
@@ -78,11 +95,11 @@ export class AuthService {
                 this._isLoggedIn.set(false);
                 localStorage.removeItem('currentUser');
                 localStorage.removeItem('accessToken');
-            })
-        );
+            }));
     }
 
-    update(user: User): Observable<User> {
+
+    updateUser(user: User): Observable<User> {
         const url: string = `${this.apiUrl}/users/current`;
 
         return this.httpClient.put<UpdateUserResponse>(url, { user }, {
@@ -91,11 +108,11 @@ export class AuthService {
             map((response: UpdateUserResponse) => {
                 this._currentUser.set(response.user);
 
-                // localStorage.setItem('accessToken', response.accessToken);
+                // localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
                 localStorage.setItem('currentUser', JSON.stringify(response.user));
 
                 return response.user;
             })
         );
-    }
+    };
 }
