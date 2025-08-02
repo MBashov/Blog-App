@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Blog } from '../../models/blog';
-import { DatePipe } from '@angular/common';
-import { ShortenPipe } from '../../core/pipes/shorten-pipe';
+import { ShortenPipe, TimeAgoPipe } from '../../core/pipes'
+
 
 @Component({
   selector: 'app-blog-article',
-  imports: [DatePipe, ShortenPipe],
+  imports: [ShortenPipe, TimeAgoPipe],
   templateUrl: './blog-article.html',
   styleUrl: './blog-article.css'
 })
