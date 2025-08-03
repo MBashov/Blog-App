@@ -1,2 +1,2 @@
 export * from './Blog.model';
-export * from './Blog.response';
+export * from './BlogResponse.model';

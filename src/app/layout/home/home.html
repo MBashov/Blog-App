@@ -9,7 +9,11 @@
 
             <section class="article-items">
                 <p class="sub-heading">Recently added post</p>
-
+                @if (hasError) {
+                    <p class="error-msg">Something went wrong while loading blogs.</p>
+                    <button (click)="RefetchAllBlogs()" class="button">Try again</button>
+                } 
+                    
                 @if (isLoading) {
                     <app-loader />
                 } @else {
@@ -18,8 +22,8 @@
                             <app-blog-article [blog]="blog"/>
                         }
                     </div>
-                }   
-                
+                } 
+  
             </section>
 
             <section class="popular-posts">

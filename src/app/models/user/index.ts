@@ -1,2 +1,2 @@
-export * from './UserAuthResponse';
-export * from './User';
+export * from './UserAuthResponse.model';
+export * from './User.model';

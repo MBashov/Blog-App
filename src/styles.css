@@ -106,3 +106,9 @@ img {
 .continue-reading:focus {
     color: #707070;
 }
+
+p.error-msg {
+    color: #A94442;
+    font-weight: bold;
+    font-size: 1rem;
+}

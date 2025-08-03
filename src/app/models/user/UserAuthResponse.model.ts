@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { User } from "./User.model";
 
 export interface UserAuthResponse {
     user: User,

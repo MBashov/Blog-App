@@ -84,7 +84,7 @@ export class AuthService {
     logout(sendRequest = true): Observable<void> {
         if (!sendRequest) {
             this.localLogout();
-            return of(void 0)
+            return of(void 0);
         }
 
         const url: string = `${this.apiUrl}/auth/logout`;

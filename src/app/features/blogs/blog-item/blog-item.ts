@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Blog } from '../../../models/blog';
+import { Blog, BlogResponse } from '../../../models/blog';
 import { Loader } from "../../../shared/loader/loader";
 import { ApiService } from '../../../core/services';
 
@@ -180,7 +180,7 @@ export class BlogItem implements OnInit {
     constructor(private apiService: ApiService) { }
 
     ngOnInit(): void {
-        this.apiService.getAllBlogs().subscribe((response) => {
+        this.apiService.getAllBlogs().subscribe((response: BlogResponse) => {
             this.blogs = response.blogs;
             this.isLoading = false;
         });
