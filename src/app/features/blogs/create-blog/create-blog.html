@@ -2,84 +2,60 @@
     <div class="form-container">
         <h2>Create Post</h2>
 
-        <form (ngSubmit)="onSubmit()" #formRef="ngForm">
+        <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" novalidate>
             <label for="title">Title</label>
-            <input
+            <input 
+                id="title"
                 type="text" 
-                id="title" 
-                name="title" 
-                placeholder="Blog post title" 
-                required 
-                minlength="5" 
-                maxlength="100" 
-                #inputTitle="ngModel"
-                ngModel
+                formControlName="title" 
             />
-            @if(inputTitle.errors?.['required'] && inputTitle.touched) {
+            @if(blogForm.get('title')?.errors?.['required'] && blogForm.get('title')?.touched) {
                 <p class="error-msg">Title is required!</p>
             }
-            @if(inputTitle.errors?.['minlength'] && inputTitle.touched) {
+            @if(blogForm.get('title')?.errors?.['minlength'] && blogForm.get('title')?.touched) {
                 <p class="error-msg">Title must be at least 5 characters!</p>
             }
 
             <label for="slug">Slug</label>
-            <input
+            <input 
+                id="slug"
                 type="text" 
-                id="slug" 
-                name="slug" 
-                placeholder="unique-blog-slug" 
-                #inputSlug="ngModel"
-                ngModel
+                formControlName="slug" 
             />
 
             <label for="content">Content</label>
             <textarea 
-                id="content" 
-                name="content" 
+                id="content"
                 rows="8" 
-                placeholder="Write your blog content here..." 
-                required
-                minlength="20" 
-                maxlength="2000" 
-                #inputContent="ngModel"
-                ngModel
-            >
+                formControlName="content">
             </textarea>
-            @if(inputContent.errors?.['required'] && inputContent.touched) {
+            @if(blogForm.get('content')?.errors?.['required'] && blogForm.get('content')?.touched) {
                 <p class="error-msg">Content is required!</p>
             }
-            @if(inputContent.errors?.['minlength'] && inputContent.touched) {
+            @if(blogForm.get('content')?.errors?.['minlength'] && blogForm.get('content')?.touched) {
                 <p class="error-msg">Content must be at least 20 characters!</p>
             }
 
             <label for="banner-url">Banner Image</label>
-            <input
+            <input 
+                id="banner-url"
                 type="file" 
-                id="banner-url" 
-                name="bannerUrl" 
                 accept="image/png, image/jpeg, image/jpg, image/webp" 
-                required 
-                #inputImages="ngModel"
-                ngModel
+                (change)="onFileChange($event)" 
             />
-            @if(inputImages.invalid && inputImages.touched) {
-                <p class="error-msg">Image is required</p>
+            @if(blogForm.get('bannerImage')?.invalid && blogForm.get('bannerImage')?.touched) {
+                <p class="error-msg">Image required</p>
             }
+            @if (blogForm.get('bannerImage')?.errors?.['invalidType']) {
+                <p class="error-msg">Unsupported file type. Please upload a PNG, JPEG, JPG, or WEBP image.</p>
+            }
+
             <label for="status">Status</label>
-            <select 
-                id="status" 
-                name="status" 
-                required 
-                #inputStatus="ngModel"
-                ngModel
-            >
+            <select id="status" formArrayName="status">
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>
-            @if(inputStatus.invalid && inputStatus.touched) {
-                <p class="error-msg">Please select a status!</p>
-            }
-            <button [disabled]="formRef.invalid" type="submit">Submit Post</button>
+            <button [disabled]="blogForm.invalid" type="submit">Submit Post</button>
         </form>
     </div>
 </section>
