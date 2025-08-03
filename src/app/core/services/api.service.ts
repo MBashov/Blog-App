@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { Blog, BlogResponse, singleBlogResponse } from '../../models/blog';
-import { Observable, of } from 'rxjs';
+import { BlogResponse, CreateBlogResponse, singleBlogResponse } from '../../models/blog';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,7 @@ export class ApiService {
         return this.http.get<singleBlogResponse>(url);
     }
 
-    createBlog(formData: FormData): Observable<{code: Blog}> {
+    createBlog(formData: FormData): Observable<CreateBlogResponse> {
         const url = `${this.apiUrl}/blogs`;
         const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
         
@@ -36,6 +36,6 @@ export class ApiService {
             Authorization: `Bearer ${accessToken}`
         });
 
-        return this.http.post<{code: Blog}>(url, formData, { headers });
+        return this.http.post<CreateBlogResponse>(url, formData, { headers });
     }
 }

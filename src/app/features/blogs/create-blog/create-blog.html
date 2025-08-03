@@ -44,11 +44,11 @@
                 (change)="onFileChange($event)" 
                 formControlName="bannerImage"
             />
-            @if(blogForm.get('bannerImage')?.invalid && blogForm.get('bannerImage')?.touched) {
+            @if(blogForm.get('bannerImage')?.errors?.['required'] && blogForm.get('bannerImage')?.touched) {
                 <p class="error-msg">Image is required!</p>
             }
-            @if (blogForm.get('bannerImage')?.errors?.['invalidType']) {
-                <p class="error-msg">Unsupported file type. Please upload a PNG, JPEG, JPG, or WEBP image.</p>
+            @if(fileError) {
+                <p class="error-msg">{{fileError}}</p>
             }
 
             <label for="status">Status</label>

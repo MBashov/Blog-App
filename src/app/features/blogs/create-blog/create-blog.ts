@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ApiService } from '../../../core/services';
 import { Router } from '@angular/router';
-import { Observable, of, retry } from 'rxjs';
-import { Blog } from '../../../models/blog';
 
 @Component({
     selector: 'app-create-blog',
@@ -13,8 +11,10 @@ import { Blog } from '../../../models/blog';
     styleUrl: './create-blog.css'
 })
 export class CreateBlog {
-    blogForm!: FormGroup;
-    selectedFile: File | null = null;
+    protected blogForm!: FormGroup;
+    protected selectedFile: File | null = null;
+    protected imagePreviewUrl: string | null = null;
+    protected fileError: string | null = null;
 
     constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
 
@@ -29,21 +29,33 @@ export class CreateBlog {
 
     protected onFileChange(event: Event): void {
         const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+        const maxSizeMB: number = 2;
+        const bannerImageRef = this.blogForm.get('bannerImage') as AbstractControl;
         const input = event.target as HTMLInputElement;
 
+        this.fileError = null;
+        
         if (!input?.files?.length) return;
 
         const file = input.files[0];
 
         if (!allowedTypes.includes(file.type)) {
-            this.blogForm.get('bannerImage')?.setErrors({ invalidType: true });
-            this.blogForm.patchValue({ bannerImage: null });
+            bannerImageRef.setErrors({ invalidType: true });
+            this.fileError = 'Unsupported file type. Please upload a PNG, JPEG, JPG, or WEBP image.';
+            return;
+        }
+
+        const fileSizeMB = file.size / (1024 * 1024);
+        if (fileSizeMB > maxSizeMB) {
+            bannerImageRef.setErrors({ maxSizeExceed: true });
+            this.fileError = 'File size exceeds 2MB.';
             return;
         }
 
         this.selectedFile = file;
         this.blogForm.patchValue({ bannerImage: file });
-        this.blogForm.get('bannerImage')?.updateValueAndValidity();
+        bannerImageRef.updateValueAndValidity();
+
     }
 
     protected onSubmit(): void {
@@ -65,6 +77,7 @@ export class CreateBlog {
             },
             error: (err) => {
                 console.log('Blog creation failed', err);
+                //TODO Error handling
             }
         })
     }
