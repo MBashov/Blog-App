@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ApiService } from '../../../core/services';
+import { Router } from '@angular/router';
+import { Observable, of, retry } from 'rxjs';
+import { Blog } from '../../../models/blog';
 
 @Component({
     selector: 'app-create-blog',
@@ -13,17 +16,18 @@ export class CreateBlog {
     blogForm!: FormGroup;
     selectedFile: File | null = null;
 
-    constructor(private fb: FormBuilder, private apiService: ApiService) {
+    constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
+
         this.blogForm = this.fb.group({
             title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
             slug: [''],
-            content: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(2000)]],
+            content: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(2000)]],
             bannerImage: [null, Validators.required],
             status: ['published', Validators.required]
         });
     }
 
-    onFileChange(event: Event): void {
+    protected onFileChange(event: Event): void {
         const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
         const input = event.target as HTMLInputElement;
 
@@ -42,9 +46,7 @@ export class CreateBlog {
         this.blogForm.get('bannerImage')?.updateValueAndValidity();
     }
 
-
-
-    onSubmit() {
+    protected onSubmit(): void {
         if (this.blogForm.invalid || !this.selectedFile) return;
 
         const formData = new FormData();
@@ -56,9 +58,10 @@ export class CreateBlog {
 
         this.apiService.createBlog(formData).subscribe({
             next: (res) => {
-                console.log('Blog created', res);
+                console.log('Blog created', res.code);
                 this.blogForm.reset();
                 this.selectedFile = null;
+                this.router.navigate(['/blogs']);
             },
             error: (err) => {
                 console.log('Blog creation failed', err);

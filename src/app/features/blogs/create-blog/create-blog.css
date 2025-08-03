@@ -42,12 +42,10 @@
                 padding: 0.6rem;
                 border: 1px solid #ccc;
                 border-radius: 6px;
-                font-size: 1rem;
                 transition: border-color 0.3s;
             }
 
             input:focus {
-                border-color: #2ac1aa;
                 outline: none;
             }
 

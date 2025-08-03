@@ -33,7 +33,7 @@
                 <p class="error-msg">Content is required!</p>
             }
             @if(blogForm.get('content')?.errors?.['minlength'] && blogForm.get('content')?.touched) {
-                <p class="error-msg">Content must be at least 20 characters!</p>
+                <p class="error-msg">Content must be at least 100 characters!</p>
             }
 
             <label for="banner-url">Banner Image</label>
@@ -42,9 +42,10 @@
                 type="file" 
                 accept="image/png, image/jpeg, image/jpg, image/webp" 
                 (change)="onFileChange($event)" 
+                formControlName="bannerImage"
             />
             @if(blogForm.get('bannerImage')?.invalid && blogForm.get('bannerImage')?.touched) {
-                <p class="error-msg">Image required</p>
+                <p class="error-msg">Image is required!</p>
             }
             @if (blogForm.get('bannerImage')?.errors?.['invalidType']) {
                 <p class="error-msg">Unsupported file type. Please upload a PNG, JPEG, JPG, or WEBP image.</p>

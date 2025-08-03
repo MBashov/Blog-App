@@ -17,7 +17,7 @@ export interface Blog  {
     slug: string,
     content: string,
     banner: Banner,
-    author: Author,
+    author: Author | string,
     viewsCount: number,
     likesCount: number,
     commentsCount: number,
