@@ -1,4 +1,4 @@
-type Banner = {
+export type Banner = {
     publicId: string,
     url: string,
     width: string,
@@ -17,7 +17,7 @@ export interface Blog  {
     slug: string,
     content: string,
     banner: Banner,
-    author: Author | string,
+    author: Author,
     viewsCount: number,
     likesCount: number,
     commentsCount: number,
