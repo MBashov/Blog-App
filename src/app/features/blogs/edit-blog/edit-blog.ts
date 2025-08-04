@@ -14,6 +14,7 @@ import { ApiService } from '../../../core/services';
 export class EditBlog implements OnInit {
     protected blog = {} as Blog
     protected blogForm!: FormGroup;
+    protected isSubmitting: boolean = false;
     protected selectedFile: File | null = null;
     protected imagePreviewUrl: string | null = null;
     protected fileError: string | null = null;
@@ -69,6 +70,7 @@ export class EditBlog implements OnInit {
     protected onSubmit() {
 
         if (this.blogForm.invalid || !this.selectedFile) return;
+        this.isSubmitting = true;
 
         const formData = new FormData();
         formData.append('title', this.blogForm.value.title);
@@ -82,6 +84,7 @@ export class EditBlog implements OnInit {
                 console.log('Blog updated', res.blog);
                 this.blogForm.reset();
                 this.selectedFile = null;
+                this.isSubmitting = false;
                 this.router.navigate(['/blogs', 'details', this.blog.slug]);
             },
             error: (err) => {

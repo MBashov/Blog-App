@@ -13,6 +13,7 @@ import { CreateBlogResponse } from '../../../models/blog';
 })
 export class CreateBlog {
     protected blogForm!: FormGroup;
+    protected isSubmitting: boolean = false;
     protected selectedFile: File | null = null;
     protected imagePreviewUrl: string | null = null;
     protected fileError: string | null = null;
@@ -61,6 +62,7 @@ export class CreateBlog {
 
     protected onSubmit(): void {
         if (this.blogForm.invalid || !this.selectedFile) return;
+        this.isSubmitting = true;
 
         const formData = new FormData();
         formData.append('title', this.blogForm.value.title);
@@ -74,6 +76,7 @@ export class CreateBlog {
                 console.log('Blog created', res.code);
                 this.blogForm.reset();
                 this.selectedFile = null;
+                this.isSubmitting = false;
                 this.router.navigate(['/blogs']);
             },
             error: (err) => {

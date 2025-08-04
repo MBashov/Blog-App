@@ -6,7 +6,7 @@
     padding: 3em;
     background-color: #f5f5f5;
     border-radius: 5px;
-    
+
     .blog-header {
         margin-bottom: 1rem;
 
@@ -185,7 +185,7 @@
         .actions button {
             margin-right: 0.5rem;
             padding: 0.6rem 1rem;
-            font-size: 1.2em;
+            font-size: 1em;
             background: #005B5B;
             color: white;
             border: none;
@@ -196,6 +196,12 @@
         .actions button:hover {
             background: #16acac;
             color: #333;
+        }
+
+        .actions button:disabled {
+            background-color: lightgray;
+            color: white;
+            cursor: not-allowed;
         }
     }
 
@@ -221,6 +227,7 @@
                     text-decoration: none;
                     color: #3498db;
                 }
+
                 a:hover {
                     text-decoration: underline;
                 }
@@ -268,7 +275,6 @@
                 border-radius: 5px;
                 cursor: pointer;
             }
-
 
             button:hover {
                 background: #16acac;

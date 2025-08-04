@@ -13,6 +13,7 @@ import { ApiService } from '../../../core/services';
 })
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
+    protected isSubmitting: boolean = false;
     protected imageClass: string = '';
     protected modalClass: string = '';
     protected imageSrc: string = '';
@@ -60,10 +61,13 @@ export class CurrentBlog implements OnInit {
     }
 
     protected deleteBlog(blogId: string): void {
+        this.isSubmitting = true;
+        
         this.apiService.deleteBlog(blogId).subscribe({
             next: () => {
                 console.log('Blog deleted successfully');
                 this.router.navigate(['/blogs']);
+                this.isSubmitting = false;
             },
             error: (err) => {
                 console.log('Delete failed', err);

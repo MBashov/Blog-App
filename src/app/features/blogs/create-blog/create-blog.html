@@ -56,7 +56,7 @@
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>
-            <button [disabled]="blogForm.invalid" type="submit">Submit Post</button>
+            <button [disabled]="blogForm.invalid || isSubmitting" type="submit">{{isSubmitting ? 'Creating a Post' : 'Create Post'}}</button>
         </form>
     </div>
 </section>
