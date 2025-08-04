@@ -47,11 +47,10 @@
             <span><i class="fa-regular fa-thumbs-up"></i> 150 likes</span>
             <span><i class="fa-regular fa-comments"></i> 18 comments</span>
         </div>
-
         <div class="actions">
             @if (isAuthor) {
-                <button [routerLink]="['/blogs', 'edit', blog.slug]">Edit</button>
-                <button (click)="deleteBlog(blog._id)" [disabled]="isSubmitting">{{isSubmitting ? 'Deleting' : 'Delete'}}</button>
+                <button [routerLink]="['/blogs', 'edit', blog.slug]"><i class="fa-solid fa-pencil"></i>Edit</button>
+                <button (click)="deleteBlog(blog._id)" [disabled]="isSubmitting"><i class="fa-solid fa-trash"></i>{{isSubmitting ? 'Deleting' : 'Delete'}}</button>
             } @else {
                 <button><i class="fa-regular fa-thumbs-up"></i> Like</button>
             }

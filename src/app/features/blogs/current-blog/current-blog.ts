@@ -1,13 +1,15 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Blog } from '../../../models/blog';
 import { ApiService, AuthService } from '../../../core/services';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 
 @Component({
     selector: 'app-current-blog',
-    imports: [ CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })
@@ -22,17 +24,16 @@ export class CurrentBlog implements OnInit {
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
     constructor(
-        private route: ActivatedRoute, 
-        private router: Router, 
+        private route: ActivatedRoute,
+        private router: Router,
         private apiService: ApiService,
         private authService: AuthService,
+        private dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {
         this.blog = this.route.snapshot.data['blog'];
         this.isAuthor = this.authService.isAuthor(this.blog.author._id);
-        console.log( this.isAuthor);
-
     }
 
     protected omImageLoad(event: Event): void {
@@ -57,6 +58,10 @@ export class CurrentBlog implements OnInit {
         this.modalClass = '';
     }
 
+    protected openDeleteModal() {
+        this.dialog
+    }
+
     protected scrollImages(direction: 'left' | 'right') {
         const container = this.imageContainer.nativeElement;
         const scrollAmount = 220;
@@ -70,17 +75,25 @@ export class CurrentBlog implements OnInit {
 
     protected deleteBlog(blogId: string): void {
         this.isSubmitting = true;
-        
-        this.apiService.deleteBlog(blogId).subscribe({
-            next: () => {
-                console.log('Blog deleted successfully');
-                this.router.navigate(['/blogs']);
-                this.isSubmitting = false;
-            },
-            error: (err) => {
-                console.log('Delete failed', err);
-                //Todo error handling
-            }
+        const dialogRef = this.dialog.open(ConfirmDialog, {
+            width: '350px',
+            data: { message: 'Are you sure you want to delete this blog?' }
         });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.apiService.deleteBlog(blogId).subscribe({
+                    next: () => {
+                        console.log('Blog deleted successfully');
+                        this.router.navigate(['/blogs']);
+                        this.isSubmitting = false;
+                    },
+                    error: (err) => {
+                        console.log('Delete failed', err);
+                        //Todo error handling
+                    }
+                });
+            }
+        })
     }
 }

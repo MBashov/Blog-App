@@ -191,6 +191,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+
+            i {
+                padding-right: 0.5em;
+            }
         }
 
         .actions button:hover {
