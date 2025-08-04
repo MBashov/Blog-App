@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 
-import { Loader } from '../../shared/loader/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import { Blog, BlogResponse } from '../../models/blog';
-import { BlogArticle } from "../../shared/blog-article/blog-article";
+import { BlogArticle } from "../../shared/components/blog-article/blog-article";
 import { ApiService } from '../../core/services';
 
 @Component({

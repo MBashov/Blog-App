@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from "./layout/header/header";
 import { Footer } from './layout/footer/footer';
-import { ErrorNotification } from './shared/error-notification/error-notification';
+import { ErrorNotification } from './shared/components/error-notification/error-notification';
 
 @Component({
   selector: 'app-root',

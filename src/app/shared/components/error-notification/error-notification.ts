@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
+import { ErrorService } from '../../../core/services';
 
-import { ErrorService } from '../../core/services';
 
 @Component({
     selector: 'app-error-notification',

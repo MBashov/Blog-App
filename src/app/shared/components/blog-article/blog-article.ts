@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Blog } from '../../models/blog';
-import { ShortenPipe, TimeAgoPipe } from '../../core/pipes'
+import { Blog } from '../../../models/blog';
+import { ShortenPipe, TimeAgoPipe } from '../../pipes';
 
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Blog, BlogResponse } from '../../../models/blog';
-import { Loader } from "../../../shared/loader/loader";
+import { Loader } from "../../../shared/components/loader/loader";
 import { ApiService } from '../../../core/services';
 
 @Component({
