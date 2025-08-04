@@ -22,6 +22,7 @@ export class CurrentBlog implements OnInit {
     protected imageSrc: string = '';
     protected isAuthor: boolean = false;
     protected hasLiked: boolean = false;
+    protected isLiking: boolean = false;
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
@@ -48,7 +49,7 @@ export class CurrentBlog implements OnInit {
 
     }
 
-    protected omImageLoad(event: Event): void {
+    protected onImageLoad(event: Event): void {
         const img = event.target as HTMLImageElement;
 
         const { width, height } = img;
@@ -82,28 +83,26 @@ export class CurrentBlog implements OnInit {
     }
 
     protected toggleLike() {
+        if (this.isLiking) return;
+        this.isLiking = true;
 
-        if (this.hasLiked) {
-            this.apiService.unLikeBlog(this.blog._id).subscribe({
-                next: (res) => {
-                    this.hasLiked = false;
-                },
-                error: (err) => {
-                    console.log('Delete failed', err);
-                    //Todo error handling
-                }
-            })
-        } else {
-            this.apiService.likeBlog(this.blog._id).subscribe({
-                next: (res) => {
-                    this.hasLiked = true;
-                },
-                error: (err) => {
-                    console.log('Delete failed', err);
-                    //Todo error handling
-                }
-            })
-        }
+        const req = this.hasLiked
+            ? this.apiService.unLikeBlog(this.blog._id)
+            : this.apiService.likeBlog(this.blog._id)
+
+        req.subscribe({
+            next: () => {
+                this.hasLiked = !this.hasLiked;
+                this.blog.likesCount += this.hasLiked ? 1 : -1;
+            },
+            error: (err) => {
+                console.log('Like action failed', err);
+                //Todo error handling
+            },
+            complete: () => {
+                this.isLiking = false;
+            }
+        })
     }
 
     protected deleteBlog(blogId: string): void {

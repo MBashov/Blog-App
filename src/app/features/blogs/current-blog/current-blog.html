@@ -9,7 +9,7 @@
     </header>
 
     <span class="blog-banner" [ngClass]="imageClass">
-        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="omImageLoad($event)" />
+        <img [ngClass]="imageClass" src="{{blog.banner.url}}" alt="Post Banner" (load)="onImageLoad($event)" />
     </span>
 
     <section class="blog-content">
@@ -53,7 +53,7 @@
                 <button [routerLink]="['/blogs', 'edit', blog.slug]"><i class="fa-solid fa-pencil"></i>Edit</button>
                 <button (click)="deleteBlog(blog._id)" [disabled]="isSubmitting"><i class="fa-solid fa-trash"></i>{{isSubmitting ? 'Deleting' : 'Delete'}}</button>
             } @else {
-                <button (click)="toggleLike()"><i class="fa-regular fa-thumbs-up"></i> {{hasLiked ? 'Unlike' : 'Like'}}</button>
+                <button (click)="toggleLike()" [disabled]="isLiking"><i class="fa-regular fa-thumbs-up"></i> {{hasLiked ? 'Unlike' : 'Like'}}</button>
             }
         </div>
     </footer>
