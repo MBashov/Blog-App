@@ -21,7 +21,7 @@ export class CurrentBlog implements OnInit {
     protected modalClass: string = '';
     protected imageSrc: string = '';
     protected isAuthor: boolean = false;
-    protected isLiked: boolean = false;
+    protected hasLiked: boolean = false;
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
@@ -36,6 +36,16 @@ export class CurrentBlog implements OnInit {
     ngOnInit(): void {
         this.blog = this.route.snapshot.data['blog'];
         this.isAuthor = this.authService.isAuthor(this.blog.author._id);
+        this.apiService.checkHasLiked(this.blog._id).subscribe({
+            next: (res) => {
+                this.hasLiked = res.hasLiked;
+            },
+            error: (err) => {
+                console.log('Delete failed', err);
+                //Todo error handling
+            }
+        });
+
     }
 
     protected omImageLoad(event: Event): void {
@@ -71,8 +81,29 @@ export class CurrentBlog implements OnInit {
         }
     }
 
-    protected toggleLike () {
+    protected toggleLike() {
 
+        if (this.hasLiked) {
+            this.apiService.unLikeBlog(this.blog._id).subscribe({
+                next: (res) => {
+                    this.hasLiked = false;
+                },
+                error: (err) => {
+                    console.log('Delete failed', err);
+                    //Todo error handling
+                }
+            })
+        } else {
+            this.apiService.likeBlog(this.blog._id).subscribe({
+                next: (res) => {
+                    this.hasLiked = true;
+                },
+                error: (err) => {
+                    console.log('Delete failed', err);
+                    //Todo error handling
+                }
+            })
+        }
     }
 
     protected deleteBlog(blogId: string): void {
@@ -80,7 +111,7 @@ export class CurrentBlog implements OnInit {
             width: '350px',
             data: { message: `Are you sure you want to delete ${this.blog.title} ?` }
         });
-        
+
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.isSubmitting = true;

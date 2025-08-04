@@ -53,7 +53,7 @@
                 <button [routerLink]="['/blogs', 'edit', blog.slug]"><i class="fa-solid fa-pencil"></i>Edit</button>
                 <button (click)="deleteBlog(blog._id)" [disabled]="isSubmitting"><i class="fa-solid fa-trash"></i>{{isSubmitting ? 'Deleting' : 'Delete'}}</button>
             } @else {
-                <button (click)="toggleLike()"><i class="fa-regular fa-thumbs-up"></i> {{isLiked ? 'Dislike' : 'Like'}}</button>
+                <button (click)="toggleLike()"><i class="fa-regular fa-thumbs-up"></i> {{hasLiked ? 'Unlike' : 'Like'}}</button>
             }
         </div>
     </footer>
