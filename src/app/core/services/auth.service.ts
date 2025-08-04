@@ -126,6 +126,16 @@ export class AuthService {
         );
     };
 
+    isAuthor(authorId: string): boolean {
+        const currentUser: User | null = JSON.parse(localStorage.getItem('currentUser') || 'nul');
+
+        if (currentUser) {
+            return authorId === currentUser._id
+        } else {
+            return false;
+        }
+    }
+
     private localLogout(): void {
         this._currentUser.set(null);
         this._isLoggedIn.set(false);

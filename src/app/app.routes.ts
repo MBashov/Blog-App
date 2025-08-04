@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './layout/home/home';
 import { NotFound } from './features/not-found/not-found';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard, isAuthorGuard } from './core/guards/auth.guard';
 import { blogResolver } from './features/blogs/current-blog/current.blog.resolver';
 
 export const routes: Routes = [
@@ -22,7 +22,7 @@ export const routes: Routes = [
                 path: 'edit/:slug',
                 loadComponent: () => import('./features/blogs/edit-blog/edit-blog').then(c => c.EditBlog),
                 resolve: { blog: blogResolver },
-                canActivate: [AuthGuard],
+                canActivate: [AuthGuard, isAuthorGuard],
             }
         ]
     },

@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { Blog } from '../../../models/blog';
-import { ApiService } from '../../../core/services';
+import { ApiService, AuthService } from '../../../core/services';
 
 @Component({
     selector: 'app-current-blog',
@@ -17,14 +17,22 @@ export class CurrentBlog implements OnInit {
     protected imageClass: string = '';
     protected modalClass: string = '';
     protected imageSrc: string = '';
+    protected isAuthor: boolean = false;
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
-    constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) { }
+    constructor(
+        private route: ActivatedRoute, 
+        private router: Router, 
+        private apiService: ApiService,
+        private authService: AuthService,
+    ) { }
 
     ngOnInit(): void {
-        
         this.blog = this.route.snapshot.data['blog'];
+        this.isAuthor = this.authService.isAuthor(this.blog.author._id);
+        console.log( this.isAuthor);
+
     }
 
     protected omImageLoad(event: Event): void {

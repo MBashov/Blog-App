@@ -2,7 +2,7 @@ import { ResolveFn } from "@angular/router";
 import { inject } from "@angular/core";
 
 import { Blog, singleBlogResponse } from "../../../models/blog";
-import { map, Observable } from "rxjs";
+import { map } from "rxjs";
 import { ApiService } from "../../../core/services";
 
 export const blogResolver: ResolveFn<Blog> = (route) => {
