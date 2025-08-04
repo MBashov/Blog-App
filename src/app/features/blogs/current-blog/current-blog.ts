@@ -16,6 +16,7 @@ import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
     protected isSubmitting: boolean = false;
+    protected isDeleting: boolean = false;
     protected imageClass: string = '';
     protected modalClass: string = '';
     protected imageSrc: string = '';
@@ -74,14 +75,14 @@ export class CurrentBlog implements OnInit {
     }
 
     protected deleteBlog(blogId: string): void {
-        this.isSubmitting = true;
         const dialogRef = this.dialog.open(ConfirmDialog, {
             width: '350px',
-            data: { message: 'Are you sure you want to delete this blog?' }
+            data: { message: `Are you sure you want to delete ${this.blog.title} ?` }
         });
-
+        
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
+                this.isSubmitting = true;
                 this.apiService.deleteBlog(blogId).subscribe({
                     next: () => {
                         console.log('Blog deleted successfully');
@@ -91,9 +92,12 @@ export class CurrentBlog implements OnInit {
                     error: (err) => {
                         console.log('Delete failed', err);
                         //Todo error handling
+                    },
+                    complete: () => {
+                        this.isSubmitting = false;
                     }
                 });
             }
-        })
+        });
     }
 }
