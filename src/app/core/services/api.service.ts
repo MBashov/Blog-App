@@ -49,4 +49,15 @@ export class ApiService {
 
         return this.http.put<singleBlogResponse>(url, formData, { headers });
     }
+
+    deleteBlog(blogId: string): Observable<void> {
+        const url = `${this.apiUrl}/blogs/${blogId}`;
+        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
+        
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${accessToken}`
+        });
+
+        return this.http.delete<void>(url, { headers });
+    }
 }

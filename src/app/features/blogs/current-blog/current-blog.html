@@ -50,7 +50,7 @@
 
         <div class="actions">
             <button [routerLink]="['/blogs', 'edit', blog.slug]">Edit</button>
-            <button>Delete</button>
+            <button (click)="deleteBlog(blog._id)">Delete</button>
             <button><i class="fa-regular fa-thumbs-up"></i> Like</button>
             <button routerLink="/blogs">Go Back</button>
         </div>

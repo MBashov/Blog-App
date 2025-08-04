@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { Blog } from '../../../models/blog';
+import { ApiService } from '../../../core/services';
 
 @Component({
     selector: 'app-current-blog',
@@ -18,7 +19,7 @@ export class CurrentBlog implements OnInit {
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
-    constructor(private route: ActivatedRoute) { }
+    constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) { }
 
     ngOnInit(): void {
         
@@ -56,5 +57,18 @@ export class CurrentBlog implements OnInit {
         } else {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
+    }
+
+    protected deleteBlog(blogId: string): void {
+        this.apiService.deleteBlog(blogId).subscribe({
+            next: () => {
+                console.log('Blog deleted successfully');
+                this.router.navigate(['/blogs']);
+            },
+            error: (err) => {
+                console.log('Delete failed', err);
+                //Todo error handling
+            }
+        });
     }
 }
