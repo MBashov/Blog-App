@@ -21,6 +21,7 @@ export class CurrentBlog implements OnInit {
     protected modalClass: string = '';
     protected imageSrc: string = '';
     protected isAuthor: boolean = false;
+    protected isLiked: boolean = false;
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
@@ -59,10 +60,6 @@ export class CurrentBlog implements OnInit {
         this.modalClass = '';
     }
 
-    protected openDeleteModal() {
-        this.dialog
-    }
-
     protected scrollImages(direction: 'left' | 'right') {
         const container = this.imageContainer.nativeElement;
         const scrollAmount = 220;
@@ -72,6 +69,10 @@ export class CurrentBlog implements OnInit {
         } else {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
+    }
+
+    protected toggleLike () {
+
     }
 
     protected deleteBlog(blogId: string): void {
