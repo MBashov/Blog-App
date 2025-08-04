@@ -1,32 +1,94 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Blog } from '../../../models/blog';
+import { Blog, singleBlogResponse } from '../../../models/blog';
+import { ApiService } from '../../../core/services';
 
 @Component({
     selector: 'app-edit-blog',
-    imports: [FormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './edit-blog.html',
     styleUrl: './edit-blog.css'
 })
-export class EditBlog implements OnInit{
+export class EditBlog implements OnInit {
     protected blog = {} as Blog
+    protected blogForm!: FormGroup;
+    protected selectedFile: File | null = null;
+    protected imagePreviewUrl: string | null = null;
+    protected fileError: string | null = null;
 
-    @ViewChild('formRef') form!: NgForm;
+    constructor(
+        private fb: FormBuilder, 
+        private apiService: ApiService, 
+        private route: ActivatedRoute, 
+        private router: Router
+    ) {}
 
-    constructor(private route: ActivatedRoute) { }
-    
     ngOnInit(): void {
         this.blog = this.route.snapshot.data['blog'];
-        
+        this.blogForm = this.fb.group({
+            title: [this.blog.title, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+            slug: [this.blog.slug],
+            content: [this.blog.content, [Validators.required, Validators.minLength(100), Validators.maxLength(2000)]],
+            bannerImage: [this.blog.banner.url, Validators.required],
+            status: [this.blog.status, Validators.required]
+        });
+    }
+
+    protected onFileChange(event: Event): void {
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+        const maxSizeMB: number = 2;
+        const bannerImageRef = this.blogForm.get('bannerImage') as AbstractControl;
+        const input = event.target as HTMLInputElement;
+
+        this.fileError = null;
+
+        if (!input?.files?.length) return;
+
+        const file = input.files[0];
+
+        if (!allowedTypes.includes(file.type)) {
+            bannerImageRef.setErrors({ invalidType: true });
+            this.fileError = 'Unsupported file type. Please upload a PNG, JPEG, JPG, or WEBP image.';
+            return;
+        }
+
+        const fileSizeMB = file.size / (1024 * 1024);
+        if (fileSizeMB > maxSizeMB) {
+            bannerImageRef.setErrors({ maxSizeExceed: true });
+            this.fileError = 'File size exceeds 2MB.';
+            return;
+        }
+
+        this.selectedFile = file;
+        this.blogForm.patchValue({ bannerImage: file });
+        bannerImageRef.updateValueAndValidity();
     }
 
     protected onSubmit() {
 
-        const content = this.form.value;
-        console.log(content);
-        this.form.reset();
+        if (this.blogForm.invalid || !this.selectedFile) return;
+
+        const formData = new FormData();
+        formData.append('title', this.blogForm.value.title);
+        formData.append('slug', this.blogForm.value.slug || '');
+        formData.append('content', this.blogForm.value.content);
+        formData.append('status', this.blogForm.value.status);
+        formData.append('banner_image', this.selectedFile);
+
+        this.apiService.updateBlog(formData, this.blog._id).subscribe({
+            next: (res: singleBlogResponse) => {
+                console.log('Blog updated', res.blog);
+                this.blogForm.reset();
+                this.selectedFile = null;
+                this.router.navigate(['/blogs', 'details', this.blog.slug]);
+            },
+            error: (err) => {
+                console.log('Blog creation failed', err);
+                //TODO Error handling
+            }
+        })
     }
 
 }

@@ -38,4 +38,15 @@ export class ApiService {
 
         return this.http.post<CreateBlogResponse>(url, formData, { headers });
     }
+
+    updateBlog(formData: FormData, blogId: string): Observable<singleBlogResponse> {
+        const url = `${this.apiUrl}/blogs/${blogId}`;
+        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
+        
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${accessToken}`
+        });
+
+        return this.http.put<singleBlogResponse>(url, formData, { headers });
+    }
 }

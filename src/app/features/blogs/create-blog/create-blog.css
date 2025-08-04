@@ -122,7 +122,7 @@
             p.error-msg {
                 color: #A94442;
                 font-weight: bold;
-                font-size: 1rem;
+                font-size: 0.8rem;
                 margin-left: 0.3em;
             }
         }

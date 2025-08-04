@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ApiService } from '../../../core/services';
 import { Router } from '@angular/router';
+import { CreateBlogResponse } from '../../../models/blog';
 
 @Component({
     selector: 'app-create-blog',
@@ -69,7 +70,7 @@ export class CreateBlog {
         formData.append('banner_image', this.selectedFile);
 
         this.apiService.createBlog(formData).subscribe({
-            next: (res) => {
+            next: (res: CreateBlogResponse) => {
                 console.log('Blog created', res.code);
                 this.blogForm.reset();
                 this.selectedFile = null;
