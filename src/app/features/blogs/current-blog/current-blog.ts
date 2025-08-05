@@ -6,10 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Blog } from '../../../models/blog';
 import { ApiService, AuthService } from '../../../core/services';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
+import { Comments } from "../../comments/comments";
 
 @Component({
     selector: 'app-current-blog',
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, Comments],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })
@@ -46,7 +47,6 @@ export class CurrentBlog implements OnInit {
                 //Todo error handling
             }
         });
-
     }
 
     protected onImageLoad(event: Event): void {

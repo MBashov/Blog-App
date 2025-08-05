@@ -73,34 +73,5 @@
         </ul>
     </section>
 
-    <section class="comments-section">
-        <h3>Comments (3)</h3>
-
-        <form class="comment-form">
-            <input type="text" placeholder="Your Name" required />
-            <textarea placeholder="Write your comment..." required></textarea>
-            <button type="submit">Post Comment</button>
-        </form>
-
-        <ul class="comment-list">
-            <li class="comment">
-                <div class="comment-header">
-                    <strong>Anna </strong> <span>on July 24, 2025</span>
-                </div>
-                <p>Amazing post! Lisbon is definitely on my bucket list now.</p>
-            </li>
-            <li class="comment">
-                <div class="comment-header">
-                    <strong>Marco </strong> <span>on July 23, 2025</span>
-                </div>
-                <p>I loved Alfama too. Great tips, thanks for sharing!</p>
-            </li>
-            <li class="comment">
-                <div class="comment-header">
-                    <strong>Sara </strong> <span>on July 22, 2025</span>
-                </div>
-                <p>Beautiful storytelling. Felt like I was there!</p>
-            </li>
-        </ul>
-    </section>
+    <app-comments [blog]="blog" />
 </article>
