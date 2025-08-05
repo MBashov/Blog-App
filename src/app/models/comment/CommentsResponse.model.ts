@@ -1,5 +1,5 @@
 import { Comment } from "./Comment.model";
 
-export interface CommentResponse {
+export interface CommentsResponse {
     comments: Comment[]
 }

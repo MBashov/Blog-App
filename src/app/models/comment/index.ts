@@ -1,2 +1,3 @@
 export * from './Comment.model';
-export * from './CommentResponse.model';
+export * from './CommentsResponse.model';
+export * from './CreatedComment.model';

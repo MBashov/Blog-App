@@ -36,7 +36,7 @@ export class CreateBlog {
         const input = event.target as HTMLInputElement;
 
         this.fileError = null;
-        
+
         if (!input?.files?.length) return;
 
         const file = input.files[0];
@@ -76,12 +76,14 @@ export class CreateBlog {
                 console.log('Blog created', res.code);
                 this.blogForm.reset();
                 this.selectedFile = null;
-                this.isSubmitting = false;
                 this.router.navigate(['/blogs']);
             },
             error: (err) => {
                 console.log('Blog creation failed', err);
                 //TODO Error handling
+            },
+            complete: () => {
+                this.isSubmitting = false;
             }
         })
     }

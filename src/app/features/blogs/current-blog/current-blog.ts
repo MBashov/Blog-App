@@ -6,11 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Blog } from '../../../models/blog';
 import { ApiService, AuthService } from '../../../core/services';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
-import { Comments } from "../../comments/comments";
+import { CommentComponent } from "../../comment/comment";
 
 @Component({
     selector: 'app-current-blog',
-    imports: [CommonModule, RouterLink, Comments],
+    imports: [CommonModule, RouterLink, CommentComponent],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })

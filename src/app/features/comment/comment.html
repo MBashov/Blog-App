@@ -1,9 +1,14 @@
 <section class="comments-section">
     <h3>Comments ({{comments.length ? comments.length : 0}})</h3>
 
-    <form class="comment-form">
-        <textarea placeholder="Write your comment..." required></textarea>
-        <button type="submit">Post Comment</button>
+    <form class="comment-form" (ngSubmit)="onSubmit()" [formGroup]="commentForm">
+        <textarea 
+            placeholder="Write your comment..."
+            required
+            formControlName="content"
+        >
+        </textarea>
+        <button type="submit" [disabled]="isSubmitting || commentForm.invalid">Post Comment</button>
     </form>
 
     @if (comments.length) {

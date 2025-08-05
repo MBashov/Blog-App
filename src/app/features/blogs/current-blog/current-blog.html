@@ -60,18 +60,18 @@
 
     <section class="author-box">
         <h3>About the Author</h3>
-        <p>{{blog.author.firstName}} is a digital nomad exploring Europe one city at a time. She loves writing, coffee,
+        <p>{{blog.author.firstName}} is a digital nomad exploring Europe one city at a time. The author loves writing, coffee,
             and old bookstores.
         </p>
     </section>
 
     <section class="related-posts">
-        <h3>Related Posts</h3>
+        <h3>See More Posts From {{blog.author.firstName}}</h3>
         <ul>
             <li><a href="#">A Foodies Guide to Porto</a></li>
             <li><a href="#">Top 10 Beaches in Southern Spain</a></li>
         </ul>
     </section>
 
-    <app-comments [blog]="blog" />
+    <app-comment [blog]="blog" />
 </article>
