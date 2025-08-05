@@ -5,10 +5,15 @@
         <textarea 
             placeholder="Write your comment..."
             required
-            formControlName="content"
-        >
+            formControlName="content">
         </textarea>
-        <button type="submit" [disabled]="isSubmitting || commentForm.invalid">Post Comment</button>
+        @if(commentForm.get('content')?.errors?.['minlength'] && commentForm.get('content')?.touched) {
+            <p class="error-msg">The comment must be at least 10 characters!</p>
+        }
+        @if(isCommentFailed) {
+            <p class="error-msg">Posting a comment failed, please try again.</p>
+        }
+        <button type="submit" [disabled]="isSubmitting">Post Comment</button>
     </form>
 
     @if (comments.length) {
@@ -26,5 +31,4 @@
     } @else {
     <p class="no-comments">No comments added yet</p>
     }
-
 </section>

@@ -4,7 +4,8 @@ import { DatePipe } from '@angular/common';
 
 import { Blog } from '../../models/blog';
 import { CommentService } from '../../core/services';
-import { Comment, CommentsResponse, CreatedComment } from '../../models/comment';
+import { Comment, CommentsResponse } from '../../models/comment';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-comment',
@@ -18,8 +19,13 @@ export class CommentComponent implements OnInit {
     protected commentForm!: FormGroup;
     protected comments: Comment[] = [];
     protected isSubmitting = false;
+    protected isCommentFailed = false;
 
-    constructor(private commentService: CommentService, private fb: FormBuilder) {
+    constructor(
+        private commentService: CommentService,
+        private router: Router,
+        private fb: FormBuilder
+    ) {
         this.commentForm = this.fb.group({
             content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
         });
@@ -41,13 +47,19 @@ export class CommentComponent implements OnInit {
         const content: string = this.commentForm.value.content;
 
         this.commentService.postComment(this.blog._id, content).subscribe({
-            next: (response: CreatedComment) => {
-                console.log(response);
-                this.commentService.getCommentsByBlog(this.blog._id);
+            next: () => {
+                this.commentService.getCommentsByBlog(this.blog._id).subscribe(
+                    (response: CommentsResponse) => {
+                        this.comments = response.comments;
+                    }
+                )
+                this.commentForm.reset();
+                this.isSubmitting = false;
+                this.isCommentFailed = false;
             },
             error: (err) => {
                 console.log('Comment creation failed', err);
-                //TODO Error handling
+                this.isCommentFailed = true;
             },
             complete: () => {
                 this.isSubmitting = false;

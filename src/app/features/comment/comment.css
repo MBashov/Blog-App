@@ -12,7 +12,6 @@
     .comment-form {
         display: flex;
         flex-direction: column;
-        gap: 0.8rem;
         margin-bottom: 2rem;
 
         input,
@@ -29,8 +28,14 @@
             min-height: 100px;
         }
 
+        p.error-msg {
+            font-weight: normal;
+            font-size: 0.9rem;
+        }
+
         button {
             align-self: flex-start;
+            margin-top: 0.8rem;
             padding: 0.5rem 1rem;
             background: #005B5B;
             color: white;
@@ -42,6 +47,12 @@
         button:hover {
             background: #16acac;
             color: #333;
+        }
+
+        button:disabled {
+            background-color: lightgray;
+            cursor: not-allowed;
+            color: white;
         }
     }
 
