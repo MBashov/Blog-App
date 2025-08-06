@@ -2,10 +2,11 @@ import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from
 import { inject } from '@angular/core';
 import { AuthService } from '../services';
 import { catchError, switchMap, throwError } from 'rxjs';
+import { getAccessToken } from '../../shared/utils';
 
 export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
     const authService = inject(AuthService);
-    const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'null');
+    const accessToken: string | null = getAccessToken();
 
     const isRefreshRequest = req.url.includes('refresh-token');
 
