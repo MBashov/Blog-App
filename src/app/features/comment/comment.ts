@@ -6,7 +6,6 @@ import { Blog } from '../../models/blog';
 import { CommentService } from '../../core/services';
 import { Comment, CommentsResponse } from '../../models/comment';
 import { User } from '../../models/user';
-import { catchError } from 'rxjs';
 
 @Component({
     selector: 'app-comment',
@@ -19,6 +18,7 @@ export class CommentComponent implements OnInit {
 
     protected commentForm!: FormGroup;
     protected comments: Comment[] = [];
+    protected errorWhileFetchingComments = false;
     protected isSubmitting = false;
     protected isCommentFailed = false;
     protected activeCommentId: string | null = null;
@@ -82,6 +82,7 @@ export class CommentComponent implements OnInit {
     protected editComment(commentIid: string) {
 
     }
+
     protected deleteComment(commentId: string) {
         this.commentService.deleteComment(commentId).subscribe({
             next: (res) => {
@@ -91,11 +92,12 @@ export class CommentComponent implements OnInit {
                         this.comments = response.comments;
                     }
                 )
+                this.errorWhileFetchingComments = false;
             },
             error: (err) => {
                 console.log('Error during getting the comments', err);
+                this.errorWhileFetchingComments = true;
             }
-
         })
     }
 }

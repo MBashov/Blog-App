@@ -16,31 +16,35 @@
         <button type="submit" [disabled]="isSubmitting">Post Comment</button>
     </form>
 
-    @if (comments.length) {
-    <ul class="comment-list">
-        @for (comment of comments; track $index) {
-        <li class="comment">
-            <div class="comment-header">
-                <strong>{{comment.author.firstName}} {{comment.author.lastName}}</strong>
-                <span>on {{comment.publishedAt | date: 'medium'}}</span>
-                <p class="comment-content">{{comment.content}}</p>
-            </div>
-            <div
-                (click)="toggleActionsModal(comment._id)"
-                class="comment-actions" 
-                [ngClass]="{notAuthor: currentUser?._id !== comment.author._id}"
-                >
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-
-                <ul class="actions-modal" [ngClass]="{active: isActionsModalVisible(comment._id)}">
-                    <li (click)="editComment(comment._id)"><i class="fa-solid fa-pencil"></i> Edit</li>
-                    <li (click)="deleteComment(comment._id)"><i class="fa-solid fa-trash"></i> Delete</li>
-                </ul>
-            </div>
-        </li>
-        }
-    </ul>
+    @if (errorWhileFetchingComments) {
+        <p class="error-msg">Unexpected error while loading the comments, please try again later.</p>
     } @else {
-    <p class="no-comments">No comments added yet</p>
+        @if (comments.length) {
+            <ul class="comment-list">
+                @for (comment of comments; track $index) {
+                    <li class="comment">
+                        <div class="comment-header">
+                            <strong>{{comment.author.firstName}} {{comment.author.lastName}}</strong>
+                            <span>on {{comment.publishedAt | date: 'medium'}}</span>
+                            <p class="comment-content">{{comment.content}}</p>
+                        </div>
+                        <div
+                            (click)="toggleActionsModal(comment._id)"
+                            class="comment-actions" 
+                            [ngClass]="{notAuthor: currentUser?._id !== comment.author._id}"
+                            >
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                            <ul class="actions-modal" [ngClass]="{active: isActionsModalVisible(comment._id)}">
+                                <li (click)="editComment(comment._id)"><i class="fa-solid fa-pencil"></i> Edit</li>
+                                <li (click)="deleteComment(comment._id)"><i class="fa-solid fa-trash"></i> Delete</li>
+                            </ul>
+                        </div>
+                    </li>
+                }
+            </ul>
+        } @else {
+            <p class="no-comments">No comments added yet</p>
+        }
     }
 </section>

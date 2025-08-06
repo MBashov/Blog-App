@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { BlogResponse, CreateBlogResponse, singleBlogResponse } from '../../models/blog';
 import { Observable } from 'rxjs';
+import { authHeaders } from '../../shared/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -30,69 +31,42 @@ export class ApiService {
 
     createBlog(formData: FormData): Observable<CreateBlogResponse> {
         const url = `${this.apiUrl}/blogs`;
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
         return this.http.post<CreateBlogResponse>(url, formData, { headers });
     }
 
     updateBlog(formData: FormData, blogId: string): Observable<singleBlogResponse> {
         const url = `${this.apiUrl}/blogs/${blogId}`;
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
         return this.http.put<singleBlogResponse>(url, formData, { headers });
     }
 
     deleteBlog(blogId: string): Observable<void> {
         const url = `${this.apiUrl}/blogs/${blogId}`;
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
         return this.http.delete<void>(url, { headers });
     }
 
     checkHasLiked(blogId: string): Observable<{ hasLiked: boolean }> {
         const url = `${this.apiUrl}/likes/blog/${blogId}/has-liked`;
-
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
         return this.http.get<{ hasLiked: boolean }>(url, { headers });
     }
 
     likeBlog(blogId: string): Observable<{ likesCount: number }> {
         const url = `${this.apiUrl}/likes/blog/${blogId}`;
-
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
         return this.http.post<{ likesCount: number }>(url, null, { headers });
     }
 
-        unLikeBlog(blogId: string): Observable<{ likesCount: number }> {
+    unLikeBlog(blogId: string): Observable<{ likesCount: number }> {
         const url = `${this.apiUrl}/likes/blog/${blogId}`;
-
-        const accessToken = JSON.parse(localStorage.getItem('accessToken') || 'nul');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
         return this.http.delete<{ likesCount: number }>(url, { headers });
     }

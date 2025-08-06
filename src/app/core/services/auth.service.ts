@@ -5,6 +5,7 @@ import { map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { UserAuthResponse, User, UpdateUserResponse, accessToken } from '../../models/user';
 import { Router } from '@angular/router';
+import { authHeaders, getAccessToken } from '../../shared/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -88,15 +89,13 @@ export class AuthService {
         }
 
         const url: string = `${this.apiUrl}/auth/logout`;
-        const accessToken: string = JSON.parse(localStorage.getItem('accessToken') || 'null');
+        const accessToken: string | null = getAccessToken();
         if (!accessToken) {
             this.localLogout();
             return of(void (0));
         }
 
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers: HttpHeaders = authHeaders();
 
 
         return this.httpClient.post<void>(url, {}, { headers }).pipe(
@@ -117,8 +116,6 @@ export class AuthService {
         }).pipe(
             map((response: UpdateUserResponse) => {
                 this._currentUser.set(response.user);
-
-                // localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
                 localStorage.setItem('currentUser', JSON.stringify(response.user));
 
                 return response.user;
