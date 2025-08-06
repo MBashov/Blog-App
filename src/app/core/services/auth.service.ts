@@ -37,17 +37,21 @@ export class AuthService {
     ): Observable<User> {
         const url: string = `${this.apiUrl}/auth/register`;
 
-        return this.httpClient.post<UserAuthResponse>(url, { firstName, lastName, email, password }).pipe(
-            map((response: UserAuthResponse) => {
-                this._currentUser.set(response.user);
-                this._isLoggedIn.set(true);
+        return this.httpClient.post<UserAuthResponse>(
+            url,
+            { firstName, lastName, email, password },
+            { withCredentials: true })
+            .pipe(
+                map((response: UserAuthResponse) => {
+                    this._currentUser.set(response.user);
+                    this._isLoggedIn.set(true);
 
-                localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
-                localStorage.setItem('currentUser', JSON.stringify(response.user));
+                    localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
+                    localStorage.setItem('currentUser', JSON.stringify(response.user));
 
-                return response.user;
-            })
-        )
+                    return response.user;
+                })
+            )
     };
 
     login(email: string, password: string): Observable<User> {
