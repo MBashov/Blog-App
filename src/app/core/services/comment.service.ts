@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CommentsResponse, CreatedComment } from '../../models/comment';
+import { authHeaders } from '../../shared/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -28,5 +29,13 @@ export class CommentService {
         });
 
         return this.http.post<CreatedComment>(url, { content }, { headers });
+    }
+
+    deleteComment(commentId: string): Observable<{ commentsCount: number }> {
+        let url = `${this.apiUrl}/comments/${commentId}`;
+
+        const headers = authHeaders();
+
+        return this.http.delete<{ commentsCount: number }>(url, { headers });
     }
 }

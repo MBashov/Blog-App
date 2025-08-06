@@ -19,8 +19,8 @@ export class CurrentBlog implements OnInit {
     protected isSubmitting: boolean = false;
     protected isDeleting: boolean = false;
     protected imageClass: string = '';
-    protected modalClass: string = '';
     protected imageSrc: string = '';
+    protected modalClass: string = '';
     protected isAuthor: boolean = false;
     protected hasLiked: boolean = false;
     protected isLiking: boolean = false;

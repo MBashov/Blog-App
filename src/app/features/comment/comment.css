@@ -63,7 +63,7 @@
         li.comment {
             position: relative;
             margin-bottom: 1.5rem;
-            background: #f7f7f7;
+            background: #fff;
             padding: 1rem;
             border-radius: 5px;
 
@@ -87,7 +87,7 @@
             .comment-actions {
                 padding: 0.2em;
                 position: absolute;
-                right: 2%;
+                right: 4%;
                 top: 10%;
 
                 ul.actions-modal {
@@ -120,17 +120,20 @@
                 }
 
                 li:hover {
-                    background-color: #005B5B;
-                    color: white;
+                    color: #005B5B;
+                    font-size: 0.9em;
+                }
+
+                li:nth-of-type(2):hover {
+                    color: rgb(133, 3, 3);
                 }
             }
 
             .comment-actions:hover {
                 cursor: pointer;
+                font-size: 1.1em;
             }
         }
-
-
     }
 
     p.no-comments {
