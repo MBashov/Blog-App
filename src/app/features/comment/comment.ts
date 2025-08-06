@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { Blog } from '../../models/blog';
 import { CommentService } from '../../core/services';
 import { Comment, CommentsResponse } from '../../models/comment';
-import { Router } from '@angular/router';
+import { User } from '../../models/user';
 
 @Component({
     selector: 'app-comment',
-    imports: [DatePipe, ReactiveFormsModule],
+    imports: [DatePipe, ReactiveFormsModule, CommonModule],
     templateUrl: './comment.html',
     styleUrl: './comment.css'
 })
@@ -20,10 +20,11 @@ export class CommentComponent implements OnInit {
     protected comments: Comment[] = [];
     protected isSubmitting = false;
     protected isCommentFailed = false;
+    protected isModalVisible = false;
+    protected currentUser: User | null = null;
 
     constructor(
         private commentService: CommentService,
-        private router: Router,
         private fb: FormBuilder
     ) {
         this.commentForm = this.fb.group({
@@ -37,6 +38,8 @@ export class CommentComponent implements OnInit {
                 this.comments = response.comments;
             }
         )
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        
     }
 
     protected onSubmit() {
@@ -65,5 +68,11 @@ export class CommentComponent implements OnInit {
                 this.isSubmitting = false;
             }
         });
+    }
+
+    protected toggleCommentActionsModal() {
+        this.isModalVisible = !this.isModalVisible;
+        console.log(this.isModalVisible);
+        
     }
 }

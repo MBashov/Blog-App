@@ -23,8 +23,20 @@
             <div class="comment-header">
                 <strong>{{comment.author.firstName}} {{comment.author.lastName}}</strong>
                 <span>on {{comment.publishedAt | date: 'medium'}}</span>
+                <p class="comment-content">{{comment.content}}</p>
             </div>
-            <p>{{comment.content}}</p>
+            <div
+                (click)="toggleCommentActionsModal()"
+                class="comment-actions" 
+                [ngClass]="{notAuthor: currentUser?._id !== comment.author._id}"
+                >
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+
+                <ul class="actions-modal" [ngClass]="{active: isModalVisible}">
+                    <li><i class="fa-solid fa-pencil"></i> Edit</li>
+                    <li><i class="fa-solid fa-trash"></i> Delete</li>
+                </ul>
+            </div>
         </li>
         }
     </ul>

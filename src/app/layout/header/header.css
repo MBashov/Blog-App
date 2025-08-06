@@ -5,11 +5,10 @@
 
 .main-heading {
     font-family: 'Medula One', cursive;
-    margin-bottom: 0;
     letter-spacing: 0.1em;
     font-size: 3rem;
+    padding-top: 0.27em;
 }
-
 
 .navigation-list {
     display: flex;
