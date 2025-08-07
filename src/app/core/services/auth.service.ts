@@ -131,13 +131,19 @@ export class AuthService {
     };
 
     isAuthor(authorId: string): boolean {
-        const currentUser: User | null = JSON.parse(localStorage.getItem('currentUser') || 'nul');
+        const currentUser: User | null = JSON.parse(localStorage.getItem('currentUser') || 'null');
 
         if (currentUser) {
             return authorId === currentUser._id
         } else {
             return false;
         }
+    }
+
+    isAuthenticated(): boolean {
+        const accessToken: string | null = getAccessToken();
+
+        return accessToken ? true : false;
     }
 
     private localLogout(): void {

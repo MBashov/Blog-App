@@ -184,7 +184,7 @@
 
         .actions button {
             margin-right: 0.5rem;
-            padding: 0.6rem 1rem;
+            padding: 0.6rem 0.8em;
             font-size: 1em;
             background: #005B5B;
             color: white;
@@ -192,8 +192,13 @@
             border-radius: 5px;
             cursor: pointer;
 
-            i {
-                padding-right: 0.5em;
+            i.fa-arrow-left{
+                padding-right: 0.4em;
+            }
+            i.fa-pencil,
+            i.fa-trash,
+            i.fa-thumbs-up {
+                padding-right: 0.1em;
             }
         }
 

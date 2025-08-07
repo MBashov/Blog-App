@@ -16,14 +16,15 @@ import { CommentComponent } from "../../comment/comment";
 })
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
-    protected isSubmitting: boolean = false;
-    protected isDeleting: boolean = false;
-    protected imageClass: string = '';
-    protected imageSrc: string = '';
-    protected modalClass: string = '';
-    protected isAuthor: boolean = false;
-    protected hasLiked: boolean = false;
-    protected isLiking: boolean = false;
+    protected isSubmitting = false;
+    protected isDeleting = false;
+    protected imageClass = '';
+    protected imageSrc = '';
+    protected modalClass = '';
+    protected isAuthor = false;
+    protected hasLiked = false;
+    protected isLiking = false;
+    protected isAuthenticated = false;
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
@@ -37,16 +38,21 @@ export class CurrentBlog implements OnInit {
 
     ngOnInit(): void {
         this.blog = this.route.snapshot.data['blog'];
+
         this.isAuthor = this.authService.isAuthor(this.blog.author._id);
-        this.apiService.checkHasLiked(this.blog._id).subscribe({
-            next: (res) => {
-                this.hasLiked = res.hasLiked;
-            },
-            error: (err) => {
-                console.log('Delete failed', err);
-                //Todo error handling
-            }
-        });
+        this.isAuthenticated = this.authService.isAuthenticated();
+
+        if (this.isAuthenticated) {
+            this.apiService.checkHasLiked(this.blog._id).subscribe({
+                next: (res) => {
+                    this.hasLiked = res.hasLiked;
+                },
+                error: (err) => {
+                    console.log('Delete failed', err);
+                    //Todo error handling
+                }
+            });
+        }
     }
 
     protected onImageLoad(event: Event): void {
