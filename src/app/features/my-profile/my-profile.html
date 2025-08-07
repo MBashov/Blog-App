@@ -10,7 +10,7 @@
         </div>
         <div class="section-content">
             @for (blog of myBlogs; track $index) {
-            <app-blog-article [blog]="blog" />
+                <app-blog-article [blog]="blog" />
             }
         </div>
     </section>
@@ -19,8 +19,8 @@
             <p class="sub-heading">Liked Posts</p>
         </div>
         <div class="section-content">
-            @for (blog of myBlogs; track $index) {
-            <app-blog-article [blog]="blog" />
+            @for (like of myLikes; track $index) {
+                <app-blog-article [blog]="like.blogId" />
             }
         </div>
     </section>
@@ -30,7 +30,7 @@
         </div>
         <div class="section-content">
             @for (comment of myComments; track $index) {
-            <app-blog-article [blog]="comment.blogId" />
+                <app-blog-article [blog]="comment.blogId" />
             }
         </div>
     </section>

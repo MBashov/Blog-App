@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment.development';
 import { BlogResponse, CreateBlogResponse, singleBlogResponse } from '../../models/blog';
 import { Observable } from 'rxjs';
 import { authHeaders } from '../../shared/utils';
+import { LikeResponse } from '../../models/likes';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +32,7 @@ export class ApiService {
 
     getBlogsByUser(userId: string): Observable<BlogResponse> {
         let url = `${this.apiUrl}/blogs/user/${userId}`;
-        
+
         return this.http.get<BlogResponse>(url);
     }
 
@@ -75,6 +76,12 @@ export class ApiService {
         const headers: HttpHeaders = authHeaders();
 
         return this.http.delete<{ likesCount: number }>(url, { headers });
+    }
+
+    getMyLikes(): Observable<LikeResponse> {
+        let url = `${this.apiUrl}/likes/user/current`;
+
+        return this.http.get<LikeResponse>(url);
     }
 
 }

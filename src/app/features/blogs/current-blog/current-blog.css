@@ -192,13 +192,8 @@
             border-radius: 5px;
             cursor: pointer;
 
-            i.fa-arrow-left{
+            i {
                 padding-right: 0.4em;
-            }
-            i.fa-pencil,
-            i.fa-trash,
-            i.fa-thumbs-up {
-                padding-right: 0.1em;
             }
         }
 

@@ -59,15 +59,15 @@
                     <button 
                         (click)="deleteBlog(blog._id)" 
                         [disabled]="isSubmitting">
-                        <i class="fa-solid fa-trash"></i>
-                        {{isSubmitting ? 'Deleting' : 'Delete'}}
+                        <i class="fa-solid fa-trash"></i>{{
+                        isSubmitting ? 'Deleting' : 'Delete'}}
                     </button>
                 } @else {
                     <button 
                         (click)="toggleLike()" 
                         [disabled]="isLiking">
-                        <i class="fa-regular fa-thumbs-up"></i>
-                        {{hasLiked ? 'Unlike' : 'Like'}}
+                        <i class="fa-regular fa-thumbs-up"></i>{{
+                        hasLiked ? 'Unlike' : 'Like'}}
                     </button>
                 }   
             }

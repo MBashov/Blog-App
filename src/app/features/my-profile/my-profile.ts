@@ -5,6 +5,7 @@ import { BlogArticle } from '../../shared//components/blog-article/blog-article'
 import { AuthService, ApiService, CommentService } from '../../core/services';
 import { User } from '../../models/user';
 import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
+import { Like, LikeResponse } from '../../models/likes';
 
 @Component({
     selector: 'app-my-profile',
@@ -15,6 +16,7 @@ import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 export class MyProfile {
     protected myBlogs: Blog[] = [];
     protected myComments: CommentWithAuthor[] = [];
+    protected myLikes: Like[] = [];
     protected likedBlogs: Blog[] = [];
     protected isLoading: boolean = true;
     protected user: User | null = null;
@@ -37,8 +39,12 @@ export class MyProfile {
             this.commentService.getMyComments().subscribe((response: MyCommentsResponse) => {
                 this.myComments = response.comments;
                 // this.isLoading = false;
-            })
-        }
+            });
 
+            this.apiService.getMyLikes().subscribe((response: LikeResponse) => {
+                this.myLikes = response.likes;
+                // this.isLoading = false;
+            });
+        }
     }
 }
