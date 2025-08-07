@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './layout/home/home';
-import { NotFound } from './features/not-found/not-found';
+import { NotFound } from './shared/components/not-found/not-found';
 import { AuthGuard, isAuthorGuard } from './core/guards';
 import { blogResolver } from './features/blogs/current-blog/current.blog.resolver';
 

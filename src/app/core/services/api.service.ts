@@ -29,6 +29,12 @@ export class ApiService {
         return this.http.get<singleBlogResponse>(url);
     }
 
+    getBlogsByUser(userId: string): Observable<BlogResponse> {
+        let url = `${this.apiUrl}/blogs/user/${userId}`;
+        
+        return this.http.get<BlogResponse>(url);
+    }
+
     createBlog(formData: FormData): Observable<CreateBlogResponse> {
         const url = `${this.apiUrl}/blogs`;
         const headers: HttpHeaders = authHeaders();

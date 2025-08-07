@@ -1,6 +1,6 @@
 <section class="container">
     <section class="section-greetings">
-        <p class="sub-heading">Welcome {{firstName}}</p>
+        <p class="sub-heading">Welcome {{user?.firstName}} {{user?.lastName}}</p>
         <p>Here you can see your last activities</p>
         <p>Manage your profile</p>
     </section>
@@ -26,11 +26,11 @@
     </section>
     <section class="section my-comments">
         <div class="section-header">
-            <p class="sub-heading">My Comments</p>
+            <p class="sub-heading">Blogs I have commented</p>
         </div>
         <div class="section-content">
-            @for (blog of myBlogs; track $index) {
-            <app-blog-article [blog]="blog" />
+            @for (comment of myComments; track $index) {
+            <app-blog-article [blog]="comment.blogId" />
             }
         </div>
     </section>

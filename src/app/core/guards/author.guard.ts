@@ -16,7 +16,6 @@ export const isAuthorGuard: CanActivateFn = (route: ActivatedRouteSnapshot, stat
             if (authService.isAuthor(response.blog.author._id)) {
                 return true;
             } else {
-                console.log('Insufficient permissions');
                 router.navigate(['/404']);
                 return false;
             }

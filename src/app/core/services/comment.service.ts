@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CommentsResponse, CreatedComment } from '../../models/comment';
+import { CommentsResponse, CreatedComment, MyCommentsResponse } from '../../models/comment';
 import { authHeaders } from '../../shared/utils';
 
 @Injectable({
@@ -17,6 +17,12 @@ export class CommentService {
         let url = `${this.apiUrl}/comments/blog/${blogId}`;
 
         return this.http.get<CommentsResponse>(url);
+    }
+
+    getMyComments(): Observable<MyCommentsResponse> {
+        let url = `${this.apiUrl}/comments/user/current`;
+
+        return this.http.get<MyCommentsResponse>(url);
     }
 
     postComment(blogId: string, content: string): Observable<CreatedComment> {
