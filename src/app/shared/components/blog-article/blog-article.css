@@ -19,23 +19,21 @@
         flex-direction: column;
         gap: 0.5em;
 
-
-        /* a {
-            text-decoration: none;
+        p {
+            /* color: #005B5B; */
+            /* color: #1792d2; */
         }
-        a:hover {
-            text-decoration: underline;
-        } */
 
         .likes-and-views {
             display: flex;
-            padding-top: 0.9em;
-            /* justify-content: flex-end; */
             gap: 0.5em;
+            /* justify-content: flex-end; */
+            padding-top: 0.9em;
+            color: #005B5B;
 
-            .fa-regular {
+            /* .fa-regular {
                 color: #1792d2;
-            }
+            } */
         }
     }
 
@@ -49,6 +47,7 @@
 
         p {
             padding-block: 0.5em;
+            color: #005B5B;
         }
     }
 }
