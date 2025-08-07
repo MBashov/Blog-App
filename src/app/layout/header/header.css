@@ -40,22 +40,6 @@ a {
     color: #707070;
 }
 
-.active-page {
-    border-bottom: 1px solid #707070;
-}
-
-.active-page:hover {
-    color: #707070;
-}
-
-a:visited {
-    color: #707070;
-}
-
-a:active {
-    color: #1792d2;
-}
-
 .profile-content {
     display: none;
 }

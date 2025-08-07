@@ -7,11 +7,11 @@
         </div>
         <nav>
             <ul class="navigation-list">
-                <li><a routerLink="/home" class="navigation-link active-page">Home</a></li>
-                <li><a routerLink="/about" class="navigation-link">About</a></li>
+                <li><a routerLink="/home" class="navigation-link">Home</a></li>
                 <li><a routerLink="/blogs" class="navigation-link">Blogs</a></li>
                 @if (isLoggedIn) {
                     <li><a routerLink="/add-blog" class="navigation-link">Add Blog</a></li>
+                    <li><a routerLink="/about" class="navigation-link">About us</a></li>
                     <li (click)="toggleProfileModal()" class="profile-wrapper">
                         <a><i class="fa-solid fa-user"></i></a>
                         <ul class="profile-content" [ngClass]="{'active': isProfileVisible}">
@@ -19,8 +19,9 @@
                             <li><a routerLink="/my-profile" class="navigation-link">My Profile</a></li>
                             <li><a (click)="logout()" routerLink="/" class="navigation-link">Logout</a></li>
                         </ul>
-                </li>
+                    </li>
                 } @else {
+                    <li><a routerLink="/about" class="navigation-link">About us</a></li>
                     <li><a routerLink="/login" class="navigation-link">Login</a></li>
                     <li><a routerLink="/register" class="navigation-link">Register</a></li>
                 }

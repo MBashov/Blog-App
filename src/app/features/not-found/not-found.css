@@ -1,8 +1,63 @@
 .not-found {
-    text-align: center;
-    margin-top: 10%;
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 2rem;
+    color: #005B5B;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;    
+}
 
-    p {
-        font-size: 1.5em;
+.not-found h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #005B5B;
+}
+
+.not-found h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #005B5B;
+}
+
+.not-found p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.team-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.team-list li {
+    background: #333;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.useful-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    a {
+        text-decoration: underline;
+        color: #005B5B;
+    }
+
+    a:hover {
+        color: #82c3c3;
     }
 }
