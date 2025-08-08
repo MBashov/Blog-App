@@ -1,119 +1,142 @@
 <section class="container">
     <section class="section-greetings">
-        <h1 class="heading">Welcome back, {{ user?.firstName }} {{ user?.lastName }}</h1>
-        <p>From here, you can manage your personal profile, view your recent activity, and make updates to your account</p>
-        <button (click)="onManageProfile()">{{isProfileUpdating ? 'Go Back' : 'Manage profile'}}</button>
+        <header class="profile-header">
+            <img src="profile.png" alt="Profile Picture" />
+            <div class="profile-info">
+                <h1 class="heading">Welcome back, {{ user?.firstName }} {{ user?.lastName }}</h1>
+                <p>From here, you can <strong>manage</strong> your personal profile, <strong>view</strong> your recent activity, and <strong>make</strong> updates to your account</p> 
+                <h4>My activities</h4>
+                <div class="stats">
+                <span>{{myBlogs.length}} Posts</span>
+                <span>{{myLikes.length}} Likes</span>
+                <span>{{myComments.length}} Comments</span>
+                </div>
+            </div>
+        </header>
     </section>
-    @if (isProfileUpdating) {
-        <section class="manage-account">
 
-            <h2>Account Settings</h2>
-        
-            <div class="profile-information">
-                <div class="account-section">
-                    <h3>Profile Information</h3>
-                    <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()">
-                        <label for="firstName">First Name</label>
-                        <input 
-                            type="text" 
-                            id="firstName" 
-                            name="firstName" 
-                            required
-                            formControlName="firstName"
-                        />
-                    
-                        <label for="lastName">Last Name</label>
-                        <input 
-                            type="text" 
-                            id="lastName" 
-                            name="lastName" 
-                            required
-                            formControlName="lastName"
-                        />
-                        <label for="email">Email</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            required 
-                            formControlName="email"
-                        />
-                        <button type=" submit">Save Changes</button>
-                    </form>
+        <nav class="profile-tabs">
+            <div class="tab-buttons" [ngClass]="{active: areTabButtonsActive}">
+                <button (click)="selectTab('posts')">My Posts</button>
+                <button (click)="selectTab('liked')">Liked Posts</button>
+                <button (click)="selectTab('comments')">My Comments</button>
+            </div>
+            <button (click)="onManageProfile()">{{isProfileUpdating ? 'Go Back' : 'Manage profile'}}</button>
+        </nav>
+
+        @if (isProfileUpdating) {
+            <section class="manage-account">
+
+                <h2>Account Settings</h2>
+            
+                <div class="profile-information">
+                    <div class="account-section">
+                        <h3>Profile Information</h3>
+                        <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()">
+                            <label for="firstName">First Name</label>
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="firstName" 
+                                required
+                                formControlName="firstName"
+                            />
+                        
+                            <label for="lastName">Last Name</label>
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="lastName" 
+                                required
+                                formControlName="lastName"
+                            />
+                            <label for="email">Email</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                formControlName="email"
+                            />
+                            <button type=" submit">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <div class="account-section">
+                        <h3>Change Password</h3>
+                        <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+                            <label for="currentPassword">Current Password</label>
+                            <input 
+                                type="password" 
+                                id="currentPassword" 
+                                name="currentPassword" 
+                                required 
+                                formControlName="currentPassword"
+                            />
+                            <label for="newPassword">New Password</label>
+                            <input 
+                                type="password" 
+                                id="newPassword" 
+                                name="newPassword" 
+                                required 
+                                formControlName="newPassword"
+                            />
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                required 
+                                minlength="6"
+                                formControlName="confirmPassword"
+                            />
+                            <button type="submit">Change Password</button>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="account-section">
-                    <h3>Change Password</h3>
-                    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
-                        <label for="currentPassword">Current Password</label>
-                        <input 
-                            type="password" 
-                            id="currentPassword" 
-                            name="currentPassword" 
-                            required 
-                            formControlName="currentPassword"
-                        />
-                        <label for="newPassword">New Password</label>
-                        <input 
-                            type="password" 
-                            id="newPassword" 
-                            name="newPassword" 
-                            required 
-                            formControlName="newPassword"
-                        />
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input 
-                            type="password" 
-                            id="confirmPassword" 
-                            name="confirmPassword" 
-                            required 
-                            minlength="6"
-                            formControlName="confirmPassword"
-                        />
-                        <button type="submit">Change Password</button>
-                    </form>
+                <div class="account-section danger-zone">
+                    <h3>Danger Zone</h3>
+                    <p><strong>Delete your account permanently !</strong>This action cannot be undone !</p>
+                    <button class="btn-delete" (click)="openDeleteDialog()">Delete Account</button>
                 </div>
-            </div>
 
-            <div class="account-section danger-zone">
-                <h3>Danger Zone</h3>
-                <p><strong>Delete your account permanently !</strong>This action cannot be undone !</p>
-                <button class="btn-delete" (click)="openDeleteDialog()">Delete Account</button>
-            </div>
+            </section>
+        } @else {
+            <section class="tab-content">
+                <section class="section my-posts" [ngClass]="{active: arePostsActive}">
+                    <div class="section-header">
+                        <p class="sub-heading">My Posts</p>
+                    </div>
+                    <div class="section-content">
+                        @for (blog of myBlogs; track $index) {
+                            <app-blog-article [blog]="blog" />
+                        }
+                    </div>
+                </section>
 
-        </section>
-    } @else {
-        <section class="section my-posts">
-            <div class="section-header">
-                <p class="sub-heading">My Posts</p>
-            </div>
-            <div class="section-content">
-                @for (blog of myBlogs; track $index) {
-                    <app-blog-article [blog]="blog" />
-                }
-            </div>
-        </section>
+                <section class="section liked-blogs" [ngClass]="{active: areLikesActive}">
+                    <div class="section-header">
+                        <p class="sub-heading">Liked Posts</p>
+                    </div>
+                    <div class="section-content">
+                        @for (like of myLikes; track $index) {
+                            <app-blog-article [blog]="like.blogId" />
+                        }
+                    </div>
+                </section>
 
-        <section class="section liked-blogs">
-            <div class="section-header">
-                <p class="sub-heading">Liked Posts</p>
-            </div>
-            <div class="section-content">
-                @for (like of myLikes; track $index) {
-                    <app-blog-article [blog]="like.blogId" />
-                }
-            </div>
-        </section>
+                <section class="section my-comments" [ngClass]="{active: areCommentsActive}">
+                    <div class="section-header">
+                        <p class="sub-heading">Blogs I have commented</p>
+                    </div>
+                    <div class="section-content">
+                        @for (comment of myComments; track $index) {
+                            <app-blog-article [blog]="comment.blogId" />
+                        }
+                    </div>
+                </section>
+            </section>
+        }
 
-        <section class="section my-comments">
-            <div class="section-header">
-                <p class="sub-heading">Blogs I have commented</p>
-            </div>
-            <div class="section-content">
-                @for (comment of myComments; track $index) {
-                    <app-blog-article [blog]="comment.blogId" />
-                }
-            </div>
-        </section>
-    }
 </section>

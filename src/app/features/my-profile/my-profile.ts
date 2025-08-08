@@ -7,10 +7,11 @@ import { User } from '../../models/user';
 import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 import { Like, LikeResponse } from '../../models/likes';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-my-profile',
-    imports: [BlogArticle, ReactiveFormsModule],
+    imports: [BlogArticle, ReactiveFormsModule, CommonModule],
     templateUrl: './my-profile.html',
     styleUrl: './my-profile.css'
 })
@@ -24,6 +25,10 @@ export class MyProfile {
     protected isProfileUpdating = false;
     protected profileForm!: FormGroup;
     protected passwordForm!: FormGroup;
+    protected arePostsActive = false;
+    protected areLikesActive = false;
+    protected areCommentsActive = false;
+    protected areTabButtonsActive = true;
 
     constructor(
         private apiService: ApiService,
@@ -67,6 +72,27 @@ export class MyProfile {
 
     protected onManageProfile() {
         this.isProfileUpdating = !this.isProfileUpdating;
+        this.areTabButtonsActive = !this.areTabButtonsActive;
+    }
+
+    protected selectTab(tab: 'posts' | 'liked' | 'comments') {
+        switch (tab) {
+            case 'posts': 
+                this.arePostsActive = true;
+                this.areLikesActive = false;
+                this.areCommentsActive = false;
+                break;
+            case 'liked':
+                this.arePostsActive = false;
+                this.areLikesActive = true;
+                this.areCommentsActive = false;
+                break;
+            case 'comments':
+                this.arePostsActive = false;
+                this.areLikesActive = false;
+                this.areCommentsActive = true;
+                break;                
+        }
     }
 
     protected onUpdateProfile() {
