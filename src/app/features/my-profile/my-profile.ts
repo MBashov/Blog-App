@@ -6,10 +6,11 @@ import { AuthService, ApiService, CommentService } from '../../core/services';
 import { User } from '../../models/user';
 import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 import { Like, LikeResponse } from '../../models/likes';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-my-profile',
-    imports: [BlogArticle],
+    imports: [BlogArticle, ReactiveFormsModule],
     templateUrl: './my-profile.html',
     styleUrl: './my-profile.css'
 })
@@ -20,11 +21,15 @@ export class MyProfile {
     protected likedBlogs: Blog[] = [];
     protected isLoading: boolean = true;
     protected user: User | null = null;
+    protected isProfileUpdating = false;
+    protected profileForm!: FormGroup;
+    protected passwordForm!: FormGroup;
 
     constructor(
-        private apiService: ApiService, 
+        private apiService: ApiService,
         private authService: AuthService,
         private commentService: CommentService,
+        private fb: FormBuilder
     ) { }
 
     ngOnInit(): void {
@@ -46,5 +51,33 @@ export class MyProfile {
                 // this.isLoading = false;
             });
         }
+
+        this.profileForm = this.fb.group({
+            firstName: [this.user?.firstName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+            lastName: [this.user?.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+            email: [this.user?.email, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
+        });
+
+        this.passwordForm = this.fb.group({
+            currentPassword: ['', [Validators.required]],
+            newPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+            confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+        });
+    }
+
+    protected onManageProfile() {
+        this.isProfileUpdating = !this.isProfileUpdating;
+    }
+
+    protected onUpdateProfile() {
+
+    }
+
+    protected onChangePassword() {
+
+    }
+
+    protected openDeleteDialog() {
+
     }
 }

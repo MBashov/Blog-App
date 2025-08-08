@@ -2,7 +2,7 @@
     <div class="blog-primary">
         <h2>{{blog.title | shorten: 40}}</h2>
         <p>{{blog.content | shorten}}</p>
-        <a href="topic.html" class="continue-reading">Continue Reading</a>
+        <a [routerLink]="['/blogs', 'details', blog.slug]" class="continue-reading">Continue Reading</a>
         <div class="likes-and-views">
             <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
             <p><i class="fa-regular fa-thumbs-up"></i> {{blog.likesCount}}</p>
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="blog-info">
-        <a href="topic.html"><img src={{blog.banner.url}} alt="picture"></a>
+        <a [routerLink]="['/blogs', 'details', blog.slug]"><img src={{blog.banner.url}} alt="picture"></a>
         <p>{{blog.publishedAt | timeAgo}}</p>
     </div>
 </article>
