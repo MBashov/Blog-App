@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 
-import { AuthService } from '../../../core/services';
+import { AuthService, SnackbarService } from '../../../core/services';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -19,7 +19,11 @@ export class Register {
     protected hasError: boolean = false;
     protected hasEmailError: boolean = false;
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(
+        private authService: AuthService, 
+        private router: Router,
+        private snackBar: SnackbarService,
+    ) { }
 
     protected onPasswordBlur(control: NgModel): void {
         if (control.touched && this.hasError) {
@@ -39,6 +43,7 @@ export class Register {
             next: () => {
                 this.router.navigate(['/home']);
                 this.registerForm.reset();
+                this.snackBar.show('Registration successful', 'success');
             },
             error: (err) => {
                 console.log(err.error?.errors?.email);
@@ -59,7 +64,7 @@ export class Register {
                     passwordControl.updateValueAndValidity();
                     confirmPasswordControl.updateValueAndValidity();
                 }
-                console.log('Register failed', err);
+                this.snackBar.show('Registration failed', 'error');
             }
         });
     }

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Blog, singleBlogResponse } from '../../../models/blog';
-import { ApiService } from '../../../core/services';
+import { ApiService, SnackbarService } from '../../../core/services';
 
 @Component({
     selector: 'app-edit-blog',
@@ -23,7 +23,8 @@ export class EditBlog implements OnInit {
         private fb: FormBuilder, 
         private apiService: ApiService, 
         private route: ActivatedRoute, 
-        private router: Router
+        private router: Router,
+        private snackBar: SnackbarService,
     ) {}
 
     ngOnInit(): void {
@@ -86,10 +87,11 @@ export class EditBlog implements OnInit {
                 this.selectedFile = null;
                 this.isSubmitting = false;
                 this.router.navigate(['/blogs', 'details', this.blog.slug]);
+                this.snackBar.show('Blog updated successfully', 'success');
             },
             error: (err) => {
-                console.log('Blog creation failed', err);
-                //TODO Error handling
+                console.log('Blog update failed', err);
+                this.snackBar.show('Blog update failed', 'error');
             }
         })
     }

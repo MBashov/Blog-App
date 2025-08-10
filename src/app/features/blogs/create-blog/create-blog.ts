@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { ApiService } from '../../../core/services';
+import { ApiService, SnackbarService } from '../../../core/services';
 import { Router } from '@angular/router';
 import { CreateBlogResponse } from '../../../models/blog';
 
@@ -18,7 +18,12 @@ export class CreateBlog {
     protected imagePreviewUrl: string | null = null;
     protected fileError: string | null = null;
 
-    constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
+    constructor(
+        private fb: FormBuilder, 
+        private apiService: ApiService, 
+        private router: Router,
+        private snackBar: SnackbarService,
+    ) {
 
         this.blogForm = this.fb.group({
             title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
@@ -77,10 +82,11 @@ export class CreateBlog {
                 this.blogForm.reset();
                 this.selectedFile = null;
                 this.router.navigate(['/blogs']);
+                this.snackBar.show('Blog created successfully', 'success');
             },
             error: (err) => {
                 console.log('Blog creation failed', err);
-                //TODO Error handling
+                this.snackBar.show('Blog creation failed', 'error');
             },
             complete: () => {
                 this.isSubmitting = false;

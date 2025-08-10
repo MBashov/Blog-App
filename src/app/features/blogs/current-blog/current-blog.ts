@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Blog } from '../../../models/blog';
-import { ApiService, AuthService } from '../../../core/services';
+import { ApiService, AuthService, SnackbarService } from '../../../core/services';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { CommentComponent } from "../../comment/comment";
 
@@ -34,6 +34,7 @@ export class CurrentBlog implements OnInit {
         private apiService: ApiService,
         private authService: AuthService,
         private dialog: MatDialog,
+        private snackBar: SnackbarService,
     ) { }
 
     ngOnInit(): void {
@@ -122,9 +123,9 @@ export class CurrentBlog implements OnInit {
                 this.isSubmitting = true;
                 this.apiService.deleteBlog(blogId).subscribe({
                     next: () => {
-                        console.log('Blog deleted successfully');
                         this.router.navigate(['/blogs']);
                         this.isSubmitting = false;
+                        this.snackBar.show('Blog deleted successfully', 'success');
                     },
                     error: (err) => {
                         console.log('Delete failed', err);
