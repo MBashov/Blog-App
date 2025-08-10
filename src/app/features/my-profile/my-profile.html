@@ -133,8 +133,8 @@
 
                 <div class="account-section danger-zone">
                     <h3>Danger Zone</h3>
-                    <p><strong>Delete your account permanently !</strong>This action cannot be undone !</p>
-                    <button class="btn-delete" (click)="openDeleteDialog()">Delete Account</button>
+                    <p><strong>Delete your account permanently</strong>This action cannot be undone</p>
+                    <button class="btn-delete" (click)="onDeleteAccount()" [disabled]="isSubmitting">Delete Account</button>
                 </div>
 
             </section>

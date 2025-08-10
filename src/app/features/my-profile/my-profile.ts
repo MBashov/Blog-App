@@ -11,7 +11,9 @@ import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 import { Like, LikeResponse } from '../../models/likes';
 import { UserService } from '../../core/services/user.service';
 import { UpdateUserPayload } from '../../models/user/UpdateUserPayload.model';
-import { F } from '@angular/cdk/keycodes';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../shared/components/confirm-dialog/confirm-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-my-profile',
@@ -43,7 +45,9 @@ export class MyProfile {
         private commentService: CommentService,
         private userService: UserService,
         private fb: FormBuilder,
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog,
+        private snackBar: MatSnackBar,
     ) { }
 
     ngOnInit(): void {
@@ -205,7 +209,33 @@ export class MyProfile {
         })
     }
 
-    protected openDeleteDialog() {
+    protected onDeleteAccount() {
+        const dialogRef = this.dialog.open(ConfirmDialog, {
+            width: '350px',
+            data: { message: 'This action will permanently delete your profile and all your content. Are you sure you want to continue?' }
+        });
 
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.isSubmitting = true;
+                this.userService.deleteCurrentUser().subscribe({
+                    next: () => {
+                        console.log('Profile deleted successfully');
+                        this.authService.logout().subscribe();
+                        this.router.navigate(['/']);
+                        this.isSubmitting = false;
+                        this.snackBar.open('User profile deleted successfully', 'Close', { duration: 5000 });
+                    },
+                    error: (err) => {
+                        console.log('Delete failed', err);
+                        this.isSubmitting = false;
+                        this.snackBar.open('Failed to delete account. Please try again', 'Close', { duration: 5000 });
+                    },
+                    complete: () => {
+                        this.isSubmitting = false;
+                    }
+                })
+            }
+        })
     }
 }

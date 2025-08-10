@@ -15,8 +15,8 @@ export class UserService {
     constructor(private httpClient: HttpClient,) { }
 
     updateUser(
-        firstName?: string | undefined, 
-        lastName?: string | undefined, 
+        firstName?: string | undefined,
+        lastName?: string | undefined,
         email?: string | undefined,
         currentPassword?: string | undefined,
         newPassword?: string | undefined,
@@ -26,11 +26,18 @@ export class UserService {
         const headers = authHeaders();
 
         return this.httpClient.put<UpdateUserResponse>(
-            url, 
-            { firstName, lastName, email, currentPassword, newPassword }, 
+            url,
+            { firstName, lastName, email, currentPassword, newPassword },
             { headers }
         );
     };
+
+    deleteCurrentUser(): Observable<void> {
+        const url: string = `${this.apiUrl}/users/current`;
+        const headers = authHeaders();
+
+        return this.httpClient.delete<void>( url, { headers });
+    }
 }
 
 
