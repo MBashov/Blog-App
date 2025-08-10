@@ -1,0 +1,20 @@
+.snackbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+
+    span {
+        padding: 0.2em;
+    }
+}
+
+.snackbar.success {
+    background-color: #4caf50;
+    padding-inline: 0.2em;
+}
+
+.snackbar.error {
+    background-color: #f44336;
+}

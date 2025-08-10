@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { User } from '../../models/user';
-import { AuthService } from '../../core/services';
+import { AuthService, SnackbarService } from '../../core/services';
 
 @Component({
     selector: 'app-header',
@@ -12,7 +12,11 @@ import { AuthService } from '../../core/services';
     styleUrl: './header.css'
 })
 export class Header {
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(
+        private authService: AuthService, 
+        private router: Router,
+        private snackBar: SnackbarService,
+    ) { }
 
     protected isProfileVisible: boolean = false;
 
@@ -36,6 +40,7 @@ export class Header {
         this.authService.logout().subscribe({
             next: () => {
                 this.router.navigate(['/home']);
+                this.snackBar.show('Logout successful', 'success');
             },
             error: (err) => {
                 console.log('Logout Failed', err);

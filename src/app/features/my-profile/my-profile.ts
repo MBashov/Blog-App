@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 import { Blog, BlogResponse } from '../../models/blog';
 import { BlogArticle } from '../../shared//components/blog-article/blog-article';
-import { AuthService, ApiService, CommentService } from '../../core/services';
+import { AuthService, ApiService, CommentService, SnackbarService } from '../../core/services';
 import { UpdateUserResponse, User } from '../../models/user';
 import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 import { Like, LikeResponse } from '../../models/likes';
@@ -13,7 +13,6 @@ import { UserService } from '../../core/services/user.service';
 import { UpdateUserPayload } from '../../models/user/UpdateUserPayload.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../shared/components/confirm-dialog/confirm-dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-my-profile',
@@ -47,7 +46,7 @@ export class MyProfile {
         private fb: FormBuilder,
         private router: Router,
         private dialog: MatDialog,
-        private snackBar: MatSnackBar,
+        private snackBar: SnackbarService,
     ) { }
 
     ngOnInit(): void {
@@ -160,10 +159,11 @@ export class MyProfile {
                 this.user = res.user;
                 this.isProfileUpdating = false;
                 this.router.navigate(['/my-profile']);
+                this.snackBar.show('Profile updated successfully', 'success');
             },
             error: (err) => {
                 console.log('User update failed', err);
-                //TODO Error handling
+                this.snackBar.show('Profile update failed', 'error');
             },
             complete: () => {
                 this.isSubmitting = false;
@@ -194,13 +194,14 @@ export class MyProfile {
                 this.isSubmitting = false;
                 this.isCurrentPasswordWrong = false;
                 this.passwordForm.reset();
+                this.snackBar.show('Password updated successfully', 'success');
             },
             error: (err) => {
                 console.log('User update failed', err.error.message);
                 if (err.error.message === 'Current password is incorrect') {
                     this.isCurrentPasswordWrong = true;
                 }
-                //TODO Error handling
+                this.snackBar.show('Password change failed', 'error');
                 this.isSubmitting = false;
             },
             complete: () => {
@@ -224,17 +225,14 @@ export class MyProfile {
                         this.authService.logout().subscribe();
                         this.router.navigate(['/']);
                         this.isSubmitting = false;
-                        this.snackBar.open('User profile deleted successfully', 'Close', { duration: 5000 });
+                        this.snackBar.show('User profile deleted successfully', 'success')
                     },
                     error: (err) => {
                         console.log('Delete failed', err);
                         this.isSubmitting = false;
-                        this.snackBar.open('Failed to delete account. Please try again', 'Close', { duration: 5000 });
+                        this.snackBar.show('Failed to delete a user profile. Please try again', 'error');
                     },
-                    complete: () => {
-                        this.isSubmitting = false;
-                    }
-                })
+                });
             }
         })
     }
