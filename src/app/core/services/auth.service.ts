@@ -114,22 +114,6 @@ export class AuthService {
         );
     }
 
-
-    updateUser(user: User): Observable<User> {
-        const url: string = `${this.apiUrl}/users/current`;
-
-        return this.httpClient.put<UpdateUserResponse>(url, { user }, {
-            withCredentials: true //TODO Fix the accessToken token
-        }).pipe(
-            map((response: UpdateUserResponse) => {
-                this._currentUser.set(response.user);
-                localStorage.setItem('currentUser', JSON.stringify(response.user));
-
-                return response.user;
-            })
-        );
-    };
-
     isAuthor(authorId: string): boolean {
         const currentUser: User | null = JSON.parse(localStorage.getItem('currentUser') || 'null');
 
@@ -154,5 +138,3 @@ export class AuthService {
         this.router.navigate(['/']);
     }
 }
-
-//TODO  Set up an HTTP Interceptor to handle tokens globally.

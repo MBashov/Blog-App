@@ -160,7 +160,7 @@
                 color: #005B5B;
             }
 
-            label::after {
+            label.required::after {
                 content: '*';
                 color: darkred;
                 font-size: 1.2em;

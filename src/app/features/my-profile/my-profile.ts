@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Blog, BlogResponse } from '../../models/blog';
 import { BlogArticle } from '../../shared//components/blog-article/blog-article';
 import { AuthService, ApiService, CommentService } from '../../core/services';
-import { User } from '../../models/user';
+import { UpdateUserResponse, User } from '../../models/user';
 import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 import { Like, LikeResponse } from '../../models/likes';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { UserService } from '../../core/services/user.service';
+import { UpdateUserPayload } from '../../models/user/UpdateUserPayload.model';
 
 @Component({
     selector: 'app-my-profile',
@@ -29,12 +32,15 @@ export class MyProfile {
     protected areLikesActive = false;
     protected areCommentsActive = false;
     protected areTabButtonsActive = true;
+    protected isSubmitting = false;
 
     constructor(
         private apiService: ApiService,
         private authService: AuthService,
         private commentService: CommentService,
-        private fb: FormBuilder
+        private userService: UserService,
+        private fb: FormBuilder,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -58,9 +64,9 @@ export class MyProfile {
         }
 
         this.profileForm = this.fb.group({
-            firstName: [this.user?.firstName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-            lastName: [this.user?.lastName, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-            email: [this.user?.email, [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
+            firstName: [this.user?.firstName || '', [Validators.minLength(2), Validators.maxLength(20)]],
+            lastName: [this.user?.lastName || '', [Validators.minLength(2), Validators.maxLength(20)]],
+            email: [this.user?.email || '', [Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
         });
 
         this.passwordForm = this.fb.group({
@@ -77,7 +83,7 @@ export class MyProfile {
 
     protected selectTab(tab: 'posts' | 'liked' | 'comments') {
         switch (tab) {
-            case 'posts': 
+            case 'posts':
                 this.arePostsActive = true;
                 this.areLikesActive = false;
                 this.areCommentsActive = false;
@@ -91,12 +97,56 @@ export class MyProfile {
                 this.arePostsActive = false;
                 this.areLikesActive = false;
                 this.areCommentsActive = true;
-                break;                
+                break;
         }
     }
 
     protected onUpdateProfile() {
+        if (this.profileForm.invalid) return;
 
+        this.isSubmitting = true;
+        const { firstName, lastName, email } = this.profileForm.value;
+
+        const normalizedEmail = (email || '').trim().toLowerCase();
+        const originalEmail = (this.user?.email || '').trim().toLowerCase();
+
+        const normalizedFirstName = (firstName || '').trim().toLowerCase();
+        const originalFirstName = (this.user?.firstName || '').trim().toLowerCase();
+
+        const normalizedLastName = (lastName || '').trim().toLowerCase();
+        const originalLastName = (this.user?.lastName || '').trim().toLowerCase();
+
+        const payload: UpdateUserPayload = {};
+
+        if (normalizedFirstName && normalizedFirstName !== originalFirstName) {
+            payload.firstName = firstName;
+        }
+
+        if (normalizedLastName && normalizedLastName !== originalLastName) {
+            payload.lastName = lastName;
+        }
+
+        if (normalizedEmail && normalizedEmail !== originalEmail) {
+            payload.email = email;
+        }
+
+        this.userService.updateUser(payload.firstName, payload.lastName, payload.email).subscribe({
+
+            next: (res: UpdateUserResponse) => {
+                console.log('User info updated', res.user);
+                localStorage.setItem('currentUser', JSON.stringify(res.user));
+                this.user = res.user;
+                this.isProfileUpdating = false;
+                this.router.navigate(['/my-profile']);
+            },
+            error: (err) => {
+                console.log('User update failed', err);
+                //TODO Error handling
+            },
+            complete: () => {
+                this.isSubmitting = false;
+            }
+        })
     }
 
     protected onChangePassword() {
