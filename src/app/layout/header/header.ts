@@ -43,7 +43,7 @@ export class Header {
                 this.snackBar.show('Logout successful', 'success');
             },
             error: (err) => {
-                console.log('Logout Failed', err);
+                this.snackBar.show('Logout failed', 'error');
             }
         });
     }

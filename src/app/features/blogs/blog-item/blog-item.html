@@ -1,26 +1,30 @@
 @if (isLoading) {
-<app-loader />
+    <app-loader />
 } @else {
-<div class="container blogs-container">
-    <section class="blog-header">
-        <h1>Let us take you on a storytelling journey through islands, forests, and beyond.</h1>
-    </section>
-    <section class="blog-card-wrapper">
-        @for (blog of blogs; track $index) {
-        <div class="blog-card">
-            <img src={{blog.banner.url}} alt="Blog Image">
-            <div class="card-content">
-                <h2>{{blog.title}}</h2>
-                <p>{{blog.content.slice(0, 120)}}...</p>
-                <a [routerLink]="['/blogs', 'details', blog.slug]" class="continue-reading">Continue Reading</a>
-                <div class="likes-and-views">
-                    <p><i class="fa-regular fa-thumbs-up"></i> {{blog.likesCount}}</p>
-                    <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
+    <div class="container blogs-container">
+        <section class="blog-header">
+            <h1>Let us take you on a storytelling journey through islands, forests, and beyond.</h1>
+        </section>
+        @if (hasError) {
+            <p class="error-msg">Something went wrong while loading blogs.</p>
+            <button (click)="RefetchAllBlogs()" class="button">Try again</button>
+        }   
+        <section class="blog-card-wrapper">
+            @for (blog of blogs; track $index) {
+            <div class="blog-card">
+                <img src={{blog.banner.url}} alt="Blog Image">
+                <div class="card-content">
+                    <h2>{{blog.title}}</h2>
+                    <p>{{blog.content.slice(0, 120)}}...</p>
+                    <a [routerLink]="['/blogs', 'details', blog.slug]" class="continue-reading">Continue Reading</a>
+                    <div class="likes-and-views">
+                        <p><i class="fa-regular fa-thumbs-up"></i> {{blog.likesCount}}</p>
+                        <p><i class="fa-regular fa-eye"></i> {{blog.viewsCount}}</p>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        }
-    </section>
-</div>
+            </div>
+            }
+        </section>
+    </div>
 }
