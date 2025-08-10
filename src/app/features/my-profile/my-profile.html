@@ -80,7 +80,14 @@
                                 name="currentPassword" 
                                 required 
                                 formControlName="currentPassword"
+                                [ngClass]="{'invalid': isCurrentPasswordWrong}"
                             />
+                            @if(passwordForm.get('currentPassword')?.errors?.['required'] && passwordForm.get('currentPassword')?.touched) {
+                                <p class="error-msg">Password is required!</p>
+                            }
+                            @if (isCurrentPasswordWrong) {
+                                <p class="error-msg">Current password is incorrect!</p>
+                            }
                             <label class="required" for="newPassword">New Password</label>
                             <input 
                                 type="password" 
@@ -88,7 +95,17 @@
                                 name="newPassword" 
                                 required 
                                 formControlName="newPassword"
+                                [ngClass]="{'invalid': isPasswordMissMatch}"
                             />
+                            @if(passwordForm.get('newPassword')?.errors?.['required'] && passwordForm.get('newPassword')?.touched) {
+                                <p class="error-msg"> New password is required!</p>
+                            }
+                            @if(passwordForm.get('newPassword')?.errors?.['minlength'] && passwordForm.get('newPassword')?.touched) {
+                                <p class="error-msg">Password must be at least 6 characters!</p>
+                            }
+                            @if(isPasswordMissMatch) {
+                                <p class="error-msg">New password and confirmation must be the same!</p>
+                            }
                             <label class="required" for="confirmPassword">Confirm Password</label>
                             <input 
                                 type="password" 
@@ -97,8 +114,19 @@
                                 required 
                                 minlength="6"
                                 formControlName="confirmPassword"
+                                [ngClass]="{'invalid': isPasswordMissMatch}"
                             />
-                            <button type="submit">Change Password</button>
+                            @if(passwordForm.get('confirmPassword')?.errors?.['required'] && passwordForm.get('confirmPassword')?.touched) {
+                                <p class="error-msg">Confirm password is required!</p>
+                            }
+                            @if(passwordForm.get('confirmPassword')?.errors?.['minlength'] && passwordForm.get('confirmPassword')?.touched) {
+                                <p class="error-msg">Confirm password must be at least 6 characters!</p>
+                            }
+                            @if(isPasswordMissMatch) {
+                                <p class="error-msg">New password and confirmation must be the same!</p>
+                            }
+
+                            <button type="submit" [disabled]="isSubmitting">Change Password</button>
                         </form>
                     </div>
                 </div>

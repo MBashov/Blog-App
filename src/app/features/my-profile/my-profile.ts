@@ -11,6 +11,7 @@ import { CommentWithAuthor, MyCommentsResponse } from '../../models/comment';
 import { Like, LikeResponse } from '../../models/likes';
 import { UserService } from '../../core/services/user.service';
 import { UpdateUserPayload } from '../../models/user/UpdateUserPayload.model';
+import { F } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-my-profile',
@@ -32,7 +33,9 @@ export class MyProfile {
     protected areLikesActive = false;
     protected areCommentsActive = false;
     protected areTabButtonsActive = true;
+    protected isPasswordMissMatch = false;
     protected isSubmitting = false;
+    protected isCurrentPasswordWrong = false;
 
     constructor(
         private apiService: ApiService,
@@ -73,6 +76,22 @@ export class MyProfile {
             currentPassword: ['', [Validators.required]],
             newPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
             confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+        });
+
+        this.passwordForm.get('currentPassword')?.valueChanges.subscribe(() => {
+            if (this.isCurrentPasswordWrong) {
+                this.isCurrentPasswordWrong = false;
+            }
+        });
+
+        this.passwordForm.get('newPassword')?.valueChanges.subscribe(() => {
+            this.isPasswordMissMatch = false;
+        });
+
+        this.passwordForm.get('confirmPassword')?.valueChanges.subscribe(() => {
+            if (this.isPasswordMissMatch) {
+                this.isPasswordMissMatch = false;
+            }
         });
     }
 
@@ -131,7 +150,6 @@ export class MyProfile {
         }
 
         this.userService.updateUser(payload.firstName, payload.lastName, payload.email).subscribe({
-
             next: (res: UpdateUserResponse) => {
                 console.log('User info updated', res.user);
                 localStorage.setItem('currentUser', JSON.stringify(res.user));
@@ -150,7 +168,41 @@ export class MyProfile {
     }
 
     protected onChangePassword() {
+        if (this.passwordForm.invalid) return;
+        this.isSubmitting = true;
 
+        const { currentPassword, newPassword, confirmPassword } = this.passwordForm.value;
+
+        if (newPassword !== confirmPassword) {
+            this.isPasswordMissMatch = true;
+            this.isSubmitting = false;
+            return;
+        }
+
+        this.userService.updateUser(undefined, undefined, undefined, currentPassword, newPassword).subscribe({
+
+            next: (res: UpdateUserResponse) => {
+                console.log('User info updated', res.user);
+                localStorage.setItem('currentUser', JSON.stringify(res.user));
+                this.user = res.user;
+                this.isProfileUpdating = false;
+                this.router.navigate(['/my-profile']);
+                this.isSubmitting = false;
+                this.isCurrentPasswordWrong = false;
+                this.passwordForm.reset();
+            },
+            error: (err) => {
+                console.log('User update failed', err.error.message);
+                if (err.error.message === 'Current password is incorrect') {
+                    this.isCurrentPasswordWrong = true;
+                }
+                //TODO Error handling
+                this.isSubmitting = false;
+            },
+            complete: () => {
+                this.isSubmitting = false;
+            }
+        })
     }
 
     protected openDeleteDialog() {

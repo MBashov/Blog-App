@@ -183,7 +183,8 @@
                 border-left: 5px solid #42A948;
             }
 
-            input.ng-invalid.ng-touched {
+            input.ng-invalid.ng-touched,
+            input.invalid {
                 border: 1px solid #A94442;
                 border-left: 5px solid #A94442;
             }
