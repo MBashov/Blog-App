@@ -11,7 +11,7 @@
                 <p class="sub-heading">Recently added post</p>
                 @if (hasError) {
                     <p class="error-msg">Something went wrong while loading blogs.</p>
-                    <button (click)="RefetchAllBlogs()" class="button">Try again</button>
+                    <button (click)="RefetchRecentBlogs()" class="button">Try again</button>
                 } 
                     
                 @if (isLoading) {
@@ -31,35 +31,15 @@
                     <p class="sub-heading">Most Popular Posts</p>
 
                     <div class="popular-trip">
-                        <div class="popular-card">
-                            <img src="background-img.jpg" alt="Interest 1 Image">
-                            <div class="card-content">
-                                <h2>Improved User Experience</h2>
-                                <p>Users find it easier to understand relate to time then it's expressed in a familiar,
-                                    natural language format. This can enhance the overall user experience</p>
+                        @for (blog of popularBlogs; track $index) {
+                            <div class="popular-card">
+                                <img [src]="blog.banner.url" alt="Image">
+                                <div class="card-content">
+                                    <h2>{{blog.title}}</h2>
+                                    <p>{{blog.content}}</p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="popular-card">
-                            <img src="background-img2.jpg" alt="Interest 2 Image">
-                            <div class="card-content">
-                                <h2>Clarity and Readability</h2>
-                                <p>"Time ago" formats, such as "2 hours ago" or "3 days ago," are more concise and
-                                    easier to
-                                    read than raw timestamps.
-                                    They provide an immediate understanding of when an event occurred.</p>
-                            </div>
-                        </div>
-                        <div class="popular-card">
-                            <img src="me.png" alt="Interest 3 Image">
-                            <div class="card-content">
-                                <h2>Relative Time Perception</h2>
-                                <p>Relative time representations make it simpler for users to understand when something
-                                    happened in relation to the present moment. This can help users informed decisions
-                                    or
-                                    prioritize tasks.</p>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </section>

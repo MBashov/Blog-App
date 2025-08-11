@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { BlogResponse, CreateBlogResponse, singleBlogResponse } from '../../models/blog';
+import { Blog, BlogResponse, CreateBlogResponse, singleBlogResponse } from '../../models/blog';
 import { Observable } from 'rxjs';
 import { authHeaders } from '../../shared/utils';
 import { LikeResponse } from '../../models/likes';
@@ -22,6 +22,16 @@ export class ApiService {
         }
 
         return this.http.get<BlogResponse>(url);
+    }
+
+    getPopularBlogs(limit: number): Observable<{ blogs: Blog[] }> {
+        let url = `${this.apiUrl}/blogs/popular`;
+
+        if (limit) {
+            url += `?limit=${limit}`;
+        }
+
+        return this.http.get<{ blogs: Blog[] }>(url);
     }
 
     getSingleBLog(slug: string): Observable<singleBlogResponse> {

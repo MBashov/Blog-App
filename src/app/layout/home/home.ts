@@ -15,6 +15,7 @@ import { ApiService } from '../../core/services';
 export class Home implements OnInit {
     protected hasError: boolean = false;
     protected recentBlogs: Blog[] = [];
+    protected popularBlogs: Blog[] = [];
     protected isLoading: boolean = true;
 
     constructor(private apiService: ApiService) { }
@@ -28,17 +29,39 @@ export class Home implements OnInit {
                 },
                 error: (err) => {
                     this.hasError = true;
-                    console.log('Failed to load blogs', err);
+                    console.log('Failed to load recent blogs', err);
                 }
             }
-        );
+            );
+    }
+
+    private fetchPopularBlogs(limit: number = 3) {
+        this.apiService.getPopularBlogs(limit).pipe(
+            finalize(() => this.isLoading = false))
+            .subscribe({
+                next: (response: { blogs: Blog[] }) => {
+                    this.popularBlogs = response.blogs;
+                },
+                error: (err) => {
+                    this.hasError = true;
+                    console.log('Failed to load popular blogs', err);
+                }
+            }
+            );
     }
 
     ngOnInit(): void {
         this.fetchBlogs(6);
+        this.fetchPopularBlogs(3);
     }
 
-    protected RefetchAllBlogs() {
+    protected RefetchRecentBlogs() {
+        this.isLoading = true;
+        this.hasError = false;
+        this.fetchBlogs(6);
+    }
+
+    protected RefetchPopularBlogs() {
         this.isLoading = true;
         this.hasError = false;
         this.fetchBlogs(6);
