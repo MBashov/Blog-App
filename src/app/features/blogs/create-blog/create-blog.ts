@@ -27,7 +27,6 @@ export class CreateBlog {
 
         this.blogForm = this.fb.group({
             title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-            slug: [''],
             content: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(2000)]],
             bannerImage: [null, Validators.required],
             status: ['published', Validators.required]
@@ -71,7 +70,6 @@ export class CreateBlog {
 
         const formData = new FormData();
         formData.append('title', this.blogForm.value.title);
-        formData.append('slug', this.blogForm.value.slug || '');
         formData.append('content', this.blogForm.value.content);
         formData.append('status', this.blogForm.value.status);
         formData.append('banner_image', this.selectedFile);

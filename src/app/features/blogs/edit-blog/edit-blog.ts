@@ -20,30 +20,29 @@ export class EditBlog implements OnInit {
     protected fileError: string | null = null;
 
     constructor(
-        private fb: FormBuilder, 
-        private apiService: ApiService, 
-        private route: ActivatedRoute, 
+        private fb: FormBuilder,
+        private apiService: ApiService,
+        private route: ActivatedRoute,
         private router: Router,
         private snackBar: SnackbarService,
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.blog = this.route.snapshot.data['blog'];
         this.blogForm = this.fb.group({
-            title: [this.blog.title, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-            slug: [this.blog.slug],
-            content: [this.blog.content, [Validators.required, Validators.minLength(100), Validators.maxLength(2000)]],
-            bannerImage: [this.blog.banner.url, Validators.required],
-            status: [this.blog.status, Validators.required]
+            title: [this.blog.title, [Validators.minLength(5), Validators.maxLength(100)]],
+            content: [this.blog.content, [Validators.minLength(100), Validators.maxLength(2000)]],
+            status: [this.blog.status],
+            bannerImage: [null],
+
         });
     }
 
     protected onFileChange(event: Event): void {
         const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-        const maxSizeMB: number = 2;
+        const maxSizeMB = 2;
         const bannerImageRef = this.blogForm.get('bannerImage') as AbstractControl;
         const input = event.target as HTMLInputElement;
-
         this.fileError = null;
 
         if (!input?.files?.length) return;
@@ -64,21 +63,23 @@ export class EditBlog implements OnInit {
         }
 
         this.selectedFile = file;
+        this.imagePreviewUrl = URL.createObjectURL(file); // ✅ Create preview URL
         this.blogForm.patchValue({ bannerImage: file });
         bannerImageRef.updateValueAndValidity();
     }
 
     protected onSubmit() {
 
-        if (this.blogForm.invalid || !this.selectedFile) return;
+        if (this.blogForm.invalid) return;
         this.isSubmitting = true;
 
         const formData = new FormData();
-        formData.append('title', this.blogForm.value.title);
-        formData.append('slug', this.blogForm.value.slug || '');
-        formData.append('content', this.blogForm.value.content);
-        formData.append('status', this.blogForm.value.status);
-        formData.append('banner_image', this.selectedFile);
+
+        if (this.blogForm.value.title) formData.append('title', this.blogForm.value.title);
+        if (this.blogForm.value.content) formData.append('content', this.blogForm.value.content);
+        if (this.blogForm.value.status) formData.append('status', this.blogForm.value.status);
+        if (this.selectedFile) formData.append('banner_image', this.selectedFile);
+
 
         this.apiService.updateBlog(formData, this.blog._id).subscribe({
             next: (res: singleBlogResponse) => {
@@ -95,5 +96,4 @@ export class EditBlog implements OnInit {
             }
         })
     }
-
 }

@@ -9,19 +9,9 @@
                 type="text" 
                 formControlName="title"
             />
-            @if(blogForm.get('title')?.errors?.['required'] && blogForm.get('title')?.touched) {
-                <p class="error-msg">Title is required!</p>
-            }
             @if(blogForm.get('title')?.errors?.['minlength'] && blogForm.get('title')?.touched) {
                 <p class="error-msg">Title must be at least 5 characters!</p>
             }
-
-            <label for="slug">Slug</label>
-            <input 
-                id="slug"
-                type="text" 
-                formControlName="slug" 
-            />
 
             <label for="content">Content</label>
             <textarea 
@@ -29,30 +19,28 @@
                 rows="8" 
                 formControlName="content">
             </textarea>
-            @if(blogForm.get('content')?.errors?.['required'] && blogForm.get('content')?.touched) {
-                <p class="error-msg">Content is required!</p>
-            }
             @if(blogForm.get('content')?.errors?.['minlength'] && blogForm.get('content')?.touched) {
                 <p class="error-msg">Content must be at least 100 characters!</p>
             }
 
+            @if (blog.banner.url) {
+                <div class="image-preview">
+                    <img [src]="imagePreviewUrl || blog.banner.url" alt="Current banner" />
+                </div>
+            }
             <label for="banner-url">Banner Image</label>
             <input 
                 id="banner-url"
                 type="file" 
                 accept="image/png, image/jpeg, image/jpg, image/webp" 
                 (change)="onFileChange($event)" 
-                formControlName="bannerImage"
             />
-            @if(blogForm.get('bannerImage')?.errors?.['required'] && blogForm.get('bannerImage')?.touched) {
-                <p class="error-msg">Image is required!</p>
-            }
             @if(fileError) {
                 <p class="error-msg">{{fileError}}</p>
             }
 
             <label for="status">Status</label>
-            <select id="status" formArrayName="status">
+            <select id="status" formControlName="status">
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>

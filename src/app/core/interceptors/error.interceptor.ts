@@ -20,7 +20,8 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
                     error.error?.errors?.password?.msg ||
                     error.error?.errors?.email?.msg ||
                     error.error?.message ||
-                    error.message;
+                    'Server does not respond, please try again later';
+                    // error.message ||
             }
 
             errorService.setError(errorMessage);

@@ -23,19 +23,17 @@
             display: flex;
             flex-direction: column;
 
+            .image-preview {
+                margin-top: 0.9em;
+                padding: 0.2em;
+            }
+
             label {
                 font-size: 1.1rem;
                 margin-top: 1.2rem;
                 margin-bottom: 0.3rem;
                 font-weight: 600;
                 color: #005B5B
-            }
-
-            label:not(:nth-of-type(2))::after {
-                content: '*';
-                color: darkred;
-                font-size: 1.2em;
-                margin-left: 0.15em;
             }
 
             input {
@@ -49,6 +47,10 @@
             input:focus {
                 border-color: #2ac1aa;
                 outline: none;
+            }
+
+            input#banner-url {
+                color: #005B5B;
             }
 
             textarea {
