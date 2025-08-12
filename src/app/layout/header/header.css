@@ -1,13 +1,15 @@
 .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .main-heading {
     font-family: 'Medula One', cursive;
     letter-spacing: 0.1em;
     font-size: 3rem;
-    padding-top: 0.27em;
+    padding-top: 0.37em;
 }
 
 .navigation-list {
@@ -31,13 +33,13 @@ a {
     cursor: pointer;
 }
 
+.navigation-link {
+    color: #005B5B;
+}
+
 .navigation-link:hover,
 .navigation-link:focus {
     color: #1792d2;
-}
-
-.navigation-link {
-    color: #707070;
 }
 
 .profile-content {
