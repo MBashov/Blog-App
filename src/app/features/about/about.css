@@ -1,5 +1,37 @@
-/*----about me----*/
-.about-me {
-    border: none;
-    margin-bottom: 2.5em;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .recent-featured {
+        background-color: #f5f5f5;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        padding: 1em;
+        
+        .recent-featured-banner {
+            align-self: flex-start;
+
+            img {
+                width: auto;
+                height: 200px;
+            }
+
+            p {
+                color: #005B5B;
+            }
+        }
+
+        .recent-featured-about-me {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            color: #239f8f;
+        }
+    }
 }

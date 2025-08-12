@@ -27,7 +27,6 @@
             display: flex;
             gap: 0.5em;
             padding-top: 0.9em;
-            color: #005B5B;
         }
     }
 
@@ -41,7 +40,6 @@
 
         p {
             padding-block: 0.5em;
-            color: #005B5B;
         }
     }
 }
