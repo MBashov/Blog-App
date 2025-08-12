@@ -1,7 +1,17 @@
-<div class="container blogs-container">
+<div class="blogs-container">
     <section class="blog-header">
-        <h1>Let us take you on a storytelling journey through islands, forests, and beyond.</h1>
+        <h1>Let us take you on a storytelling journey through islands, forests, and beyond</h1>
     </section>
+    <form class="search-bar" (ngSubmit)="onSearch(formRef)" #formRef="ngForm">
+        <input 
+            type="search" 
+            name="searchText" 
+            placeholder="Search blog by title"
+            [(ngModel)]="searchedText"
+            (ngModelChange)="onSearchTextChange($event)"
+        >
+        <button type="submit">Search</button>
+    </form>
     @if (hasError) {
     <p class="error-msg">Something went wrong while loading blogs.</p>
     <button (click)="RefetchAllBlogs()" class="re-fetch">Try again</button>

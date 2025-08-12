@@ -34,6 +34,12 @@ export class ApiService {
         return this.http.get<{ blogs: Blog[] }>(url);
     }
 
+    searchBlogs(query: string): Observable<{ blogs: Blog[] }> {
+        let url = `${this.apiUrl}/blogs/search?q=${query}`;
+
+        return this.http.get<{ blogs: Blog[] }>(url);
+    }
+
     getSingleBLog(slug: string): Observable<singleBlogResponse> {
         const url = `${this.apiUrl}/blogs/${slug}`;
 

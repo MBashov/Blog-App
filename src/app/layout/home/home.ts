@@ -32,9 +32,8 @@ export class Home implements OnInit {
                 next: (response: BlogResponse) => {
                     this.recentBlogs = response.blogs;
                 },
-                error: (err) => {
+                error: () => {
                     this.hasErrorRecent = true;
-                    console.log('Failed to load recent blogs', err);
                 }
             }
             );
@@ -47,9 +46,8 @@ export class Home implements OnInit {
                 next: (response: { blogs: Blog[] }) => {
                     this.popularBlogs = response.blogs;
                 },
-                error: (err) => {
+                error: () => {
                     this.hasErrorPopular = true;
-                    console.log('Failed to load popular blogs', err);
                 }
             }
             );
