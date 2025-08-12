@@ -23,7 +23,6 @@
                         class="fa-solid fa-angle-left"></i></span></button>
             <div class="images" #imageContainer>
                 <img (click)="showModal($event)" src="background-img.jpg" alt="img">
-                <img (click)="showModal($event)" src="background-img2.jpg" alt="img">
                 <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
                 <img (click)="showModal($event)" src="background-img.jpg" alt="img">
                 <img (click)="showModal($event)" src="ocean.jpeg" alt="img">
@@ -75,10 +74,8 @@
     </footer>
 
     <section class="author-box">
-        <h3>About the Author</h3>
-        <p>{{blog.author.firstName}} is a digital nomad exploring Europe one city at a time. The author loves writing, coffee,
-            and old bookstores.
-        </p>
+        <h3>Enjoyed reading <span>{{blog.title}}</span></h3>
+        <p>Then show your support by hitting the like button and sharing your thoughts in the comments below!</p>
     </section>
 
     <section class="related-posts">
@@ -89,5 +86,8 @@
         </ul>
     </section>
 
-    <app-comment [blog]="blog" />
+    @if (isAuthenticated) {
+        <app-comment [blog]="blog" />
+    }
+    
 </article>

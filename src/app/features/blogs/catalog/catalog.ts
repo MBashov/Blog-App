@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 import { Blog, BlogResponse } from '../../../models/blog';
 import { Loader } from "../../../shared/components/loader/loader";
 import { ApiService } from '../../../core/services';
-import { finalize, pipe } from 'rxjs';
-import { FormsModule, NgForm } from '@angular/forms';
+import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-catalog',
@@ -34,10 +34,24 @@ export class catalog implements OnInit {
             });
 
     }
+
+    private searchBlogs(value: string): void {
+        this.apiService.searchBlogs(value).pipe(
+            finalize(() => this.isLoading = false))
+            .subscribe({
+                next: (response: { blogs: Blog[] }) => {
+                    this.blogs = response.blogs;
+                },
+                error: () => {
+                    this.hasError = true;
+                }
+            }
+        );
+    }
+
     ngOnInit(): void {
         this.fetchBlogs();
     }
-
 
     protected RefetchAllBlogs() {
         this.isLoading = true;
@@ -50,36 +64,14 @@ export class catalog implements OnInit {
 
         if (!searchText) return;
 
-        this.apiService.searchBlogs(searchText).pipe(
-            finalize(() => this.isLoading = false))
-            .subscribe({
-                next: (response: { blogs: Blog[] }) => {
-                    this.blogs = response.blogs;
-                },
-                error: () => {
-                    this.hasError = true;
-                }
-            }
-            );
+        this.searchBlogs(searchText);
     }
 
     protected onSearchTextChange(value: string) {
-        
         if (!value) {
             this.fetchBlogs();
         } else {
-            this.apiService.searchBlogs(value).pipe(
-                finalize(() => this.isLoading = false))
-                .subscribe({
-                    next: (response: { blogs: Blog[] }) => {
-                        this.blogs = response.blogs;
-                    },
-                    error: () => {
-                        this.hasError = true;
-                    }
-                }
-            );
+            this.searchBlogs(value);
         }
-
     }
 }

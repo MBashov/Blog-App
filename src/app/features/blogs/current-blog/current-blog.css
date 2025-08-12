@@ -213,8 +213,16 @@
         margin-top: 2rem;
         border-radius: 5px;
 
+        span {
+            display: inline-block;
+            font-style: italic;
+            font-size: 22px;
+            text-decoration: underline;
+        }
+
         p {
             font-size: 1.2em;
+            text-transform: capitalize;
         }
     }
 

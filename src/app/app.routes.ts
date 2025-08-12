@@ -3,6 +3,7 @@ import { Home } from './layout/home/home';
 import { NotFound } from './shared/components/not-found/not-found';
 import { AuthGuard, isAuthorGuard } from './core/guards';
 import { blogResolver } from './features/blogs/current-blog/current.blog.resolver';
+import { GuestGuard } from './core/guards/guest.guard';
 
 export const routes: Routes = [
     { path: 'home', component: Home },
@@ -26,22 +27,28 @@ export const routes: Routes = [
             }
         ]
     },
-    { path: 'login', loadComponent: () => import('./features/auth/login/login').then(c => c.Login) },
-    { path: 'register', loadComponent: () => import('./features/auth/register/register').then(c => c.Register) },
-    { path: 'about', loadComponent: () => import('./features/about/about').then(c => c.About) },
-
+    {
+        path: 'login',
+        loadComponent: () => import('./features/auth/login/login').then(c => c.Login),
+        canActivate: [GuestGuard],
+    },
+    {
+        path: 'register',
+        loadComponent: () => import('./features/auth/register/register').then(c => c.Register),
+        canActivate: [GuestGuard],
+    },
     {
         path: 'add-blog',
         loadComponent: () => import('./features/blogs/create-blog/create-blog').then(c => c.CreateBlog),
         canActivate: [AuthGuard],
     },
-
     {
         path: 'my-profile',
         loadComponent: () => import('./features/my-profile/my-profile').then(c => c.MyProfile),
         canActivate: [AuthGuard],
     },
 
+    { path: 'about', loadComponent: () => import('./features/about/about').then(c => c.About) },
     { path: '404', component: NotFound },
     { path: '**', redirectTo: '/404' },
 ];

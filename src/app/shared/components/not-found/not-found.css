@@ -25,7 +25,7 @@
 }
 
 .not-found p {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     line-height: 1.7;
     margin-bottom: 1rem;
 }
@@ -55,6 +55,7 @@
     a {
         text-decoration: underline;
         color: #005B5B;
+        font-size: 1.3rem;
     }
 
     a:hover {
