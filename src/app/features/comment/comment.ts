@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { Blog } from '../../models/blog';
-import { CommentService } from '../../core/services';
+import { CommentService, SnackbarService } from '../../core/services';
 import { Comment, CommentsResponse } from '../../models/comment';
 import { User } from '../../models/user';
 
@@ -18,7 +18,9 @@ export class CommentComponent implements OnInit {
 
     protected commentForm!: FormGroup;
     protected comments: Comment[] = [];
-    protected errorWhileFetchingComments = false;
+    protected errorFetchingComments = false;
+    protected errorEditComment = false;
+    protected errorDeleteComment = false;
     protected isSubmitting = false;
     protected isCommentFailed = false;
     protected activeCommentId: string | null = null;
@@ -26,7 +28,8 @@ export class CommentComponent implements OnInit {
 
     constructor(
         private commentService: CommentService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private snackBar: SnackbarService,
     ) {
         this.commentForm = this.fb.group({
             content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
@@ -61,13 +64,10 @@ export class CommentComponent implements OnInit {
                 this.isSubmitting = false;
                 this.isCommentFailed = false;
             },
-            error: (err) => {
-                console.log('Comment creation failed', err);
+            error: () => {
                 this.isCommentFailed = true;
-            },
-            complete: () => {
                 this.isSubmitting = false;
-            }
+            },
         });
     }
 
@@ -84,6 +84,8 @@ export class CommentComponent implements OnInit {
     }
 
     protected deleteComment(commentId: string) {
+        this.errorDeleteComment = false;
+        
         this.commentService.deleteComment(commentId).subscribe({
             next: (res) => {
                 this.blog.commentsCount = res.commentsCount;
@@ -92,11 +94,10 @@ export class CommentComponent implements OnInit {
                         this.comments = response.comments;
                     }
                 )
-                this.errorWhileFetchingComments = false;
+                this.errorFetchingComments = false;
             },
-            error: (err) => {
-                console.log('Error during getting the comments', err);
-                this.errorWhileFetchingComments = true;
+            error: () => {
+                this.errorDeleteComment = true;
             }
         })
     }

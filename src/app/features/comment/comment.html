@@ -11,12 +11,12 @@
             <p class="error-msg">The comment must be at least 10 characters!</p>
         }
         @if(isCommentFailed) {
-            <p class="error-msg">Posting a comment failed, please try again.</p>
+            <p class="error-msg">Error while adding a comment, please try again.</p>
         }
         <button type="submit" [disabled]="isSubmitting">Post Comment</button>
     </form>
 
-    @if (errorWhileFetchingComments) {
+    @if (errorFetchingComments) {
         <p class="error-msg">Unexpected error while loading the comments, please try again later.</p>
     } @else {
         @if (comments.length) {
@@ -28,6 +28,7 @@
                             <span>on {{comment.publishedAt | date: 'medium'}}</span>
                             <p class="comment-content">{{comment.content}}</p>
                         </div>
+
                         <div
                             (click)="toggleActionsModal(comment._id)"
                             class="comment-actions" 
@@ -43,6 +44,12 @@
                     </li>
                 }
             </ul>
+            @if(errorDeleteComment) {
+                <p class="error-msg">Error while deleting a comment, please try again!</p>
+            }
+            @if(errorEditComment) {
+                <p class="error-msg">Error while editing a comment, please try again!</p>
+            }
         } @else {
             <p class="no-comments">No comments added yet</p>
         }

@@ -16,11 +16,11 @@ import { CommentComponent } from "../../comment/comment";
 })
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
-    protected isSubmitting = false;
-    protected isDeleting = false;
     protected imageClass = '';
     protected imageSrc = '';
     protected modalClass = '';
+    protected isSubmitting = false;
+    protected isDeleting = false;
     protected isAuthor = false;
     protected hasLiked = false;
     protected isLiking = false;
@@ -35,6 +35,7 @@ export class CurrentBlog implements OnInit {
         private authService: AuthService,
         private dialog: MatDialog,
         private snackBar: SnackbarService,
+        
     ) { }
 
     ngOnInit(): void {
@@ -48,9 +49,8 @@ export class CurrentBlog implements OnInit {
                 next: (res) => {
                     this.hasLiked = res.hasLiked;
                 },
-                error: (err) => {
-                    console.log('Delete failed', err);
-                    //Todo error handling
+                error: () => {
+                    this.snackBar.show('Unexpected error occurred, please try again', 'error');
                 }
             });
         }
@@ -92,7 +92,7 @@ export class CurrentBlog implements OnInit {
     protected toggleLike() {
         if (this.isLiking) return;
         this.isLiking = true;
-
+        
         const req = this.hasLiked
             ? this.apiService.unLikeBlog(this.blog._id)
             : this.apiService.likeBlog(this.blog._id)
@@ -101,14 +101,11 @@ export class CurrentBlog implements OnInit {
             next: () => {
                 this.hasLiked = !this.hasLiked;
                 this.blog.likesCount += this.hasLiked ? 1 : -1;
-            },
-            error: (err) => {
-                console.log('Like action failed', err);
-                //Todo error handling
-            },
-            complete: () => {
                 this.isLiking = false;
-            }
+            },
+            error: () => {
+                this.isLiking = false;
+            },
         })
     }
 
@@ -127,13 +124,10 @@ export class CurrentBlog implements OnInit {
                         this.isSubmitting = false;
                         this.snackBar.show('Blog deleted successfully', 'success');
                     },
-                    error: (err) => {
-                        console.log('Delete failed', err);
-                        //Todo error handling
-                    },
-                    complete: () => {
+                    error: () => {
+                        this.snackBar.show('Blog deletion failed', 'error');
                         this.isSubmitting = false;
-                    }
+                    },
                 });
             }
         });

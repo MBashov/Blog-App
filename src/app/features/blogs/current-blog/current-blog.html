@@ -1,5 +1,4 @@
 <article class="blog-details">
-
     <header class="blog-header">
         <h1 class="blog-title">{{blog.title | titlecase}}</h1>
         <div class="blog-meta">
@@ -89,5 +88,4 @@
     @if (isAuthenticated) {
         <app-comment [blog]="blog" />
     }
-    
 </article>

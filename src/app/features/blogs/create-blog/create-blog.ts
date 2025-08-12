@@ -81,14 +81,12 @@ export class CreateBlog {
                 this.selectedFile = null;
                 this.router.navigate(['/blogs']);
                 this.snackBar.show('Blog created successfully', 'success');
-            },
-            error: (err) => {
-                console.log('Blog creation failed', err);
-                this.snackBar.show('Blog creation failed', 'error');
-            },
-            complete: () => {
                 this.isSubmitting = false;
-            }
+            },
+            error: () => {
+                this.snackBar.show('Blog creation failed', 'error');
+                this.isSubmitting = false;
+            },
         })
     }
 }

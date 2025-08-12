@@ -34,7 +34,6 @@ export class EditBlog implements OnInit {
             content: [this.blog.content, [Validators.minLength(100), Validators.maxLength(2000)]],
             status: [this.blog.status],
             bannerImage: [null],
-
         });
     }
 
@@ -63,7 +62,7 @@ export class EditBlog implements OnInit {
         }
 
         this.selectedFile = file;
-        this.imagePreviewUrl = URL.createObjectURL(file); // ✅ Create preview URL
+        this.imagePreviewUrl = URL.createObjectURL(file);
         this.blogForm.patchValue({ bannerImage: file });
         bannerImageRef.updateValueAndValidity();
     }
@@ -83,7 +82,6 @@ export class EditBlog implements OnInit {
 
         this.apiService.updateBlog(formData, this.blog._id).subscribe({
             next: (res: singleBlogResponse) => {
-                console.log('Blog updated', res.blog);
                 this.blogForm.reset();
                 this.selectedFile = null;
                 this.isSubmitting = false;
@@ -91,8 +89,8 @@ export class EditBlog implements OnInit {
                 this.snackBar.show('Blog updated successfully', 'success');
             },
             error: (err) => {
-                console.log('Blog update failed', err);
                 this.snackBar.show('Blog update failed', 'error');
+                this.isSubmitting = false;
             }
         })
     }
