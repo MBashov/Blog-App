@@ -15,22 +15,24 @@ import { ShortenPipe } from '../../shared/pipes';
     styleUrl: './home.css'
 })
 export class Home implements OnInit {
-    protected hasError: boolean = false;
+    protected hasErrorRecent: boolean = false;
+    protected hasErrorPopular: boolean = false;
     protected recentBlogs: Blog[] = [];
     protected popularBlogs: Blog[] = [];
-    protected isLoading: boolean = true;
+    protected isLoadingRecent: boolean = true;
+    protected isLoadingPopular: boolean = true;
 
     constructor(private apiService: ApiService) { }
 
     private fetchBlogs(limit: number = 6) {
         this.apiService.getAllBlogs(limit).pipe(
-            finalize(() => this.isLoading = false))
+            finalize(() => this.isLoadingRecent = false))
             .subscribe({
                 next: (response: BlogResponse) => {
                     this.recentBlogs = response.blogs;
                 },
                 error: (err) => {
-                    this.hasError = true;
+                    this.hasErrorRecent = true;
                     console.log('Failed to load recent blogs', err);
                 }
             }
@@ -39,13 +41,13 @@ export class Home implements OnInit {
 
     private fetchPopularBlogs(limit: number = 3) {
         this.apiService.getPopularBlogs(limit).pipe(
-            finalize(() => this.isLoading = false))
+            finalize(() => this.isLoadingPopular = false))
             .subscribe({
                 next: (response: { blogs: Blog[] }) => {
                     this.popularBlogs = response.blogs;
                 },
                 error: (err) => {
-                    this.hasError = true;
+                    this.hasErrorPopular = true;
                     console.log('Failed to load popular blogs', err);
                 }
             }
@@ -58,14 +60,14 @@ export class Home implements OnInit {
     }
 
     protected RefetchRecentBlogs() {
-        this.isLoading = true;
-        this.hasError = false;
+        this.isLoadingRecent = true;
+        this.hasErrorRecent = false;
         this.fetchBlogs(6);
     }
 
     protected RefetchPopularBlogs() {
-        this.isLoading = true;
-        this.hasError = false;
-        this.fetchBlogs(6);
+        this.isLoadingPopular = true;
+        this.hasErrorPopular = false;
+        this.fetchPopularBlogs(3);
     }
 }
