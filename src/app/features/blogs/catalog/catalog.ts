@@ -21,21 +21,20 @@ export class catalog implements OnInit {
 
     private fetchBlogs() {
         this.apiService.getAllBlogs().pipe(
-        finalize(() => this.isLoading = false))
-        .subscribe({
-            next: (response: BlogResponse) => {
-                this.blogs = response.blogs;
-            },
-            error: (err) => {
-                this.hasError = true;
-                console.log('Failed to load blogs', err);
-            }
-        });
+            finalize(() => this.isLoading = false))
+            .subscribe({
+                next: (response: BlogResponse) => {
+                    this.blogs = response.blogs;
+                },
+                error: (err) => {
+                    this.hasError = true;
+                }
+            });
 
     }
-        ngOnInit(): void { 
-            this.fetchBlogs();
-        }
+    ngOnInit(): void {
+        this.fetchBlogs();
+    }
 
 
     protected RefetchAllBlogs() {

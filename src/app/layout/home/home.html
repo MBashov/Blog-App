@@ -11,7 +11,7 @@
                 <p class="sub-heading">Recently added post</p>
                 @if (hasErrorRecent) {
                 <p class="error-msg">Something went wrong while loading blogs.</p>
-                <button (click)="RefetchRecentBlogs()" class="button">Try again</button>
+                <button (click)="RefetchRecentBlogs()" class="re-fetch">Try again</button>
                 }
 
                 <div class="articles">
@@ -31,7 +31,7 @@
                     <p class="sub-heading">Most Popular Posts</p>
                     @if (hasErrorPopular) {
                     <p class="error-msg">Something went wrong while loading blogs.</p>
-                    <button (click)="RefetchPopularBlogs()" class="button">Try again</button>
+                    <button (click)="RefetchPopularBlogs()" class="re-fetch">Try again</button>
                     }
 
                     <div class="popular-trip">

@@ -1,37 +1,120 @@
 .container {
     display: flex;
+    justify-content: center;
+    padding: 2em;
+}
+
+.recent-featured {
+    background-color: #f5f5f5;
+    max-width: 900px;
+    width: 100%;
+    display: flex;               /* horizontal layout */
+    gap: 2em;
+    padding: 1.5em;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+.recent-featured-banner {
+    flex: 1 1 250px;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 1em;
+}
 
+.recent-featured-banner img {
+    width: auto;
+    height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.recent-featured-banner p {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.recent-featured-about-me {
+    flex: 2 1 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    color: #239f8f;
+
+    p {
+        font-size: 18px;
+        font-family: 'Quicksand', sans-serif;
+    }
+}
+
+.recent-featured-about-me h3.explore {
+    padding-bottom: 0.6em;
+}
+
+.features-list {
+    color: #1d8274;
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    gap: 0.6em;
+    flex-wrap: wrap; /* wrap on small screens */
+}
+
+.features-list li {
+    position: relative;
+    padding-left: 1.8em;
+    font-family: 'Quicksand', sans-serif;
+    cursor: default;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.features-list li::before {
+    content: "✈️";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    transition: transform 0.5s ease;
+}
+
+.features-list li:hover {
+    color: #1a665d;
+}
+
+.features-list li:hover::before {
+    transform: translateX(6px) translateY(calc(-50% - 4px)) rotate(15deg);
+}
+
+a.call-to-action {
+    display: inline-block;
+    text-decoration: none;
+    color: #005B5B;
+}
+
+a.call-to-action:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
     .recent-featured {
-        background-color: #f5f5f5;
-        max-width: 600px;
-        display: flex;
         flex-direction: column;
+        max-width: 600px;
+    }
+    
+    .recent-featured-banner {
+        flex: none;
         align-items: center;
+    }
+    
+    .recent-featured-about-me {
+        flex: none;
+    }
+    
+    .features-list {
         justify-content: center;
-        gap: 1em;
-        padding: 1em;
-        
-        .recent-featured-banner {
-            align-self: flex-start;
-
-            img {
-                width: auto;
-                height: 200px;
-            }
-
-            p {
-                color: #005B5B;
-            }
-        }
-
-        .recent-featured-about-me {
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
-            color: #239f8f;
-        }
     }
 }
