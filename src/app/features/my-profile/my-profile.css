@@ -15,6 +15,7 @@
         padding: 2em;
         border-radius: 5px;
         box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.4);
+
         header.profile-header {
             display: flex;
             flex-direction: column;
@@ -45,6 +46,12 @@
             gap: 3em;
             color: #005B5B;
         }
+    }
+
+    p.no-activity {
+        font-size: 1.2em;
+        text-decoration: underline;
+        font-style: italic;
     }
 
     .tab-buttons {
@@ -87,7 +94,6 @@
     .section.active {
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: 1.2em;
         padding-inline: 3.7em;
         /* background-color: skyblue; */

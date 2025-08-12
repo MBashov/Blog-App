@@ -25,7 +25,6 @@ export class MyProfile {
     protected myComments: CommentWithAuthor[] = [];
     protected myLikes: Like[] = [];
     protected likedBlogs: Blog[] = [];
-    protected isLoading: boolean = true;
     protected user: User | null = null;
     protected isProfileUpdating = false;
     protected profileForm!: FormGroup;
@@ -37,6 +36,9 @@ export class MyProfile {
     protected isPasswordMissMatch = false;
     protected isSubmitting = false;
     protected isCurrentPasswordWrong = false;
+    protected errorFetchingPosts = false
+    protected errorFetchingLikes = false
+    protected errorFetchingComments = false
 
     constructor(
         private apiService: ApiService,
@@ -53,19 +55,31 @@ export class MyProfile {
         this.user = this.authService.currentUser();
 
         if (this.user) {
-            this.apiService.getBlogsByUser(this.user?._id).subscribe((response: BlogResponse) => {
-                this.myBlogs = response.blogs;
-                // this.isLoading = false;
+            this.apiService.getBlogsByUser(this.user?._id).subscribe({
+                next: (response: BlogResponse) => {
+                    this.myBlogs = response.blogs;
+                },
+                error: () => {
+                    this.errorFetchingPosts = true;
+                }
             });
 
-            this.commentService.getMyComments().subscribe((response: MyCommentsResponse) => {
-                this.myComments = response.comments;
-                // this.isLoading = false;
+            this.commentService.getMyComments().subscribe({
+                next: (response: MyCommentsResponse) => {
+                    this.myComments = response.comments;
+                },
+                error: () => {
+                    this.errorFetchingComments = true;
+                }
             });
 
-            this.apiService.getMyLikes().subscribe((response: LikeResponse) => {
-                this.myLikes = response.likes;
-                // this.isLoading = false;
+            this.apiService.getMyLikes().subscribe({
+                next: (response: LikeResponse) => {
+                    this.myLikes = response.likes;
+                },
+                error: () => {
+                    this.errorFetchingLikes = true;
+                }
             });
         }
 
@@ -154,20 +168,17 @@ export class MyProfile {
 
         this.userService.updateUser(payload.firstName, payload.lastName, payload.email).subscribe({
             next: (res: UpdateUserResponse) => {
-                console.log('User info updated', res.user);
                 localStorage.setItem('currentUser', JSON.stringify(res.user));
                 this.user = res.user;
                 this.isProfileUpdating = false;
                 this.router.navigate(['/my-profile']);
                 this.snackBar.show('Profile updated successfully', 'success');
-            },
-            error: (err) => {
-                console.log('User update failed', err);
-                this.snackBar.show('Profile update failed', 'error');
-            },
-            complete: () => {
                 this.isSubmitting = false;
-            }
+            },
+            error: () => {
+                this.snackBar.show('Profile update failed', 'error');
+                this.isSubmitting = false;
+            },
         })
     }
 
@@ -186,7 +197,6 @@ export class MyProfile {
         this.userService.updateUser(undefined, undefined, undefined, currentPassword, newPassword).subscribe({
 
             next: (res: UpdateUserResponse) => {
-                console.log('User info updated', res.user);
                 localStorage.setItem('currentUser', JSON.stringify(res.user));
                 this.user = res.user;
                 this.isProfileUpdating = false;
@@ -197,17 +207,13 @@ export class MyProfile {
                 this.snackBar.show('Password updated successfully', 'success');
             },
             error: (err) => {
-                console.log('User update failed', err.error.message);
                 if (err.error.message === 'Current password is incorrect') {
                     this.isCurrentPasswordWrong = true;
                 }
                 this.snackBar.show('Password change failed', 'error');
                 this.isSubmitting = false;
             },
-            complete: () => {
-                this.isSubmitting = false;
-            }
-        })
+        });
     }
 
     protected onDeleteAccount() {
@@ -221,14 +227,12 @@ export class MyProfile {
                 this.isSubmitting = true;
                 this.userService.deleteCurrentUser().subscribe({
                     next: () => {
-                        console.log('Profile deleted successfully');
                         this.authService.logout().subscribe();
                         this.router.navigate(['/']);
                         this.isSubmitting = false;
                         this.snackBar.show('User profile deleted successfully', 'success')
                     },
                     error: (err) => {
-                        console.log('Delete failed', err);
                         this.isSubmitting = false;
                         this.snackBar.show('Failed to delete a user profile. Please try again', 'error');
                     },

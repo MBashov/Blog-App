@@ -15,21 +15,19 @@
         </header>
     </section>
 
-        <nav class="profile-tabs">
-            <div class="tab-buttons" [ngClass]="{active: areTabButtonsActive}">
-                <button (click)="selectTab('posts')">My Posts</button>
-                <button (click)="selectTab('liked')">Liked Posts</button>
-                <button (click)="selectTab('comments')">My Comments</button>
-            </div>
-            <button (click)="onManageProfile()">{{isProfileUpdating ? 'Go Back' : 'Manage profile'}}</button>
-        </nav>
+    <nav class="profile-tabs">
+        <div class="tab-buttons" [ngClass]="{active: areTabButtonsActive}">
+            <button (click)="selectTab('posts')">My Posts</button>
+            <button (click)="selectTab('liked')">Liked Posts</button>
+            <button (click)="selectTab('comments')">My Comments</button>
+        </div>
+        <button (click)="onManageProfile()">{{isProfileUpdating ? 'Go Back' : 'Manage profile'}}</button>
+    </nav>
 
-        @if (isProfileUpdating) {
-            <section class="manage-account">
-
-                <h2>Account Settings</h2>
-            
-                <div class="profile-information">
+    @if (isProfileUpdating) {
+        <section class="manage-account">
+            <h2>Account Settings</h2>
+            <div class="profile-information">
                     <div class="account-section">
                         <h3>Profile Information</h3>
                         <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()">
@@ -129,50 +127,74 @@
                             <button type="submit" [disabled]="isSubmitting">Change Password</button>
                         </form>
                     </div>
-                </div>
+            </div>
 
-                <div class="account-section danger-zone">
+            <div class="account-section danger-zone">
                     <h3>Danger Zone</h3>
                     <p><strong>Delete your account permanently</strong>This action cannot be undone</p>
                     <button class="btn-delete" (click)="onDeleteAccount()" [disabled]="isSubmitting">Delete Account</button>
-                </div>
+            </div>
 
-            </section>
-        } @else {
-            <section class="tab-content">
-                <section class="section my-posts" [ngClass]="{active: arePostsActive}">
-                    <div class="section-header">
-                        <p class="sub-heading">My Posts</p>
-                    </div>
-                    <div class="section-content">
+        </section>
+    } @else {
+        <section class="tab-content">
+            <section class="section my-posts" [ngClass]="{active: arePostsActive}">
+                <div class="section-header">
+                    <p class="sub-heading">My Posts</p>
+                </div>
+                @if (errorFetchingPosts) {
+                    <p class="error-msg">Error loading posts</p>
+                } @else {
+                <div class="section-content">
+                    @if (myBlogs.length) {
                         @for (blog of myBlogs; track $index) {
                             <app-blog-article [blog]="blog" />
                         }
-                    </div>
-                </section>
+                    } @else {
+                        <p class="no-activity">You haven't post any blog yet</p>
+                    }
+                </div>
+                }
 
-                <section class="section liked-blogs" [ngClass]="{active: areLikesActive}">
-                    <div class="section-header">
-                        <p class="sub-heading">Liked Posts</p>
-                    </div>
-                    <div class="section-content">
+            </section>
+
+            <section class="section liked-blogs" [ngClass]="{active: areLikesActive}">
+                <div class="section-header">
+                    <p class="sub-heading">Liked Posts</p>
+                </div>
+                @if (errorFetchingLikes) {
+                    <p class="error-msg">Error loading liked blogs</p>
+                } @else {
+                <div class="section-content">
+                    @if (myLikes.length) {
                         @for (like of myLikes; track $index) {
                             <app-blog-article [blog]="like.blogId" />
                         }
-                    </div>
-                </section>
+                    } @else {
+                        <p class="no-activity">You haven't liked any blog yet</p>
+                    }
+                </div>
+                }
+            </section>
 
-                <section class="section my-comments" [ngClass]="{active: areCommentsActive}">
-                    <div class="section-header">
-                        <p class="sub-heading">Blogs I have commented</p>
-                    </div>
-                    <div class="section-content">
+            <section class="section my-comments" [ngClass]="{active: areCommentsActive}">
+                <div class="section-header">
+                    <p class="sub-heading">Blogs I have commented</p>
+                </div>
+                @if (errorFetchingComments) {
+                    <p class="error-msg">Error loading comments</p>
+                } @else {
+                <div class="section-content">
+                    @if (myComments.length) {
                         @for (comment of myComments; track $index) {
                             <app-blog-article [blog]="comment.blogId" />
-                        }
-                    </div>
-                </section>
+                        }                            
+                    } @else {
+                        <p class="no-activity">You don't have any comments yet</p>
+                    }
+                </div>
+                }
             </section>
-        }
-
+        </section>
+    }    
 </section>
