@@ -7,12 +7,12 @@ import { ApiService } from '../../../core/services';
 import { finalize, pipe } from 'rxjs';
 
 @Component({
-    selector: 'app-blog-item',
+    selector: 'app-catalog',
     imports: [Loader, RouterLink],
-    templateUrl: './blog-item.html',
-    styleUrl: './blog-item.css'
+    templateUrl: './catalog.html',
+    styleUrl: './catalog.css'
 })
-export class BlogItem implements OnInit {
+export class catalog implements OnInit {
     protected blogs: Blog[] = [];
     protected isLoading: boolean = true;
     protected hasError: boolean = false;

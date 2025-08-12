@@ -11,7 +11,7 @@ export const routes: Routes = [
         path: 'blogs', children: [
             {
                 path: '',
-                loadComponent: () => import('./features/blogs/blog-item/blog-item').then(c => c.BlogItem)
+                loadComponent: () => import('./features/blogs/catalog/catalog').then(c => c.catalog)
             },
             {
                 path: 'details/:slug',
