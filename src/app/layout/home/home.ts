@@ -5,10 +5,12 @@ import { Loader } from '../../shared/components/loader/loader';
 import { Blog, BlogResponse } from '../../models/blog';
 import { BlogArticle } from "../../shared/components/blog-article/blog-article";
 import { ApiService } from '../../core/services';
+import { RouterLink } from '@angular/router';
+import { ShortenPipe } from '../../shared/pipes';
 
 @Component({
     selector: 'app-home',
-    imports: [Loader, BlogArticle],
+    imports: [Loader, BlogArticle, RouterLink, ShortenPipe],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })

@@ -6,7 +6,7 @@
 .blog-article {
     display: flex;
     flex-direction: row;
-    background-color: #f5f5f5;
+    background-color: #ffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     width: 453.74px;
@@ -20,20 +20,14 @@
         gap: 0.5em;
 
         p {
-            /* color: #005B5B; */
-            /* color: #1792d2; */
+            color: #239f8f;
         }
 
         .likes-and-views {
             display: flex;
             gap: 0.5em;
-            /* justify-content: flex-end; */
             padding-top: 0.9em;
             color: #005B5B;
-
-            /* .fa-regular {
-                color: #1792d2;
-            } */
         }
     }
 
