@@ -7,10 +7,11 @@ import { BlogArticle } from "../../shared/components/blog-article/blog-article";
 import { ApiService } from '../../core/services';
 import { RouterLink } from '@angular/router';
 import { ShortenPipe } from '../../shared/pipes';
+import { About } from '../../features/about/about';
 
 @Component({
     selector: 'app-home',
-    imports: [Loader, BlogArticle, RouterLink, ShortenPipe],
+    imports: [Loader, BlogArticle, RouterLink, ShortenPipe, About],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })

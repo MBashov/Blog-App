@@ -2,17 +2,18 @@
     display: flex;
     justify-content: center;
     padding: 2em;
+    background: url('./../../../../public/hiking.jpg') center/cover no-repeat;
 }
 
 .recent-featured {
-    background-color: #f5f5f5;
+    background-color: #fff;
     max-width: 900px;
     width: 100%;
-    display: flex;               /* horizontal layout */
+    display: flex;
     gap: 2em;
     padding: 1.5em;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 .recent-featured-banner {
@@ -59,7 +60,8 @@
     padding-left: 0;
     display: flex;
     gap: 0.6em;
-    flex-wrap: wrap; /* wrap on small screens */
+    flex-wrap: wrap;
+    /* wrap on small screens */
 }
 
 .features-list li {
@@ -104,16 +106,16 @@ a.call-to-action:hover {
         flex-direction: column;
         max-width: 600px;
     }
-    
+
     .recent-featured-banner {
         flex: none;
         align-items: center;
     }
-    
+
     .recent-featured-about-me {
         flex: none;
     }
-    
+
     .features-list {
         justify-content: center;
     }
