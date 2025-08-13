@@ -61,7 +61,6 @@
     display: flex;
     gap: 0.6em;
     flex-wrap: wrap;
-    /* wrap on small screens */
 }
 
 .features-list li {
