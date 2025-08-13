@@ -3,28 +3,32 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Blog } from '../../../models/blog';
+import { Blog, BlogResponse } from '../../../models/blog';
 import { ApiService, AuthService, SnackbarService } from '../../../core/services';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { CommentComponent } from "../../comment/comment";
+import { Loader } from '../../../shared/components/loader/loader';
 
 @Component({
     selector: 'app-current-blog',
-    imports: [CommonModule, RouterLink, CommentComponent],
+    imports: [CommonModule, RouterLink, CommentComponent, Loader],
     templateUrl: './current-blog.html',
     styleUrl: './current-blog.css'
 })
 export class CurrentBlog implements OnInit {
     protected blog = {} as Blog;
+    protected userBlogs: Blog[] = [];
     protected imageClass = '';
     protected imageSrc = '';
     protected modalClass = '';
+    protected errorFetchingUsersPosts = false
     protected isSubmitting = false;
     protected isDeleting = false;
     protected isAuthor = false;
     protected hasLiked = false;
     protected isLiking = false;
     protected isAuthenticated = false;
+    protected isLoadingUserPosts = false;
 
     @ViewChild('imageContainer') imageContainer!: ElementRef;
 
@@ -35,11 +39,23 @@ export class CurrentBlog implements OnInit {
         private authService: AuthService,
         private dialog: MatDialog,
         private snackBar: SnackbarService,
-        
+
     ) { }
 
     ngOnInit(): void {
         this.blog = this.route.snapshot.data['blog'];
+
+        this.isLoadingUserPosts = true;
+        this.apiService.getBlogsByUser(this.blog.author._id).subscribe({
+            next: (response: BlogResponse) => {
+                this.userBlogs = response.blogs.filter(blog => blog._id !== this.blog._id);
+                this.isLoadingUserPosts = false;
+            },
+            error: () => {
+                this.errorFetchingUsersPosts = true;
+                this.isLoadingUserPosts = false;
+            }
+        });
 
         this.isAuthor = this.authService.isAuthor(this.blog.author._id);
         this.isAuthenticated = this.authService.isAuthenticated();
@@ -92,7 +108,7 @@ export class CurrentBlog implements OnInit {
     protected toggleLike() {
         if (this.isLiking) return;
         this.isLiking = true;
-        
+
         const req = this.hasLiked
             ? this.apiService.unLikeBlog(this.blog._id)
             : this.apiService.likeBlog(this.blog._id)

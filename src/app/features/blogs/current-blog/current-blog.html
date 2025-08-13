@@ -79,10 +79,23 @@
 
     <section class="related-posts">
         <h3>See More Posts From {{blog.author.firstName}}</h3>
-        <ul>
-            <li><a href="#">A Foodies Guide to Porto</a></li>
-            <li><a href="#">Top 10 Beaches in Southern Spain</a></li>
-        </ul>
+        @if (isLoadingUserPosts) {
+            <app-loader />
+        } @else if (errorFetchingUsersPosts) {
+            <p class="error-msg">
+                We couldn’t load more posts from {{ blog.author.firstName }} right now.Please try again later.
+            </p>
+        } @else {
+            @if (userBlogs.length) {
+                <ul>
+                    @for (blog of userBlogs; track $index) {
+                        <li><a [routerLink]="['/blogs', 'details', blog.slug]">{{blog.title}}</a></li>
+                    }
+                </ul>
+            } @else {
+                <p>{{ blog.author.firstName }} hasn’t published any other posts yet.</p>
+            }
+        }
     </section>
 
     @if (isAuthenticated) {
