@@ -46,8 +46,6 @@ export class Register {
                 this.snackBar.show('Registration successful', 'success');
             },
             error: (err) => {
-                console.log(err.error?.errors?.email);
-                
                 if (err.error?.errors?.email) {
                     this.hasEmailError = true;
                 }

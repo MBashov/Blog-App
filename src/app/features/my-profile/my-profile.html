@@ -3,7 +3,8 @@
         <header class="profile-header">
             <img src="profile.png" alt="Profile Picture" />
             <div class="profile-info">
-                <h1 class="heading">Welcome back, {{ user?.firstName }} {{ user?.lastName }}</h1>   
+                <h1 class="heading">Welcome back, {{ user?.firstName }} {{ user?.lastName }}</h1> 
+                <p>Email: <strong>{{user?.email}}</strong></p>  
                 <p>From here, you can <strong>manage</strong> your personal profile, <strong>view</strong> your recent activity, and <strong>make</strong> updates to your account</p> 
                 <h4>My activities</h4>
                 <div class="stats">

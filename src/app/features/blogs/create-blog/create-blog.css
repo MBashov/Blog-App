@@ -63,6 +63,11 @@
                 outline: none;
             }
 
+            .image-preview {
+                margin-top: 0.9em;
+                padding: 0.2em;
+            }
+
             select {
                 padding: 0.6rem;
                 font-size: 1rem;
@@ -103,7 +108,7 @@
 
             button:disabled {
                 background-color: lightgray;
-                cursor: default;
+                cursor: not-allowed;
             }
 
             input.ng-valid,

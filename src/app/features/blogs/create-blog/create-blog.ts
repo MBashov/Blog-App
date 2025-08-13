@@ -59,6 +59,7 @@ export class CreateBlog {
         }
 
         this.selectedFile = file;
+        this.imagePreviewUrl = URL.createObjectURL(file);
         this.blogForm.patchValue({ bannerImage: file });
         bannerImageRef.updateValueAndValidity();
 
@@ -76,7 +77,6 @@ export class CreateBlog {
 
         this.apiService.createBlog(formData).subscribe({
             next: (res: CreateBlogResponse) => {
-                console.log('Blog created', res.code);
                 this.blogForm.reset();
                 this.selectedFile = null;
                 this.router.navigate(['/blogs']);

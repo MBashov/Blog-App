@@ -43,7 +43,10 @@ export class CurrentBlog implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.blog = this.route.snapshot.data['blog'];
+        this.route.data.subscribe(data => {
+            this.blog = data['blog'];
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
         this.isLoadingUserPosts = true;
         this.apiService.getBlogsByUser(this.blog.author._id).subscribe({

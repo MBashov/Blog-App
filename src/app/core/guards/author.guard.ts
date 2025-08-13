@@ -21,9 +21,7 @@ export const isAuthorGuard: CanActivateFn = (route: ActivatedRouteSnapshot, stat
             }
         }),
         catchError(() => {
-            console.log('Error occurs while checking the author');
             return of(false);
-
         })
     )
 }

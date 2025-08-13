@@ -107,7 +107,7 @@
 
             button:disabled {
                 background-color: lightgray;
-                cursor: default;
+                cursor: not-allowed;
             }
 
             input.ng-valid,

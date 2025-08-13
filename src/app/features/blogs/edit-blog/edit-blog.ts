@@ -88,7 +88,7 @@ export class EditBlog implements OnInit {
                 this.router.navigate(['/blogs', 'details', this.blog.slug]);
                 this.snackBar.show('Blog updated successfully', 'success');
             },
-            error: (err) => {
+            error: () => {
                 this.snackBar.show('Blog update failed', 'error');
                 this.isSubmitting = false;
             }
