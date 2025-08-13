@@ -43,7 +43,6 @@ form.search-bar {
 
 .blog-card-wrapper {
     display: flex;
-    gap: 2em;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
@@ -52,7 +51,7 @@ form.search-bar {
 
 .blog-card {
     flex: 1 1 auto;
-    max-width: 350px;
+    max-width: 390px;
     height: 600px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

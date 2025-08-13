@@ -31,7 +31,7 @@ export class EditBlog implements OnInit {
         this.blog = this.route.snapshot.data['blog'];
         this.blogForm = this.fb.group({
             title: [this.blog.title, [Validators.minLength(5), Validators.maxLength(100)]],
-            content: [this.blog.content, [Validators.minLength(100), Validators.maxLength(2000)]],
+            content: [this.blog.content, [Validators.minLength(100), Validators.maxLength(10000)]],
             status: [this.blog.status],
             bannerImage: [null],
         });

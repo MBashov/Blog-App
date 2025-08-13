@@ -27,7 +27,7 @@ export class CreateBlog {
 
         this.blogForm = this.fb.group({
             title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-            content: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(2000)]],
+            content: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(10000)]],
             bannerImage: [null, Validators.required],
             status: ['published', Validators.required]
         });
