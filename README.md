@@ -37,7 +37,7 @@ A **feature-rich, user-friendly full-stack** blog application built with **Angul
 **1️⃣ Clone the repository**  
 ```bash
 git clone https://github.com/MBashov/Blog-App.git
-cd blog-app
+cd Blog-App
 
 ```
 **2️⃣ Install dependencies**  
@@ -53,8 +53,15 @@ ng serve
 ## Backend  
 **1️⃣ Clone the the backend repository**  
 ```bash
-git clone https://github.com/MBashov/Blog_Api.git
+git clone https://github.com/MBashov/Blog_Api.git  
 cd Blog_Api
+
+```
+**2️⃣ Install dependencies**  
+```bash
+npm install
+
+```
 **3️⃣ Run the development server**  
 ```bash
 npm run dev
