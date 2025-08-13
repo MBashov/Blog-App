@@ -1,10 +1,10 @@
-/* Footer Navigation Styles */
-
 footer {
-    background: #143774;
+    background: #005B5B;
     color: white;
     text-align: center;
     padding: 1.5em 0;
+    display: flex;
+    justify-content: center;
 }
 
 .footer-nav ul {
@@ -14,17 +14,14 @@ footer {
     justify-content: center;
 }
 
-.footer-nav li {
-    margin: 0 20px;
+.footer-nav li, p {
+    margin: 0 15px;
+    font-size: 1.5em;
 }
 
-.footer-nav li a {
+.footer-nav li a, p {
     text-decoration: none;
     color: white;
     font-size: 16px;
     transition: color 0.3s;
-}
-
-.footer-nav a:hover {
-    color: #1792d2;
 }
