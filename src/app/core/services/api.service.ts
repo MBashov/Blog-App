@@ -14,11 +14,13 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    getAllBlogs(limit?: number): Observable<BlogResponse> {
+    getAllBlogs(limit?: number, offset?: number): Observable<BlogResponse> {
         let url = `${this.apiUrl}/blogs`;
 
         if (limit) {
             url += `?limit=${limit}`;
+        } else if (offset) {
+            url += `&offset=${offset}`;
         }
 
         return this.http.get<BlogResponse>(url);

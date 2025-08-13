@@ -1,0 +1,7 @@
+<nav class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</nav>
