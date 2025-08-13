@@ -19,7 +19,8 @@ export class ApiService {
 
         if (limit) {
             url += `?limit=${limit}`;
-        } else if (offset) {
+        } 
+        if (offset) {
             url += `&offset=${offset}`;
         }
 

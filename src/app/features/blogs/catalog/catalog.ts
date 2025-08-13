@@ -28,28 +28,13 @@ export class catalog implements OnInit {
 
     private fetchBlogs() {
         const offset = (this.currentPage - 1) * this.limit;
-
+        
         this.apiService.getAllBlogs(this.limit, offset).pipe(
             finalize(() => this.isLoading = false))
             .subscribe({
                 next: (response: BlogResponse) => {
                     this.blogs = response.blogs;
                     this.totalBlogs = response.totalBlogs;
-                },
-                error: () => {
-                    this.hasError = true;
-                }
-            }
-        );
-
-    }
-
-    private searchBlogs(value: string): void {
-        this.apiService.searchBlogs(value).pipe(
-            finalize(() => this.isLoading = false))
-            .subscribe({
-                next: (response: { blogs: Blog[] }) => {
-                    this.blogs = response.blogs;
                 },
                 error: () => {
                     this.hasError = true;
@@ -67,12 +52,6 @@ export class catalog implements OnInit {
         this.fetchBlogs();
     }
 
-    protected RefetchAllBlogs() {
-        this.isLoading = true;
-        this.hasError = false;
-        this.fetchBlogs();
-    }
-
     protected onSearch(formRef: NgForm) {
         const { searchText } = formRef.form.value;
 
@@ -87,5 +66,25 @@ export class catalog implements OnInit {
         } else {
             this.searchBlogs(value);
         }
+    }
+
+    private searchBlogs(value: string): void {
+        this.apiService.searchBlogs(value).pipe(
+            finalize(() => this.isLoading = false))
+            .subscribe({
+                next: (response: { blogs: Blog[] }) => {
+                    this.blogs = response.blogs;
+                },
+                error: () => {
+                    this.hasError = true;
+                }
+            }
+        );
+    }
+
+    protected RefetchAllBlogs() {
+        this.isLoading = true;
+        this.hasError = false;
+        this.fetchBlogs();
     }
 }

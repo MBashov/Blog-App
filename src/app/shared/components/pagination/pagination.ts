@@ -19,15 +19,13 @@ export class Pagination {
 
     nextPage(): void {
         if (this.currentPage < this.totalPages) {
-            this.currentPage++;
-            this.pageChange.emit(this.currentPage);
+            this.pageChange.emit(this.currentPage + 1);
         }
     }
 
     prevPage(): void {
         if (this.currentPage > 1) {
-            this.currentPage--;
-            this.pageChange.emit(this.currentPage);
+            this.pageChange.emit(this.currentPage -1);
         }
     }
 }
