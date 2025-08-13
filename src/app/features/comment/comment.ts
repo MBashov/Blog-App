@@ -4,7 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 
 import { Blog } from '../../models/blog';
 import { CommentService, SnackbarService } from '../../core/services';
-import { Comment, CommentsResponse } from '../../models/comment';
+import { Comment, CommentsResponse, UpdatedComment } from '../../models/comment';
 import { User } from '../../models/user';
 
 @Component({
@@ -22,8 +22,9 @@ export class CommentComponent implements OnInit {
     protected errorEditComment = false;
     protected errorDeleteComment = false;
     protected isSubmitting = false;
-    protected isCommentFailed = false;
+    protected isPostingCommentFailed = false;
     protected activeCommentId: string | null = null;
+    protected editingCommentId: string | null = null;
     protected currentUser: User | null = null;
 
     constructor(
@@ -50,25 +51,45 @@ export class CommentComponent implements OnInit {
         if (this.commentForm.invalid) return;
 
         this.isSubmitting = true;
-
         const content: string = this.commentForm.value.content;
 
-        this.commentService.postComment(this.blog._id, content).subscribe({
-            next: () => {
-                this.commentService.getCommentsByBlog(this.blog._id).subscribe(
-                    (response: CommentsResponse) => {
-                        this.comments = response.comments;
+        if (this.editingCommentId) {
+            this.commentService.updateComment(this.editingCommentId, content).subscribe({
+                next: (response: UpdatedComment) => {
+                    const commentIndex = this.comments.findIndex(c => c._id === this.editingCommentId);
+
+                    if (commentIndex !== -1) {
+                        this.comments[commentIndex].content = response.comment.content;
+
+                        this.cancelEdit();
+                        this.isSubmitting = false;
+                        this.isPostingCommentFailed = false;
                     }
-                )
-                this.commentForm.reset();
-                this.isSubmitting = false;
-                this.isCommentFailed = false;
-            },
-            error: () => {
-                this.isCommentFailed = true;
-                this.isSubmitting = false;
-            },
-        });
+                },
+                error: () => {
+                    this.errorEditComment = true;
+                    this.isSubmitting = false;
+                }
+            })
+        } else {
+            this.commentService.postComment(this.blog._id, content).subscribe({
+                next: () => {
+                    this.commentService.getCommentsByBlog(this.blog._id).subscribe(
+                        (response: CommentsResponse) => {
+                            this.comments = response.comments;
+                        }
+                    )
+                    this.commentForm.reset();
+                    this.isSubmitting = false;
+                    this.isPostingCommentFailed = false;
+                },
+                error: () => {
+                    this.isPostingCommentFailed = true;
+                    this.isSubmitting = false;
+                },
+            });
+        }
+
     }
 
     protected toggleActionsModal(commentId: string): void {
@@ -80,12 +101,24 @@ export class CommentComponent implements OnInit {
     }
 
     protected editComment(commentIid: string) {
-        
+        const commentToEdit = this.comments.find(c => c._id === commentIid);
+        if (!commentIid) return;
+
+        this.editingCommentId = commentIid;
+
+        this.commentForm.patchValue({
+            content: commentToEdit?.content
+        });
+    }
+
+    protected cancelEdit(): void {
+        this.editingCommentId = null;
+        this.commentForm.reset();
     }
 
     protected deleteComment(commentId: string) {
         this.errorDeleteComment = false;
-        
+
         this.commentService.deleteComment(commentId).subscribe({
             next: (res) => {
                 this.blog.commentsCount = res.commentsCount;

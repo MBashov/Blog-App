@@ -45,6 +45,10 @@
             font-size: 1em;
         }
 
+        button.cancel {
+            margin-left: 0.4em;
+        }
+
         button:hover {
             background: #16acac;
             color: #333;

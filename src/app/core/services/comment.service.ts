@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CommentsResponse, CreatedComment, MyCommentsResponse } from '../../models/comment';
+import { CommentsResponse, CreatedComment, MyCommentsResponse, UpdatedComment } from '../../models/comment';
 import { authHeaders } from '../../shared/utils';
 
 @Injectable({
@@ -28,13 +28,17 @@ export class CommentService {
     postComment(blogId: string, content: string): Observable<CreatedComment> {
         let url = `${this.apiUrl}/comments/blog/${blogId}`;
 
-        const accessToken: string = JSON.parse(localStorage.getItem('accessToken') || 'null');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${accessToken}`
-        });
+        const headers = authHeaders();
 
         return this.http.post<CreatedComment>(url, { content }, { headers });
+    }
+
+    updateComment(commentId: string, content: string): Observable<UpdatedComment> {
+        let url = `${this.apiUrl}/comments/${commentId}`;
+
+        const headers = authHeaders();
+
+        return this.http.put<UpdatedComment>(url, { content }, { headers });
     }
 
     deleteComment(commentId: string): Observable<{ commentsCount: number }> {

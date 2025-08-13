@@ -10,10 +10,15 @@
         @if(commentForm.get('content')?.errors?.['minlength'] && commentForm.get('content')?.touched) {
             <p class="error-msg">The comment must be at least 10 characters!</p>
         }
-        @if(isCommentFailed) {
+        @if(isPostingCommentFailed) {
             <p class="error-msg">Error while adding a comment, please try again.</p>
         }
-        <button type="submit" [disabled]="isSubmitting">Post Comment</button>
+        <div class="buttons">
+            <button type="submit" [disabled]="isSubmitting">{{editingCommentId ? 'Edit Comment' : 'Post Comment'}}</button>
+            @if (editingCommentId) {
+                <button (click)="cancelEdit()" class="cancel">Cancel</button>
+            }
+        </div>
     </form>
 
     @if (errorFetchingComments) {
